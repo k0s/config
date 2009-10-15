@@ -1,0 +1,7 @@
+*background: black
+*foreground: white
+
+Emacs.menu.attributeBackground: rgb:00/00/00
+Emacs.menu.attributeForeground: rgb:BB/BB/BB
+
+

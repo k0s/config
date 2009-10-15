@@ -1,0 +1,49 @@
+set allow_ansi		# allow ANSI color codes in messages.
+set attach_split	# handle every single attachment instead of concat
+set check_new		  # search for new messages in maildir/MH folders.
+set smtp_url="smtp://jhammel@mail.openplans.org"
+set spoolfile=imaps://mail.openplans.org/INBOX
+set folder=imaps://mail.openplans.org
+set editor="emacs -nw"
+set nomove
+set from="jhammel@openplans.org"
+set hostname="openplans.org"
+set timeout=5
+set mail_check=5
+set sort=reverse-threads
+set sort_aux=date-received
+set pager_stop
+set realname="Jeff Hammel"
+set record="imaps://mail.openplans.org/INBOX.Sent"
+set abort_unmodified=no
+set implicit_autoview
+set markers=no
+
+set use_from=yes
+set use_envelope_from=yes
+
+source ~/.mutt/aliases
+set alias_file=~/.mutt/aliases            # Keep aliases in this file.
+
+color normal default default
+
+macro index d "<delete-message><previous-undeleted>"
+macro pager d "<delete-message><previous-undeleted>"
+
+# Ignore all headers
+ignore *
+
+# Then un-ignore the ones I want to see
+unignore From:
+unignore To:
+unignore Reply-To:
+unignore Subject:
+unignore Date:
+unignore CC:
+unignore BCC:
+
+# Now order the visable header lines
+hdr_order From: Subject: To: CC: BCC: Reply-To: Date:
+
+bind pager < previous-line
+bind pager > next-line

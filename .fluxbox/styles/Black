@@ -1,0 +1,133 @@
+menu.title:                     solid
+  menu.title.color:             black
+  menu.title.textColor:         grey
+  menu.title.textShadowColor:   #000000
+  menu.title.textShadowXOffset: 1
+  menu.title.textShadowYOffset: 1
+  menu.title.opacity:           60
+
+menu.frame:             solid
+  menu.roundCorners: TopRight TopLeft BottomLeft BottomRight
+  menu.frame.color:     black
+  menu.frame.textColor: white 
+  menu.frame.opacity:   80
+
+menu.hilite:                     solid
+  menu.hilite.color:             black
+  menu.hilite.textColor:         grey
+  menu.hilite.textShadowColor:   #000000
+  menu.hilite.textShadowXOffset: 1
+  menu.hilite.textShadowYOffset: 1
+  menu.hilite.opacity:           50
+
+menu.bullet:              triangle 
+menu.justify:             right
+
+
+dockappholder.*.frame:           flat gradient crossdiagonal
+  dockappholder.*.frame.color:   snow
+  dockappholder.*.frame.colorTo: black
+  dockappholder.*.frame.opacity: 65
+
+dockappholder.*.borderWidth: 1
+dockappholder.*.borderColor: #000000
+
+borderColor: black
+borderWidth: 1
+handleWidth: 3
+
+ outlineColor:      
+ menu.borderWidth:  1
+ menu.title.height: 15
+ menu.item.height:  15
+
+ *.font: smoothansi:pixelsize=14 [vga]
+
+rootCommand: Esetroot -s ~/.fluxbox/backgrounds/ANGEL.JPG
+
+
+toolbar: Solid
+toolbar.color: black
+
+toolbar.roundCorners: TopRight TopLeft 
+toolbar.label: parentrelative
+toolbar.clock: parentrelative
+toolbar.iconbar.unfocused: parentrelative
+toolbar.iconbar.focused: parentrelative
+toolbar.iconbar.empty: parentrelative
+
+toolbar.iconbar.focused.textColor: white
+toolbar.iconbar.unfocused.textColor: grey
+toolbar.color: black
+toolbar.button:	Raised Bevel1 Gradient Horizontal
+toolbar.button.picColor: black
+
+toolbar.button.pressed: Sunken Bevel1 Gradient Horizontal
+
+toolbar.button.pressed.picColor: grey
+
+toolbar.label.textColor: grey
+toolbar.windowLabel.textColor: grey  
+toolbar.clock.textColor: grey
+toolbar.textColor: grey
+
+toolbar.borderWidth: 2
+toolbar.bevelWidth: 1
+toolbar.borderColor:  black
+toolbar.clock.font: Sans Serif-9:shadow
+toolbar.clock.justify: Center
+toolbar.iconbar.focused.font: Sans Serif-9:shadow
+toolbar.iconbar.unfocused.font: Sans Serif-9:shadow
+toolbar.workspace.font: Sans Serif-9:shadow
+
+window.alpha: 180
+
+window.label.focus: parentrelative
+window.label.focus.color: black
+window.label.focus.colorTo: black
+window.label.focus.textColor: white
+
+window.*.opacity:  50
+window.label.unfocus: parentrelative
+window.label.unfocus.color: black
+window.label.unfocus.colorTo: black
+window.label.unfocus.textColor:  dark grey
+
+window.title.focus: flat
+window.title.unfocus: flat
+
+window.handle.focus: parentrelative
+window.handle.focus.color: black
+window.handle.focus.colorTo: black
+
+window.handle.unfocus: parentrelative
+window.handle.unfocus.color: black
+window.handle.unfocus.colorTo: black 
+
+window.button.focus: Raised Bevel1 Gradient Horizontal
+window.button.focus.color: black      
+window.button.focus.colorTo: black
+window.button.focus.picColor: grey     
+
+window.button.unfocus: Raised Bevel1 Gradient Horizontal
+window.button.unfocus.color:	black
+window.button.unfocus.colorTo: black
+window.button.unfocus.picColor: #ffffff
+
+window.frame.focusColor: black
+window.frame.unfocusColor: black
+
+window.grip.focus: parentrelative
+window.grip.focus.color: black
+window.grip.focus.colorTo: black
+
+window.grip.unfocus: parentrelative
+window.grip.unfocus.color: black 
+window.grip.unfocus.colorTo: blackf
+
+window.borderWidth: 2
+window.handleWidth: 3
+window.bevelWidth: 1
+window.borderColor: black
+window.font: Sans Serif-8:shadow
+window.justify: center

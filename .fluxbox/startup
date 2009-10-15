@@ -1,0 +1,11 @@
+# fluxbox startup-script:
+
+/usr/bin/fbsetroot -solid black
+
+xrdb ~/.Xresources
+xset b off
+xset s off
+xset dpms 1200 2400 3600
+
+exec /usr/bin/fluxbox
+

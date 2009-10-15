@@ -1,0 +1,2 @@
+include "/usr/share/themes/Tenebrific/gtk-2.0/gtkrc"
+gtk-key-theme-name = "Emacs"
