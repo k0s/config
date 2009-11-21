@@ -78,3 +78,8 @@
 
 ;; (add-hook 'find-file-hook 'flymake-find-file-hook)
 (server-start)
+
+(fset 'break "import pdb; pdb.set_trace();\C-a\C-i")
+(add-hook 'python-mode-hook
+          '(lambda ()
+             (local-set-key  [(meta ?p) (meta ?p)] 'break)))

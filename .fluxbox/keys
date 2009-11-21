@@ -1,4 +1,19 @@
 !mouse actions added by fluxbox-update_configs
+OnTitlebar Mouse2 :StartTabbing
+
+!mouse actions added by fluxbox-update_configs
+OnTitlebar Double Mouse1 :Shade
+OnTitlebar Mouse3 :WindowMenu
+
+!mouse actions added by fluxbox-update_configs
+OnWindow Mod1 Mouse1 :MacroCmd {Raise} {Focus} {StartMoving}
+OnWindow Mod1 Mouse3 :MacroCmd {Raise} {Focus} {StartResizing BottomRight}
+
+!mouse actions added by fluxbox-update_configs
+OnToolbar Mouse4 :NextWorkspace
+OnToolbar Mouse5 :PrevWorkspace
+
+!mouse actions added by fluxbox-update_configs
 OnDesktop Mouse1 :hideMenus
 OnDesktop Mouse2 :workspaceMenu
 OnDesktop Mouse3 :rootMenu
@@ -39,3 +54,4 @@ Control Mod1 s :ExecCommand /home/jhammel/python/smartopen.py "$(xclip -o)" # sm
 Control Mod1 t :ExecCommand gnome-terminal # terminal
 
 Mod4 t :ToggleDecor
+
