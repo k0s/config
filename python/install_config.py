@@ -7,12 +7,20 @@ curl http://k0s.org/hg/config/python/install-config.py | python
 
 SRC='http://k0s.org/hg/config'
 import os
+import sys
 os.chdir(os.environ['HOME'])
 
 # make the current directory a repository
 import subprocess
-subprocess.check_call(['hg', 'init'])
-subprocess.check_call(['hg', 'pull', SRC])
-subprocess.check_call(['hg', 'update', '-C'])
+
+commands = [ ['hg', 'init'],
+             ['hg', 'pull', SRC],
+             ['hg', 'update', '-C' ] ]
+
+for command in commands:
+    code = subprocess.call(command)
+    if code:
+        sys.exit(code)
+
 
 
