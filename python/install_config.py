@@ -2,7 +2,7 @@
 """
 installs config to a user's home directory
 this can be done with
-curl http://k0s.org/hg/config/python/install-config.py | python
+curl http://k0s.org/hg/config/raw/tip/python/install_config.py | python
 """
 
 SRC='http://k0s.org/hg/config'
