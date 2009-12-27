@@ -5,3 +5,5 @@ syntax: glob
 *.egg-info
 *.swp
 *~
+build
+dist
