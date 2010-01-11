@@ -26,7 +26,7 @@ alias datestamp='date +%Y%m%d%H%M%S'
 alias zfilt='grep -v "eprecat" | grep -v "ERROR Zope"'
 alias svnst='svn st | grep -v "^\?"'
 alias awd="python -c 'import os;  print os.path.realpath(\".\")'"
-alias distribute='python setup.py egg_info -RDb "" sdist bdist_egg register upload'
+alias distribute='python setup.py egg_info -RDb "" sdist register upload'
 alias random="python -c 'import sys, random; foo = sys.argv[1:]; random.shuffle(foo); print \" \".join(foo)'"
 
 PS1='> '
