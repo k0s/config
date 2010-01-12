@@ -47,7 +47,7 @@ Control Mod1 f :ExecCommand firefox
 Control Mod1 g :ExecCommand gkrellm
 Control Mod1 h :ExecCommand /home/jhammel/bin/keyshelp.sh # hotkeys help
 Control Mod1 i :ExecCommand import /home/jhammel/screenshot.png
-Control Mod1 k :ExecCommand echo $(xclip -o): $(curl $(xclip -o)?format=text) | xclip -i # bitsyblog entry
+Control Mod1 k :ExecCommand echo $(curl $(xclip -o)?format=text) - $(xclip -o) | xclip -i # bitsyblog entry
 Control Mod1 l :ExecCommand echo http://letmegooglethatforyou.com/?q=$(xclip -o) | xclip -i
 Control Mod1 o :ExecCommand xclip -o | /home/jhammel/python/onelineit.py | xclip -i # put the clipboard contents on one line
 Control Mod1 p :ExecCommand xclip -o | /home/jhammel/bin/pastebin.sh | xclip -i # send the clipboard contents to pastebin and replace with the URL
