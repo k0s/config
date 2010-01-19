@@ -8,14 +8,20 @@ curl http://k0s.org/hg/config/raw/tip/python/install_config.py | python
 SRC='http://k0s.org/hg/config'
 import os
 import sys
-os.chdir(os.environ['HOME'])
+HOME=os.environ['HOME']
+os.chdir(HOME)
 
 # make the current directory a repository
 import subprocess
 
 commands = [ ['hg', 'init'],
              ['hg', 'pull', SRC],
-             ['hg', 'update', '-C' ] ]
+             ['hg', 'update', '-C'],
+
+             # site-specific files
+             ['rm', '.subversion/config'],
+             ['ln', '-s', os.path.join(HOME, '.subversion_config/config'), os.path.join(HOME, '.subversion/config')],
+             ]
 
 for command in commands:
     code = subprocess.call(command)
