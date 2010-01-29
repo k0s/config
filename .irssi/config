@@ -231,6 +231,10 @@ settings = {
     user_name = "jhammel";
     nick = "jhammel";
   };
-  "fe-text" = { actlist_sort = "refnum"; };
+  "fe-text" = { };
 };
-hilights = ( { text = "jhammel"; }, { text = "achtung"; } { text = "goulash"; } );
+hilights = (
+  { text = "jhammel"; },
+  { text = "achtung"; },
+  { text = "goulash"; }
+);
