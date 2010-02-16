@@ -1,3 +1,11 @@
 [ui]
 username = k0s <k0scist@gmail.com>
 ignore = /home/jhammel/.hgignore
+
+[trusted]
+users = jhammel
+groups = jhammel
+
+[web]
+allow_archive = zip, bz2
+contact = k0scist at gmail
