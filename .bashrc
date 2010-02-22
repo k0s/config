@@ -164,40 +164,6 @@ killbyname() {
     kill `isrunning "$@" | awk '{ print $1 }' | onelineit.py`
 }
 
-ztest() {
-
-ZCTL=`find $PWD -name 'zopectl'`
-if [ ! -x "$ZCTL" ]
-then
-    echo 'zopectl not found'
-    return 1
-fi
-
-if [ "$#" == "1" ]
-then
-    FLAG="False"
-    for i in '-h' '--help' 
-    do
-       if [ "$i" == "$1" ]
-       then
-	   FLAG="True"
-	   break
-       fi
-       if [ "$FLAG" == "False" ]
-       then
-	   ${ZCTL} test -s Products.$1 2>&1 | zfilt
-	   echo "i'm done!"
-	   return 0	   
-       fi
-    done
-    
-fi
-
-return 0
-
-${ZCTL} test $@ 2>&1 | zfilt
-
-}
 
 tf() {
     if [[ $@ ]]
