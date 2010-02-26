@@ -45,7 +45,6 @@ def anagramize(theword, wordlist, level=0):
                     if is_in(i, subword) is not None ]
         subgram = anagramize(subword, sublist, level+1)
 
-#        import pdb;  pdb.set_trace()
         if subgram is not None:
             anagrams += [ ' '.join((word, i)) for i in subgram ]
 
@@ -87,11 +86,8 @@ if __name__ == '__main__':
     f = file(options.filename, 'r')
     read_dictionary(f)
 
+    # XXX could cleanup
     anagram = ' '.join(args)
-
-    print anagram
-    print '-' * len(anagram)
-
     anagram = ''.join(anagram.split()).lower()
 
     # don't use letter names
