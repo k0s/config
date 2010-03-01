@@ -19,7 +19,8 @@ commands = [ ['hg', 'init'],
              ['hg', 'update', '-C'],
 
              # site-specific files
-             ['rm', '.subversion/config'],
+             ['mkdir', '-p', '.subversion'],
+             ['rm', '-f', '.subversion/config'],
              ['ln', '-s', os.path.join(HOME, '.subversion_config/config'), os.path.join(HOME, '.subversion/config')],
              ]
 
