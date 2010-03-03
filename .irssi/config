@@ -58,7 +58,7 @@ chatnets = {
 
 channels = (
   { name = "#socialplanning"; chatnet = "freenode"; autojoin = "Yes"; },
-  { name = "#trac"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#trac"; chatnet = "freenode"; autojoin = "Yes"; }
 );
 
 aliases = {
@@ -227,7 +227,7 @@ settings = {
     user_name = "jhammel";
     nick = "jhammel";
   };
-  "fe-text" = { };
+  "fe-text" = { actlist_sort = "refnum"; };
 };
 hilights = (
   { text = "jhammel"; },

@@ -43,11 +43,10 @@ handleWidth: 3
 
  *.font: smoothansi:pixelsize=14 [vga]
 
-rootCommand: Esetroot -s ~/.fluxbox/backgrounds/ANGEL.JPG
-
 
 toolbar: Solid
 toolbar.color: black
+toolbar.*.opacity: 80
 
 toolbar.roundCorners: TopRight TopLeft 
 toolbar.label: parentrelative
