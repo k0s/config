@@ -4,6 +4,11 @@ servers = (
     chatnet = "freenode";
     autoconnect = "Yes";
   },
+  {
+  address = "irc.mozilla.com";
+  chatnet = "mozilla";
+  autoconnect = "Yest"; 
+  }, 
   { address = "irc.stealth.net"; chatnet = "IRCnet"; port = "6668"; },
   { address = "irc.efnet.net"; chatnet = "EFNet"; port = "6667"; },
   { 
@@ -59,6 +64,9 @@ chatnets = {
 channels = (
   { name = "#socialplanning"; chatnet = "freenode"; autojoin = "Yes"; },
   { name = "#trac"; chatnet = "freenode"; autojoin = "Yes"; }
+
+  { name = "#qa"; chatnet = "mozilla"; autojoin = "Yes"; }
+  { name = "#developers"; chatnet = "mozilla"; autojoin = "Yes"; }
 );
 
 aliases = {
