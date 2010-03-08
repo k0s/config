@@ -47,6 +47,7 @@ handleWidth: 3
 toolbar: Solid
 toolbar.color: black
 toolbar.*.opacity: 80
+toolbar.alpha: 255
 
 toolbar.roundCorners: TopRight TopLeft 
 toolbar.label: parentrelative
@@ -75,6 +76,8 @@ toolbar.bevelWidth: 1
 toolbar.borderColor:  black
 toolbar.clock.font: Sans Serif-9:shadow
 toolbar.clock.justify: Center
+toolbar.clock.opacity: 255
+toolbar.clock.alpha: 255
 toolbar.iconbar.focused.font: Sans Serif-9:shadow
 toolbar.iconbar.unfocused.font: Sans Serif-9:shadow
 toolbar.workspace.font: Sans Serif-9:shadow
