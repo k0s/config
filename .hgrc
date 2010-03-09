@@ -1,6 +1,15 @@
 [ui]
-username = k0s <k0scist@gmail.com>
+username = Jeff Hammel <k0scist@gmail.com>
 ignore = /home/jhammel/.hgignore
+merge = internal:merge
+
+[defaults]
+commit = -v
+
+[diff]
+git = 1
+showfunc = 1
+unified = 8
 
 [trusted]
 users = jhammel
