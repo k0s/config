@@ -51,7 +51,7 @@ Control Mod1 k :ExecCommand echo $(curl $(xclip -o)?format=text) - $(xclip -o) |
 Control Mod1 l :ExecCommand echo http://letmegooglethatforyou.com/?q=$(xclip -o) | xclip -i
 Control Mod1 o :ExecCommand xclip -o | /home/jhammel/python/onelineit.py | xclip -i # put the clipboard contents on one line
 Control Mod1 p :ExecCommand xclip -o | /home/jhammel/bin/pastebin.sh | xclip -i # send the clipboard contents to pastebin and replace with the URL
-Control Mod1 s :ExecCommand /home/jhammel/python/smartopen.py "$(xclip -o)" # smartopen
+Control Mod1 s :ExecCommand /home/jhammel/bin/smartopen "$(xclip -o)" # smartopen
 Control Mod1 t :ExecCommand gnome-terminal # terminal
 
 Mod4 t :ToggleDecor
