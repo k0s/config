@@ -39,9 +39,9 @@ execute(*commands)
 def install_develop(package):
     src = 'http://k0s.org/hg/%s' % package
     commands = [ ['virtualenv/virtualenv.py', package],
-                 ['mkdir', '%s/src'],
+                 ['mkdir', '%s/src' % package],
                  ['hg', 'clone', src, '%s/src/%s' % (package, package)],
-                 ['%s/bin/python', '%s/src/%s/setup.py', 'develop'] ]
+                 ['%s/bin/python' % package, '%s/src/%s/setup.py' % (package, package), 'develop'] ]
     execute(*commands)
 
 # install some python
