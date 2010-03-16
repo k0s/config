@@ -52,4 +52,4 @@ postinstall_commands = [ ['ln', '-s', os.path.join(HOME, 'smartopen', 'bin', 'sm
 execute(*postinstall_commands)
 
 # TODO:
-# - ubuntu packages to install: unison fluxbox 
+# - ubuntu packages to install: unison fluxbox antiword
