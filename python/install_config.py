@@ -52,4 +52,7 @@ postinstall_commands = [ ['ln', '-s', os.path.join(HOME, 'smartopen', 'bin', 'sm
 execute(*postinstall_commands)
 
 # TODO:
-# - ubuntu packages to install: unison fluxbox antiword
+# - ubuntu packages to install:
+PACKAGES="unison fluxbox antiword xclip"
+echo "Ensure the following packages are installed:"
+echo "sudo apt-get install $PACKAGES"
