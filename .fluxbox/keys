@@ -53,6 +53,7 @@ Control Mod1 o :ExecCommand xclip -o | /home/jhammel/python/onelineit.py | xclip
 Control Mod1 p :ExecCommand xclip -o | /home/jhammel/python/pastebin.py | xclip -i # send the clipboard contents to pastebin and replace with the URL
 Control Mod1 s :ExecCommand /home/jhammel/bin/smartopen "$(xclip -o)" # smartopen
 Control Mod1 t :ExecCommand gnome-terminal # terminal
+Control Mod1 0 :ExecCommand xclip -o | sed 's/\+//' | xclip -i # strip leading +s
 
 Mod4 t :ToggleDecor
 
