@@ -57,5 +57,5 @@ execute(*postinstall_commands)
 # TODO:
 # - ubuntu packages to install:
 PACKAGES="unison fluxbox antiword xclip"
-echo "Ensure the following packages are installed:"
-echo "sudo apt-get install $PACKAGES"
+print "Ensure the following packages are installed:"
+print "sudo apt-get install $PACKAGES"
