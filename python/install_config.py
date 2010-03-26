@@ -38,12 +38,17 @@ execute(*commands)
 
 def install_develop(package):
     src = 'http://k0s.org/hg/%s' % package
+    directory = '%s/src/%s' % (package, package)
     commands = [ ['virtualenv/virtualenv.py', package],
-                 ['mkdir', '%s/src' % package],
-                 ['hg', 'clone', src, '%s/src/%s' % (package, package)],
-                 ['%s/bin/python' % package, '%s/src/%s/setup.py' % (package, package), 'develop'] ]
+                 ['mkdir', directory ],
+                 ['hg', 'clone', src, '%s/src/%s' % (package, package)] ]
     execute(*commands)
-
+    old_directory = os.getcwd()
+    os.chdir(directory)
+    command = ['../../bin/python',  'setup.py', 'develop']
+    execute(command)
+    os.chdir(old_directory)
+    
 # install some python
 install_develop('smartopen')
 
