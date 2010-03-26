@@ -38,8 +38,8 @@ def install_develop(package):
     src = 'http://k0s.org/hg/%s' % package
     directory = '%s/src/%s' % (package, package)
     commands = [ ['virtualenv/virtualenv.py', package],
-                 ['mkdir', directory ],
-                 ['hg', 'clone', src, '%s/src/%s' % (package, package)] ]
+                 ['mkdir', '-p', directory ],
+                 ['hg', 'clone', src, directory] ]
     execute(*commands)
     old_directory = os.getcwd()
     os.chdir(directory)
