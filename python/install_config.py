@@ -14,8 +14,6 @@ os.chdir(HOME)
 # make the current directory a repository
 import subprocess
 
-
-
 commands = [ ['hg', 'init'],
              ['hg', 'pull', SRC],
              ['hg', 'update', '-C'],
