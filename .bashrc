@@ -247,3 +247,10 @@ fi
 
 ### include overrides for commands
 source ~/.bash_overrides
+
+### regenerate fluxbox menus here for convenience
+MENU=~/web/site/programs.html
+if [ -e $MENU ]
+then
+    html2flux.py $MENU > ~/.fluxbox/applications
+fi
