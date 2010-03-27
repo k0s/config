@@ -50,9 +50,11 @@ def install_develop(package):
 # install some python
 install_develop('smartopen')
 
-postinstall_commands = [ ['ln', '-s', os.path.join(HOME, 'smartopen', 'bin', 'smartopen'), os.path.join(HOME, 'bin', 'smartopen') ] ]
-
+postinstall_commands = [ ['ln', '-s', os.path.join(HOME, 'smartopen', 'bin', 'smartopen'), os.path.join(HOME, 'bin', 'smartopen') ],
+                         ]
 execute(*postinstall_commands)
+
+
 
 # TODO:
 # - ubuntu packages to install:
