@@ -3,8 +3,9 @@
 [include] (~/.fluxbox/applications)
 
 [submenu] (fluxbox)
-[exec] (edit init) { emacs ~/.fluxbox/init}
-[exec] (edit keys) { emacs ~/.fluxbox/keys}
+[exec] (edit menu) { emacs ~/web/site/programs.html ~/.fluxbox/menu && ~/python/html2flux.py ~/web/site/programs.html > ~/.fluxbox/applications }
+[exec] (edit init) { emacs ~/.fluxbox/init }
+[exec] (edit keys) { emacs ~/.fluxbox/keys }
 [config] (Configure) 
 [submenu] (Styles)
  [stylesdir] (~/.fluxbox/styles)
