@@ -18,6 +18,7 @@ commands = [ ['hg', 'init'],
              ['hg', 'pull', SRC],
              ['hg', 'update', '-C'],
              ['hg', 'clone', 'http://bitbucket.org/ianb/virtualenv'],
+             ['ln' '-s', HOME + '/virtualenv/virtualenv.py', HOME + '/bin/'],
 
              # site-specific files
              ['mkdir', '-p', '.subversion'],
@@ -55,8 +56,6 @@ postinstall_commands = [ ['ln', '-s', os.path.join(HOME, 'smartopen', 'bin', 'sm
 execute(*postinstall_commands)
 
 
-
-# TODO:
 # - ubuntu packages to install:
 PACKAGES="unison fluxbox antiword xclip"
 print "Ensure the following packages are installed:"
