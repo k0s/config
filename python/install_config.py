@@ -17,6 +17,8 @@ import subprocess
 commands = [ ['hg', 'init'],
              ['hg', 'pull', SRC],
              ['hg', 'update', '-C'],
+
+             # get virtual env
              ['hg', 'clone', 'http://bitbucket.org/ianb/virtualenv'],
              ['ln' '-s', HOME + '/virtualenv/virtualenv.py', HOME + '/bin/'],
 
@@ -34,6 +36,7 @@ def execute(*commands):
             sys.exit(code)
 
 execute(*commands)
+subprocess.call('/bin/echo -e "[paths]\\ndefault = http://k0s.org/hg/config\\ndefault-push = ssh://k0s.org/hg/config" > ~/.hg/hgrc', shell=True)
 
 def install_develop(package):
     src = 'http://k0s.org/hg/%s' % package
