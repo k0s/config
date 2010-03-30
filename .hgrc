@@ -1,7 +1,7 @@
 [ui]
 username = Jeff Hammel <k0scist@gmail.com>
 ignore = /home/jhammel/.hgignore
-merge = internal:merge
+merge = meld
 
 [defaults]
 commit = -v
