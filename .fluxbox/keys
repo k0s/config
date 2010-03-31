@@ -36,6 +36,8 @@ Mod1 F8 :Workspace 8
 Mod1 F9 :Workspace 9
 Mod1 F10 :Workspace 10
 
+Shift Right :MaximizeHorizontal
+Shift Up :MaximizeVertical
 F11 :Fullscreen
 
 # commands
