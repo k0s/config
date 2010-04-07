@@ -7,6 +7,7 @@
 (setq truncate-partial-width-windows nil) 
 (setq use-file-dialog nil)
 (setq python-indent 2)
+(setq-default py-indent-offset 2)
 (setq python-guess-indent nil)
 (setq-default indent-tabs-mode nil)
 (defface extra-whitespace-face '((t (:background "pale green"))) "Used for tabs and such.")
