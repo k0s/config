@@ -54,6 +54,7 @@ Control Mod1 l :ExecCommand echo http://letmegooglethatforyou.com/?q=$(xclip -o)
 Control Mod1 m :ExecCommand  xterm -e alsamixer # mixer
 Control Mod1 o :ExecCommand xclip -o | /home/jhammel/python/onelineit.py | xclip -i # put the clipboard contents on one line
 Control Mod1 p :ExecCommand xclip -o | /home/jhammel/python/pastebin.py | xclip -i # send the clipboard contents to pastebin and replace with the URL
+Control Mod1 q :ExecCommand xclip -o | sed 's/^/> /' | xclip -i # quote using >'s
 Control Mod1 s :ExecCommand /home/jhammel/bin/smartopen "$(xclip -o)" # smartopen
 Control Mod1 t :ExecCommand gnome-terminal # terminal
 Control Mod1 x :ExecCommand xkill
