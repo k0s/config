@@ -15,8 +15,10 @@ elif [[ -f /etc/DIR_COLORS ]] ; then
 	eval $(dircolors -b /etc/DIR_COLORS)
 fi
 
+# variables
 export CLICOLOR=1
 export EDITOR='emacs -nw'
+export MOZCONFIG=~/mozilla/mozconfig
 
 # aliases
 alias ls='ls --color=auto'
