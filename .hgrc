@@ -5,6 +5,7 @@ merge = meld
 
 [defaults]
 commit = -v
+repository_host = k0s.org/hg
 
 [diff]
 git = 1
@@ -19,5 +20,5 @@ users = jhammel
 groups = jhammel
 
 [web]
-allow_archive = zip, bz2
-contact = k0scist at gmail
+allow_archive = rss, zip, bz2
+contact = jhammel at mozilla dot com
