@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 import os
+import sys
+from optparse import OptionParser
 
 # make sure duplicate path elements aren't printed twice
 def ordered_set(alist):
@@ -15,7 +17,7 @@ def ordered_set(alist):
 def lsex(path=None):
     """
     list executable files on the path
-    o path: list of directories to search.  if not specified, use system path
+    - path: list of directories to search.  if not specified, use system path
     """
 
     if path is None:
@@ -34,6 +36,21 @@ def lsex(path=None):
         executables.extend(files)
     return executables
 
+def executable_names(path=None):
+    executables = lsex(path)
+    executables = set([os.path.basename(i) for i in executables])
+    return executables
+
 if __name__ == '__main__':
+    parser = OptionParser()
+    parser.add_option('--names', action='store_true', default=False,
+                      help="list only the set of names")
+
+    options, args = parser.parse_args()
+    if options.names:
+        for i in sorted(executable_names()):
+            print i
+        sys.exit(0)
+    
     for i in lsex():
         print i
