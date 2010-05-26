@@ -43,12 +43,14 @@ export PYTHONPATH=~/python:$PYTHONPATH
 
 # functions
 cdwin() {
+# change directory to a window's location using its title
     DIR=$(xwininfo | dictify.py xwininfo | awk '{ print $NF }' | sed 's/"//g')
     DIR=${DIR/\~/$HOME}
     cd $DIR
 }
 
 eend() {
+# edit the end of a file with emacs
     FILE=$1
     shift
     emacs +`wc -l "$FILE"` $@
@@ -167,6 +169,7 @@ rm $FILE
 }
 
 swap() {
+# swap two files
     if [ "$#" != "2" ]
     then
 	echo "Usage: $FUNCNAME <first_arg> <second_arg>"
@@ -195,6 +198,7 @@ swap() {
 }
 
 isrunning() {
+# is a process running? (by name)
     for i in "$@"
     do
 	ps axwww  | grep "$i" | grep -v 'grep'
@@ -203,6 +207,7 @@ isrunning() {
 }
 
 killbyname() {
+# kill a process by name
     kill `isrunning "$@" | awk '{ print $1 }' | onelineit.py`
 }
 
@@ -232,10 +237,12 @@ whemacs() {
 }
 
 pyfile() {
+# python file name
 python -c "import $1; print $1.__file__"
 }
 
 svndance(){
+# do the svn import dance!
 if (( $# ))
 then
     svn import $1
@@ -246,6 +253,10 @@ then
 else
     return 1
 fi
+}
+
+difffiles() {
+grep '^+++ ' $@ | sed 's/+++ b\///'
 }
 
 ### include overrides for commands
