@@ -1,5 +1,3 @@
-syntax: glob
-.hgignore
 *.pyc
 *.pyo
 *.egg-info
