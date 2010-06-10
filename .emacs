@@ -6,9 +6,17 @@
 (setq truncate-lines nil)
 (setq truncate-partial-width-windows nil) 
 (setq use-file-dialog nil)
+
+;; indentation
+
+;; python indentation
 (setq python-indent 2)
 (setq-default py-indent-offset 2)
 (setq python-guess-indent nil)
+
+;; javascript indentation: http://www.brgeight.se/downloads/emacs/javascript.el
+(setq javascript-indent-level 2)
+
 (setq-default indent-tabs-mode nil)
 (defface extra-whitespace-face '((t (:background "pale green"))) "Used for tabs and such.")
 
