@@ -88,7 +88,7 @@ ff() {
     else
 	FILENAME=$2
     fi
-    CMD='command find -L $PWD -iname "${FILENAME}" -print0 | xargs -r0 grep -il "$1" | egrep -v "${EXCLUDES}"'
+    CMD='command find -L $PWD -iname "${FILENAME}" -print0 2> /dev/null | xargs -r0 grep -il "$1" 2> /dev/null | egrep -v "${EXCLUDES}" 2> /dev/null'
 #    echo $CMD
     eval $CMD
 
