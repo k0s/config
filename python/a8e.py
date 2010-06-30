@@ -10,7 +10,7 @@ def a8e(text):
     if len(word) < 4:
       retval.append(word)
     else:
-      retval.append(word[0] + '%d' % (len(word) - 2) + word[1])
+      retval.append(word[0] + '%d' % (len(word) - 2) + word[-1])
   return ' '.join(retval)
 
 def main(args=sys.argv[1:]):
