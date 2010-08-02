@@ -41,7 +41,8 @@ export PATH=~/bin:~/python:$PATH:/usr/sbin:/usr/games/bin
 export PYTHONPATH=~/python:$PYTHONPATH
 
 
-# functions
+### functions
+
 cdwin() {
 # change directory to a window's location using its title
     DIR=$(xwininfo | dictify.py xwininfo | awk '{ print $NF }' | sed 's/"//g')
@@ -257,6 +258,19 @@ fi
 
 difffiles() {
 grep '^+++ ' $@ | sed 's/+++ b\///'
+}
+
+hg-update-all() { 
+for i in *; 
+do
+    if [ -e $i/.hg ]
+    then
+        cd $i
+        hg pull
+        hg update
+        cd -
+    fi
+done
 }
 
 ### include overrides for commands
