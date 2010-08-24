@@ -19,6 +19,7 @@ fi
 export CLICOLOR=1
 export EDITOR='emacs -nw'
 export MOZCONFIG=~/mozilla/mozconfig
+export JS_EDITLINE=1
 
 # aliases
 alias ls='ls --color=auto'
