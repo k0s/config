@@ -19,6 +19,8 @@ fi
 export CLICOLOR=1
 export EDITOR='emacs -nw'
 export MOZCONFIG=~/mozilla/mozconfig
+export MOZSOURCE=~/mozilla/src/mozilla-central
+export MOZOBJ=~/mozilla/src/obj-browser
 export JS_EDITLINE=1
 
 # aliases
@@ -31,6 +33,7 @@ alias svnst='svn st | grep -v "^\?"'
 alias awd="python -c 'import os;  print os.path.realpath(\".\")'"
 alias distribute='python setup.py egg_info -RDb "" sdist register upload'
 alias random="python -c 'import sys, random; foo = sys.argv[1:]; random.shuffle(foo); print \" \".join(foo)'"
+alias xpcshell="LD_LIBRARY_PATH=${MOZOBJ}/dist/bin ${MOZOBJ}/dist/bin/xpcshell"
 
 # PROMPT
 PS1='> '
