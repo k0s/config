@@ -277,6 +277,13 @@ do
 done
 }
 
+hgrc() {
+ROOT="${1}"
+echo "[paths]"
+echo "default = ${ROOT}"
+echo "default-push = ssh://${ROOT#http*://}"
+}
+
 ### include overrides for commands
 source ~/.bash_overrides
 
