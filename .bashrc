@@ -277,6 +277,12 @@ do
 done
 }
 
+blog-file() {
+
+echo "$HOME/web/blog/k0s/entries/public/$1"
+
+}
+
 hgrc() {
 ROOT="${1}"
 echo "[paths]"

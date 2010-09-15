@@ -26,12 +26,12 @@ chatnets = {
 
 channels = (
   { name = "#socialplanning"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#p2pu-webcraft/beginning-python-webservices"; chatnet = "freenode"; autojoin = "Yes"; },
 
   { name = "#qa"; chatnet = "mozilla"; autojoin = "Yes"; },
-  { name = "#developers"; chatnet = "mozilla"; autojoin = "Yes"; }
-  { name = "#ateam"; chatnet = "mozilla"; autojoin = "Yes"; }
+  { name = "#developers"; chatnet = "mozilla"; autojoin = "Yes"; },
+  { name = "#ateam"; chatnet = "mozilla"; autojoin = "Yes"; },
   { name = "#build"; chatnet = "mozilla"; autojoin = "Yes"; }
-  { name = "#education"; chatnet = "mozilla"; autojoin = "Yes"; }
 );
 
 aliases = {
