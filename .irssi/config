@@ -25,7 +25,6 @@ chatnets = {
 };
 
 channels = (
-  { name = "#socialplanning"; chatnet = "freenode"; autojoin = "Yes"; },
   { name = "#p2pu-webcraft/beginning-python-webservices"; chatnet = "freenode"; autojoin = "Yes"; },
 
   { name = "#qa"; chatnet = "mozilla"; autojoin = "Yes"; },
