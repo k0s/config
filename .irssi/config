@@ -30,7 +30,8 @@ channels = (
   { name = "#qa"; chatnet = "mozilla"; autojoin = "Yes"; },
   { name = "#developers"; chatnet = "mozilla"; autojoin = "Yes"; },
   { name = "#ateam"; chatnet = "mozilla"; autojoin = "Yes"; },
-  { name = "#build"; chatnet = "mozilla"; autojoin = "Yes"; }
+  { name = "#build"; chatnet = "mozilla"; autojoin = "Yes"; },
+  { name = "#mozmill"; chatnet = "mozilla"; autojoin = "Yes"; }
 );
 
 aliases = {
