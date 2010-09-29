@@ -44,7 +44,7 @@ session.screen0.tabs.intitlebar:	true
 session.screen0.tabs.maxOver:	false
 session.screen0.tabs.usePixmap:	false
 session.screen0.antialias:	true
-session.screen0.workspaceNames:	one,two,three,four,five,
+session.screen0.workspaceNames:	one,two,three,four,five,six,seven
 session.screen0.workspaces:	5
 session.screen0.focusNewWindows:	true
 session.screen0.imageDither:	false
