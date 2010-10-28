@@ -290,6 +290,28 @@ echo "default = ${ROOT}"
 echo "default-push = ssh://${ROOT#http*://}"
 }
 
+flatten() {
+  directory=$PWD
+  if [ "$#" == "1" ]
+  then
+      directory=$1
+  fi
+  cd $directory
+  unset find # don't use the alias
+  find -name '*' -type f | sed 's/.\///' | while read line
+  do
+      filename=$(echo $line | sed 's/\//-/g')
+      mv "${line}" "${filename}"
+  done
+  for i in *
+  do
+      if [ -d $i ]
+      then
+          rm -rf "${i}"
+      fi
+  done
+}
+
 ### include overrides for commands
 source ~/.bash_overrides
 
