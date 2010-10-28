@@ -298,7 +298,7 @@ flatten() {
   fi
   cd $directory
   unset find # don't use the alias
-  find -name '*' -type f | sed 's/.\///' | while read line
+  find . -name '*' -type f | sed 's/.\///' | while read line
   do
       filename=$(echo $line | sed 's/\//-/g')
       mv "${line}" "${filename}"
