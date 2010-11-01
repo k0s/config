@@ -148,7 +148,7 @@ tmpfile() {
 
 if [ "$#" == "0" ]
 then
-    args="."
+    args="tmp"
 else
     args=$@
 fi
@@ -310,6 +310,13 @@ flatten() {
           rm -rf "${i}"
       fi
   done
+}
+
+filehandles() {
+    TMPFILE=$(tmpfile)
+    ps -e|grep -v TTY|awk {'print "echo -n \"Process: "$4"\tPID: "$1"\tNumber of FH: \"; lsof -p "$1"|wc -l"'} > ${TMPFILE}
+    . ${TMPFILE} | sort
+    rm ${TMPFILE}
 }
 
 ### include overrides for commands
