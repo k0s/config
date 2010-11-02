@@ -1,4 +1,10 @@
 !mouse actions added by fluxbox-update_configs
+OnTitlebar Move1 :StartMoving
+OnLeftGrip Move1 :StartResizing bottomleft
+OnRightGrip Move1 :StartResizing bottomright
+OnWindowBorder Move1 :StartMoving
+
+!mouse actions added by fluxbox-update_configs
 OnTitlebar Mouse2 :StartTabbing
 
 !mouse actions added by fluxbox-update_configs
@@ -61,4 +67,5 @@ Control Mod1 x :ExecCommand xkill
 Control Mod1 0 :ExecCommand xclip -o | sed 's/\+//' | xclip -i # strip leading +s
 
 Mod4 t :ToggleDecor
+
 

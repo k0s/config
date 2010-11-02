@@ -133,3 +133,6 @@ window.bevelWidth: 1
 window.borderColor: black
 window.font: Sans Serif-8:shadow
 window.justify: center
+
+background: fullscreen
+background.pixmap: ~/image/wallpaper
