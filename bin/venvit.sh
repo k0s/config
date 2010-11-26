@@ -14,6 +14,7 @@ for i in /trunk /branches /tag
 do
     NAME=${NAME%%$i*}
 done
+NAME=${NAME%%/} # remove trailing slash
 NAME=${NAME##*/}
 
 if svn info $1 2> /dev/null
