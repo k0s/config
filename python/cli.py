@@ -50,7 +50,10 @@ def main(_args=sys.argv[1:]):
   return (_dict, tags, args)
 
 if __name__ == '__main__':
-  _dict, tags, args = main()
+  try:
+    _dict, tags, args = main()
+  except ParserError, e:
+    import pdb; pdb.set_trace() # for debugging
   print _dict
   print tags
   print args
