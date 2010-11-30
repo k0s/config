@@ -277,6 +277,24 @@ do
 done
 }
 
+hg-qcommit() {
+message=$1
+hg qrefresh
+if [ -z "${message}" ]
+then
+    hg qcommit
+else
+    hg qcommit -m "${message}"
+fi
+hgroot=$(hg root)
+patches=${hgroot}/.hg/patches/ 
+if [ -e ${patches}.hg ]
+then
+    cd ${patches}
+    hg push
+fi
+}
+
 blog-file() {
 
 echo "$HOME/web/blog/k0s/entries/public/$1"
