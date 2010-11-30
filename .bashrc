@@ -293,6 +293,7 @@ then
     cd ${patches}
     hg push
 fi
+cd -
 }
 
 blog-file() {
