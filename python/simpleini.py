@@ -3,7 +3,8 @@
 import os
 
 def read(fp, variables=None, default='DEFAULT',
-         comments=';#', separators=('=', ':'), strict=True):
+         comments=';#', separators=('=', ':'),
+         interpolate=True, strict=True):
   """
   read an .ini file and return a list of [(section, values)]
   - fp : file pointer or name to read
@@ -94,7 +95,23 @@ def read(fp, variables=None, default='DEFAULT',
   def interpret_variables(global_dict, local_dict):
     variables = global_dict.copy()
     variables.update(local_dict)
-    # TODO: string intepolation
+
+    # string intepolation
+    if interpolate:
+      nonce = '__s__'
+      assert nonce not in global_dict
+      global_dict[nonce] = '%s'
+      for key, value in variables.items():
+        try:
+          value = value.replace('%s', '%(__s__)s') % global_dict
+          variables[key] = value
+        except:
+          if strict:
+            del global_dict[nonce]
+            raise Exception("could not intepolate variable %s: %s" % (key, value))
+          pass
+          
+      del global_dict[nonce]
     return variables
 
   sections = [(i, interpret_variables(variables, j)) for i, j in sections]
@@ -103,4 +120,5 @@ def read(fp, variables=None, default='DEFAULT',
 if __name__ == '__main__':
   import sys
   for i in sys.argv[1:]:
-    print read(i)
+    path = os.path.abspath(i)
+    print read(i, strict=False, variables=dict(here=os.path.dirname(path)))
