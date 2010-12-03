@@ -16,7 +16,6 @@ def read(fp, variables=None, default='DEFAULT',
 
   if variables is None:
     variables = {}
-  variables = variables.copy() # no reason to overwrite the originals
 
   if isinstance(fp, basestring):
     fp = file(fp)
