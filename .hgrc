@@ -5,7 +5,11 @@ merge = meld
 
 [defaults]
 commit = -v
+diff = -p -U 8
+qdiff = -p -U 8
+qnew = -U
 repository_host = k0s.org/hg
+
 
 [diff]
 git = 1
