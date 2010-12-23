@@ -36,8 +36,8 @@ alias random="python -c 'import sys, random; foo = sys.argv[1:]; random.shuffle(
 alias xpcshell="LD_LIBRARY_PATH=${MOZOBJ}/dist/bin ${MOZOBJ}/dist/bin/xpcshell"
 
 # PROMPT
-PS1='> '
-PS2='. '
+PS1='│'
+PS2='.'
 PROMPT_COMMAND='echo -ne "\033]0;${SSH_CLIENT/*/$HOSTNAME:}${PWD/~/~}\007"'
 
 # PATHs
