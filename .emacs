@@ -10,8 +10,8 @@
 ;; indentation
 
 ;; python indentation
-(setq python-indent 2)
-(setq-default py-indent-offset 2)
+(setq python-indent 4)
+(setq-default py-indent-offset 4)
 (setq python-guess-indent nil)
 
 ;; javascript indentation: http://www.brgeight.se/downloads/emacs/javascript.el
