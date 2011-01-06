@@ -9,7 +9,8 @@ diff = -p -U 8
 qdiff = -p -U 8
 qnew = -U
 repository_host = k0s.org/hg
-
+pull = --rebase
+revert = --no-backup
 
 [diff]
 git = 1
