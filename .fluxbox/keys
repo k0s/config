@@ -64,7 +64,7 @@ Control Mod1 q :ExecCommand xclip -o | sed 's/^/> /' | xclip -i # quote using >'
 Control Mod1 s :ExecCommand /home/jhammel/bin/smartopen "$(xclip -o)" # smartopen
 Control Mod1 t :ExecCommand gnome-terminal # terminal
 Control Mod1 x :ExecCommand xkill
-Control Mod1 0 :ExecCommand xclip -o | sed 's/\+//' | xclip -i # strip leading +s
+Control Mod1 0 :ExecCommand xclip -o | sed 's/^[-+]//' | xclip -i # strip leading +s
 
 Mod4 t :ToggleDecor
 
