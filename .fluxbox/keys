@@ -47,6 +47,7 @@ Shift Up :MaximizeVertical
 F11 :Fullscreen
 
 # commands
+Control Mod1 a :ExecCommand xclip -o | window_path.py | xclip -i
 Control Mod1 b :ExecCommand sleep 1; xset dpms force off # blank screen
 Control Mod1 c :ExecCommand xterm -geometry 21x9 -T "`date +'%b %-d'`" -e 'cal; sleep 10' # calender
 Control Mod1 d :ExecCommand date | xclip -i # put now's date on the X clipboard
