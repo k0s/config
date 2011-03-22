@@ -53,6 +53,7 @@ def install_develop(package):
     
 # install some python
 install_develop('smartopen')
+install_develop('silvermirror')
 
 postinstall_commands = [ ['ln', '-s', os.path.join(HOME, 'smartopen', 'bin', 'smartopen'), os.path.join(HOME, 'bin', 'smartopen') ],
                          ]
