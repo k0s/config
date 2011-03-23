@@ -7,14 +7,15 @@ curl http://k0s.org/hg/config/raw-file/tip/python/install_config.py | python
 
 SRC='http://k0s.org/hg/config'
 import os
+import subprocess
 import sys
+
+# go home
 HOME=os.environ['HOME']
 os.chdir(HOME)
 
-# make the current directory a repository
-import subprocess
-
-commands = [ ['hg', 'init'],
+commands = [ # make the home directory a repository
+             ['hg', 'init'],
              ['hg', 'pull', SRC],
              ['hg', 'update', '-C'],
 
@@ -29,6 +30,7 @@ commands = [ ['hg', 'init'],
              ]
 
 def execute(*commands):
+    """execute a series of commands"""
     for command in commands:
         print ' '.join(command)
         code = subprocess.call(command)
@@ -36,6 +38,8 @@ def execute(*commands):
             sys.exit(code)
 
 execute(*commands)
+
+# make a (correct) .hg/hgrc file for $HOME
 subprocess.call('/bin/echo -e "[paths]\\ndefault = http://k0s.org/hg/config\\ndefault-push = ssh://k0s.org/hg/config" > ~/.hg/hgrc', shell=True)
 
 def install_develop(package):
@@ -53,14 +57,15 @@ def install_develop(package):
     
 # install some python
 install_develop('smartopen')
-install_develop('silvermirror')
+install_develop('silvermirror') # XXX this won't actually work since python-dev isn't installed; install it first
 
 postinstall_commands = [ ['ln', '-s', os.path.join(HOME, 'smartopen', 'bin', 'smartopen'), os.path.join(HOME, 'bin', 'smartopen') ],
+                         ['ln', '-s', os.path.join(HOME, 'silvermirror', 'bin', 'silvermirror'), os.path.join(HOME, 'bin', 'silvermirror') ],
                          ]
 execute(*postinstall_commands)
 
 
 # - ubuntu packages to install:
-PACKAGES="unison fluxbox antiword xclip graphviz"
+PACKAGES="unison fluxbox antiword xclip graphviz python-dev"
 print "Ensure the following packages are installed:"
 print "sudo apt-get install $PACKAGES"
