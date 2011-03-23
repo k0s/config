@@ -66,6 +66,6 @@ execute(*postinstall_commands)
 
 
 # - ubuntu packages to install:
-PACKAGES="unison fluxbox antiword xclip graphviz python-dev"
+PACKAGES="unison fluxbox antiword xclip graphviz python-dev python-lxml"
 print "Ensure the following packages are installed:"
 print "sudo apt-get install $PACKAGES"
