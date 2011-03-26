@@ -45,6 +45,7 @@ Mod1 F10 :Workspace 10
 Shift Right :MaximizeHorizontal
 Shift Up :MaximizeVertical
 F11 :Fullscreen
+Menu :RootMenu
 
 # commands
 Control Mod1 a :ExecCommand xclip -o | python /home/jhammel/python/window_path.py | xclip -i
