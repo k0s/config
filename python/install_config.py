@@ -69,3 +69,6 @@ execute(*postinstall_commands)
 PACKAGES="unison fluxbox antiword xclip graphviz python-dev python-lxml"
 print "Ensure the following packages are installed:"
 print "sudo apt-get install $PACKAGES"
+
+# setup git's global ignore, since git is silly about this and doesn't look for the file in the right place
+subprocess.call('if which git; then git config --global core.excludesfile ~/.gitignore; fi', shell=True)
