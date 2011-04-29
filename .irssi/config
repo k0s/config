@@ -8,7 +8,7 @@ servers = (
     address = "irc.mozilla.org";
     chatnet = "mozilla";
     autoconnect = "Yes";
-  },
+  }
 );
 
 chatnets = {
@@ -25,11 +25,11 @@ chatnets = {
 };
 
 channels = (
-#  { name = "#socialplanning"; chatnet = "freenode"; autojoin = "Yes"; },
+  #  { name = "#socialplanning"; chatnet = "freenode"; autojoin = "Yes"; },
 
   { name = "#developers"; chatnet = "mozilla"; autojoin = "Yes"; },
   { name = "#ateam"; chatnet = "mozilla"; autojoin = "Yes"; },
-  { name = "#build"; chatnet = "mozilla"; autojoin = "Yes"; },
+  { name = "#build"; chatnet = "mozilla"; autojoin = "Yes"; }
 );
 
 aliases = {
@@ -200,6 +200,5 @@ settings = {
   };
   "fe-text" = { actlist_sort = "refnum"; };
 };
-hilights = (
-  { text = "jhammel"; },
-);
+hilights = ( { text = "jhammel"; } );
+ignores = ( { mask = "JOINS"; level = "QUITS"; } );
