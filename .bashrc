@@ -28,7 +28,6 @@ alias ls='ls --color=auto'
 alias grep='grep --colour=auto'
 alias wget='wget --no-check-certificate'
 alias datestamp='date +%Y%m%d%H%M%S'
-alias zfilt='grep -v "eprecat" | grep -v "ERROR Zope"'
 alias svnst='svn st | grep -v "^\?"'
 alias awd="python -c 'import os;  print os.path.realpath(\".\")'"
 alias distribute='python setup.py egg_info -RDb "" sdist register upload'
@@ -59,6 +58,10 @@ eend() {
     FILE=$1
     shift
     emacs +`wc -l "$FILE"` $@
+}
+
+git-diff-master() {
+git diff $(git merge-base HEAD master)
 }
 
 function colors() {
