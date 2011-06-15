@@ -97,5 +97,6 @@ if __name__ == '__main__':
                  if i and is_in(i, anagram) is not None ]
     
     anagrams = anagramize(anagram, wordlist)
-    
-    print '\n'.join(anagrams)
+
+    if anagrams:
+        print '\n'.join(anagrams)
