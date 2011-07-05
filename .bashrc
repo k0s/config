@@ -40,7 +40,7 @@ PS2='.'
 PROMPT_COMMAND='echo -ne "\033]0;${SSH_CLIENT/*/$HOSTNAME:}${PWD/~/~}\007"'
 
 # PATHs
-export PATH=~/bin:~/python:$PATH:/usr/sbin:/usr/games/bin
+export PATH=~/firefox:~/bin:~/python:$PATH:/usr/sbin:/usr/games/bin
 export PYTHONPATH=~/python:$PYTHONPATH
 
 
