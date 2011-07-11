@@ -16,6 +16,7 @@
 
 ;; javascript indentation: http://www.brgeight.se/downloads/emacs/javascript.el
 (setq javascript-indent-level 2)
+(setq js-indent-level 2)
 
 (setq-default indent-tabs-mode nil)
 (defface extra-whitespace-face '((t (:background "pale green"))) "Used for tabs and such.")
