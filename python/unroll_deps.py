@@ -72,12 +72,12 @@ if __name__ == '__main__':
     deps['packageD'] = set(['packageX'])
     try:
         unroll_dependencies(deps)
-        raise AssertionError("Missed a cyclic dependency!")
+        raise Exception("Missed a cyclic dependency!")
     except AssertionError:
         pass
         
     try:
         unroll_dependencies2(deps)
-        raise AssertionError("Missed a cyclic dependency!")
+        raise Exception("Missed a cyclic dependency!")
     except AssertionError:
         pass
