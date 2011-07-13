@@ -29,9 +29,6 @@ def unroll_dependencies(dependencies):
                     index = dep_index
             except ValueError:
                 order.insert(index, dep)
-            except AssertionError:
-                print reverse_deps
-                raise
 
     cycle_check(order, dependencies)
     return order
