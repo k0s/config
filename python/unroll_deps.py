@@ -41,6 +41,6 @@ if __name__ == '__main__':
             'packageC': set(['packageE']),
             'packageE': set(['packageF', 'packageG']),
             'packageF': set(['packageG']),
-            'packageX': set()}
+            'packageX': set(['packageA', 'packageG'])}
     unrolled = unroll_dependencies(deps)
     print unrolled
