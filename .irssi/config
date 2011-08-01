@@ -25,11 +25,12 @@ chatnets = {
 };
 
 channels = (
-  #  { name = "#socialplanning"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#socialplanning"; chatnet = "freenode"; autojoin = "Yes"; },
 
   { name = "#developers"; chatnet = "mozilla"; autojoin = "Yes"; },
   { name = "#ateam"; chatnet = "mozilla"; autojoin = "Yes"; },
   { name = "#build"; chatnet = "mozilla"; autojoin = "Yes"; }
+  { name = "#sf"; chatnet = "mozilla"; autojoin = "Yes"; }
 );
 
 aliases = {
