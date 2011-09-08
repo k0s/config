@@ -300,9 +300,7 @@ cd -
 }
 
 blog-file() {
-
 echo "$HOME/web/blog/k0s/entries/public/$1"
-
 }
 
 hgrc() {
@@ -339,6 +337,19 @@ filehandles() {
     ps -e|grep -v TTY|awk {'print "echo -n \"Process: "$4"\tPID: "$1"\tNumber of FH: \"; lsof -p "$1"|wc -l"'} > ${TMPFILE}
     . ${TMPFILE} | sort
     rm ${TMPFILE}
+}
+
+quotemail() {
+
+command='s/^/> /'
+inplace=""
+if [ "$#" == "2" ]
+then
+    inplace="-i"
+fi
+
+sed ${inplace} "${command}" "$1"
+
 }
 
 ### include overrides for commands
