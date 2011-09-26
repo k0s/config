@@ -10,7 +10,7 @@ def require(url):
     contents = urllib2.urlopen(url).read()
     filename = url.rsplit('/', 1)[-1]
     module = filename.rsplit('.', 1)[-1]
-    dest = os.path.join(tempfile.gettempdir(), filename)
+    dest = tempfile.mkstemp(suffix='.py', prefix=module)
     f = file(dest, 'w')
     f.write(contents)
     f.close()
