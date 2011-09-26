@@ -1,0 +1,13 @@
+def findInPath(fileName, path=os.environ['PATH']):
+    """python equivalent of which; should really be in the stdlib"""
+    dirs = path.split(os.pathsep)
+    for dir in dirs:
+        if os.path.isfile(os.path.join(dir, fileName)):
+            return os.path.join(dir, fileName)
+        if mozinfo.isWin:
+            if os.path.isfile(os.path.join(dir, fileName + ".exe")):
+                return os.path.join(dir, fileName + ".exe")
+
+if __name__ == '__main__':
+    for i in sys.argv[1:]:
+        print findInPath(i)
