@@ -18,7 +18,7 @@ fi
 # variables
 export CLICOLOR=1
 export EDITOR='emacs -nw'
-export MOZCONFIG=~/mozilla/mozconfig
+export MOZCONFIG=~/mozilla/mozconfigs/mozconfig
 export MOZSOURCE=~/mozilla/src/mozilla-central
 export MOZOBJ=~/mozilla/src/obj-browser
 export JS_EDITLINE=1
