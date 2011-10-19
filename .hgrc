@@ -20,6 +20,7 @@ unified = 8
 [extensions]
 hgext.mq = 
 rebase =
+convert = 
 
 [trusted]
 users = jhammel
