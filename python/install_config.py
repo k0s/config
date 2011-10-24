@@ -21,7 +21,7 @@ commands = [ # make the home directory a repository
 
              # get virtual env
              ['hg', 'clone', 'http://bitbucket.org/ianb/virtualenv'],
-             ['ln' '-s', HOME + '/virtualenv/virtualenv.py', HOME + '/bin/'],
+             ['ln', '-s', HOME + '/virtualenv/virtualenv.py', HOME + '/bin/'],
 
              # site-specific files
              ['mkdir', '-p', '.subversion'],
@@ -66,7 +66,7 @@ execute(*postinstall_commands)
 
 
 # - ubuntu packages to install:
-PACKAGES="unison fluxbox antiword xclip graphviz python-dev python-lxml curl arandr"
+PACKAGES="mercurial unison fluxbox antiword xclip graphviz python-dev python-lxml curl arandr"
 print "Ensure the following packages are installed:"
 print "sudo apt-get install $PACKAGES"
 
