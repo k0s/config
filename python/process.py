@@ -3,9 +3,9 @@ import shlex
 import subprocess
 import sys
 
-def ps():
+def ps(arg='axwww'):
     retval = []
-    process = subprocess.Popen(['ps', 'axwww'], stdout=subprocess.PIPE)
+    process = subprocess.Popen(['ps', arg], stdout=subprocess.PIPE)
     stdout, _ = process.communicate()
     header = None
     for line in stdout.splitlines():
