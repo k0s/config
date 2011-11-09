@@ -26,9 +26,8 @@ def ps(arg='axwww'):
 
 def running_processes(name, defunct=True):
     """
-    returns a list of 
-    {'PID': PID of process (int)
-     'command': command line of process (list)}
+    returns a list of 2-tuples of running processes:
+    (pid, ['path/to/executable', 'args', '...'])
      with the executable named `name`.
      - defunct: whether to return defunct processes
     """
