@@ -4,6 +4,11 @@ import subprocess
 import sys
 
 def ps(arg='axwww'):
+    """
+    python front-end to `ps`
+    http://en.wikipedia.org/wiki/Ps_%28Unix%29
+    returns a list of process dicts based on the `ps` header
+    """
     retval = []
     process = subprocess.Popen(['ps', arg], stdout=subprocess.PIPE)
     stdout, _ = process.communicate()
@@ -19,17 +24,22 @@ def ps(arg='axwww'):
         retval.append(process_dict)
     return retval
 
-def running_processes(name):
+def running_processes(name, defunct=True):
     """
     returns a list of 
     {'PID': PID of process (int)
      'command': command line of process (list)}
-     with the executable named `name`
+     with the executable named `name`.
+     - defunct: whether to return defunct processes
     """
     retval = []
     for process in ps():
         command = process['COMMAND']
         command = shlex.split(command)
+        if command[-1] == '<defunct>':
+            command = command[:-1]
+            if not command or not defunct:
+                continue
         prog = command[0]
         basename = os.path.basename(prog)
         if basename == name:
