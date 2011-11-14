@@ -93,3 +93,5 @@
 (add-hook 'python-mode-hook
           '(lambda ()
              (local-set-key  [(meta ?p) (meta ?p)] 'break)))
+
+(setq-default show-trailing-whitespace t)
