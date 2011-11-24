@@ -24,7 +24,7 @@ def ps(arg='axwww'):
         retval.append(process_dict)
     return retval
 
-def running_processes(name, defunct=True):
+def running_processes(name, psarg='axwww', defunct=True):
     """
     returns a list of 2-tuples of running processes:
     (pid, ['path/to/executable', 'args', '...'])
@@ -32,7 +32,7 @@ def running_processes(name, defunct=True):
      - defunct: whether to return defunct processes
     """
     retval = []
-    for process in ps():
+    for process in ps(psarg):
         command = process['COMMAND']
         command = shlex.split(command)
         if command[-1] == '<defunct>':
