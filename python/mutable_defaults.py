@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# see also: http://www.daniweb.com/software-development/python/threads/66697
+
 class Foo(object):
   def __init__(self, mutable=['default']):
     self.foo = mutable
