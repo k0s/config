@@ -33,6 +33,7 @@ if __name__ == '__main__':
         a.bar()
     except NotImplementedError, e:
         print e
+    c.foo(1)
     a.foo(1)
 
 
