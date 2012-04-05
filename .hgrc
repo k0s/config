@@ -19,9 +19,10 @@ showfunc = 1
 unified = 8
 
 [extensions]
-hgext.mq = 
+hgext.mq =
 rebase =
-convert = 
+convert =
+share =
 
 [trusted]
 users = jhammel
