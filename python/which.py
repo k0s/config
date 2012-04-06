@@ -3,7 +3,7 @@
 import os
 import sys
 
-def findInPath(fileName, path=os.environ['PATH']):
+def which(fileName, path=os.environ['PATH']):
     """python equivalent of which; should really be in the stdlib"""
     dirs = path.split(os.pathsep)
     for dir in dirs:
@@ -14,4 +14,4 @@ def findInPath(fileName, path=os.environ['PATH']):
 
 if __name__ == '__main__':
     for i in sys.argv[1:]:
-        print findInPath(i)
+        print which(i)

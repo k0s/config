@@ -6,6 +6,8 @@ curl http://k0s.org/hg/config/raw-file/tip/python/install_config.py | python
 """
 
 SRC='http://k0s.org/hg/config'
+
+import imp
 import os
 import subprocess
 import sys
@@ -18,10 +20,6 @@ commands = [ # make the home directory a repository
              ['hg', 'init'],
              ['hg', 'pull', SRC],
              ['hg', 'update', '-C'],
-
-             # get virtual env
-             ['hg', 'clone', 'http://bitbucket.org/ianb/virtualenv'],
-             ['ln', '-s', HOME + '/virtualenv/virtualenv.py', HOME + '/bin/'],
 
              # site-specific files
              ['mkdir', '-p', '.subversion'],
@@ -39,8 +37,19 @@ def execute(*commands):
 
 execute(*commands)
 
+# get the which command
+sys.path.append(os.path.join(HOME, 'python'))
+from which import which
+
+
 # make a (correct) .hg/hgrc file for $HOME
-subprocess.call('/bin/echo -e "[paths]\\ndefault = http://k0s.org/hg/config\\ndefault-push = ssh://k0s.org/hg/config" > ~/.hg/hgrc', shell=True)
+hgrc = """[paths]
+default = http://k0s.org/hg/config
+default-push = ssh://k0s.org/hg/config
+"""
+f = file('.hg/hgrc', 'w')
+f.write(hgrc)
+f.close()
 
 def install_develop(package):
     src = 'http://k0s.org/hg/%s' % package
@@ -54,21 +63,29 @@ def install_develop(package):
     command = ['../../bin/python',  'setup.py', 'develop']
     execute(command)
     os.chdir(old_directory)
-    
-# install some python
-install_develop('smartopen')
-install_develop('silvermirror') # XXX this won't actually work since python-dev isn't installed; install it first
 
-postinstall_commands = [ ['ln', '-s', os.path.join(HOME, 'smartopen', 'bin', 'smartopen'), os.path.join(HOME, 'bin', 'smartopen') ],
-                         ['ln', '-s', os.path.join(HOME, 'silvermirror', 'bin', 'silvermirror'), os.path.join(HOME, 'bin', 'silvermirror') ],
-                         ]
-execute(*postinstall_commands)
+# do git stuff
+git = which('git')
+if git:
+    # get virtual env
+    virtualenv_commands = [['hg', 'clone', 'http://bitbucket.org/ianb/virtualenv'],
+                           ['ln', '-s', HOME + '/virtualenv/virtualenv.py', HOME + '/bin/']]
+    execute(*virtualenv_commands)
 
+    # setup git's global ignore, since git is silly about this
+    # and doesn't look for the file in the right place
+    execute(['git', 'config', '--global', 'core.excludesfile', os.path.join(HOME, '.gitignore')])
+
+    # install some python
+    install_develop('smartopen')
+    install_develop('silvermirror') # XXX this won't actually work since python-dev isn't installed; install it first
+
+    postinstall_commands = [ ['ln', '-s', os.path.join(HOME, 'smartopen', 'bin', 'smartopen'), os.path.join(HOME, 'bin', 'smartopen') ],
+                             ['ln', '-s', os.path.join(HOME, 'silvermirror', 'bin', 'silvermirror'), os.path.join(HOME, 'bin', 'silvermirror') ],
+                             ]
+    execute(*postinstall_commands)
 
 # - ubuntu packages to install:
 PACKAGES="mercurial unison fluxbox antiword xclip graphviz python-dev python-lxml curl arandr"
 print "Ensure the following packages are installed:"
-print "sudo apt-get install $PACKAGES"
-
-# setup git's global ignore, since git is silly about this and doesn't look for the file in the right place
-subprocess.call('if which git; then git config --global core.excludesfile ~/.gitignore; fi', shell=True)
+print "sudo apt-get install %s" % PACKAGES
