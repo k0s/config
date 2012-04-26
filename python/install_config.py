@@ -68,7 +68,7 @@ def install_develop(package):
 git = which('git')
 if git:
     # get virtual env
-    virtualenv_commands = [['hg', 'clone', 'http://bitbucket.org/ianb/virtualenv'],
+    virtualenv_commands = [['git', 'clone', 'https://github.com/pypa/virtualenv.git'],
                            ['ln', '-s', HOME + '/virtualenv/virtualenv.py', HOME + '/bin/']]
     execute(*virtualenv_commands)
 
