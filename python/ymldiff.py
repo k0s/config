@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 
 import datadiff
-imoprt optparse
+import optparse
 import sys
 import yaml
 
 def main(args=sys.argv[1:]):
     usage = '%prog [options] from.yml to.yml'
-    parser = OptionParser(usage=usage)
+    parser = optparse.OptionParser(usage=usage)
     options, args = parser.parse_args()
     if len(args) != 2:
         parser.error("Please supply two .yml files")
