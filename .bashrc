@@ -363,5 +363,3 @@ if [ -e $MENU ]
 then
     html2flux.py $MENU > ~/.fluxbox/applications
 fi
-
-umask 0000
