@@ -1,0 +1,7 @@
+[core]
+	excludesfile = /home/jhammel/.gitignore
+[user]
+	name = Jeff Hammel
+	email = jhammel@mozilla.com
+[alias]
+        st = status
