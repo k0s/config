@@ -9,7 +9,7 @@ def require(url):
     import urllib2
     contents = urllib2.urlopen(url).read()
     filename = url.rsplit('/', 1)[-1]
-    module = filename.rsplit('.', 1)[-1]
+    module = filename.rsplit('.', 1)[0]
     dest = tempfile.mkstemp(suffix='.py', prefix=module)
     f = file(dest, 'w')
     f.write(contents)
