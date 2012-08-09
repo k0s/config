@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 """
 installs config to a user's home directory
 this can be done with
@@ -84,8 +85,10 @@ if git:
                              ['ln', '-s', os.path.join(HOME, 'silvermirror', 'bin', 'silvermirror'), os.path.join(HOME, 'bin', 'silvermirror') ],
                              ]
     execute(*postinstall_commands)
+else:
+    print "git not installed"
 
 # - ubuntu packages to install:
-PACKAGES="mercurial unison fluxbox antiword xclip graphviz python-dev python-lxml curl arandr"
+PACKAGES="mercurial unison fluxbox antiword xclip graphviz python-dev python-lxml curl arandr git emacs"
 print "Ensure the following packages are installed:"
 print "sudo apt-get install %s" % PACKAGES
