@@ -3,6 +3,7 @@ username = Jeff Hammel <jhammel@mozilla.com>
 ignore = /home/jhammel/.hgignore
 merge = meld
 verbose = True
+patch =
 
 [defaults]
 commit = -v
