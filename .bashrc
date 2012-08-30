@@ -35,6 +35,7 @@ alias random="python -c 'import sys, random; foo = sys.argv[1:]; random.shuffle(
 alias xpcshell="LD_LIBRARY_PATH=${MOZOBJ}/dist/bin ${MOZOBJ}/dist/bin/xpcshell"
 alias mozharness-bug="bz new 'Release Engineering: Automation (General)' --cc ':aki' --whiteboard 'mozharness'"
 alias talos-bug="bz new Talos --cc ':jmaher' --cc ':BYK'"
+alias mozbase-bug="bz new Mozbase --cc ':wlach'"
 
 # PROMPT
 PS1='│'
@@ -292,7 +293,7 @@ else
     hg qcommit -m "${message}"
 fi
 hgroot=$(hg root)
-patches=${hgroot}/.hg/patches/ 
+patches=${hgroot}/.hg/patches/
 if [ -e ${patches}.hg ]
 then
     cd ${patches}
