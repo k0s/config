@@ -8,6 +8,11 @@ servers = (
     address = "irc.mozilla.org";
     chatnet = "mozilla";
     autoconnect = "Yes";
+  },
+  {
+    address = "irc.w3.org";
+    chatnet = "w3c";
+    autoconnect = "Yes";
   }
 );
 
@@ -22,6 +27,7 @@ chatnets = {
   };
   SILC = { type = "SILC"; };
   mozilla = { type = "IRC"; };
+  w3c = { type = "IRC"; };
 };
 
 channels = (
@@ -33,6 +39,7 @@ channels = (
   { name = "#sf"; chatnet = "mozilla"; autojoin = "Yes"; }
   { name = "#jetpack"; chatnet = "mozilla"; autojoin = "Yes"; }
   { name = "#mozmill"; chatnet = "mozilla"; autojoin = "Yes"; }
+  { name = "#testing"; chatnet = "w3c"; autojoin = "Yes"; }
 );
 
 aliases = {
