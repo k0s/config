@@ -1,5 +1,6 @@
 # fluxbox startup-script:
 
+PATH=~/firefox:$PATH
 /usr/bin/fbsetroot -solid black
 
 xrdb ~/.Xresources
