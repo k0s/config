@@ -89,6 +89,6 @@ else:
     print "git not installed"
 
 # - ubuntu packages to install:
-PACKAGES="mercurial unison fluxbox antiword xclip graphviz python-dev python-lxml curl arandr git emacs"
+PACKAGES="mercurial unison fluxbox antiword xclip graphviz python-dev python-lxml curl arandr git emacs irssi"
 print "Ensure the following packages are installed:"
 print "sudo apt-get install %s" % PACKAGES
