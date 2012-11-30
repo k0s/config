@@ -24,10 +24,11 @@ export MOZOBJ=~/mozilla/src/obj-browser
 export JS_EDITLINE=1
 
 # aliases
-alias ls='ls --color=auto'
-alias grep='grep --colour=auto'
-alias wget='wget --no-check-certificate'
+alias currentpatch='echo `hg root`/.hg/patches/`hg qapp -v | head -n 1 | cut -f 3 -d " "`'
 alias datestamp='date +%Y%m%d%H%M%S'
+alias grep='grep --colour=auto'
+alias ls='ls --color=auto'
+alias wget='wget --no-check-certificate'
 alias svnst='svn st | grep -v "^\?"'
 alias awd="python -c 'import os;  print os.path.realpath(\".\")'"
 alias distribute='python setup.py egg_info -RDb "" sdist register upload'
