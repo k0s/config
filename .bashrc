@@ -24,15 +24,15 @@ export MOZOBJ=~/mozilla/src/obj-browser
 export JS_EDITLINE=1
 
 # aliases
+alias awd="python -c 'import os;  print os.path.realpath(\".\")'"
 alias currentpatch='echo `hg root`/.hg/patches/`hg qapp -v | head -n 1 | cut -f 3 -d " "`'
 alias datestamp='date +%Y%m%d%H%M%S'
+alias distribute='python setup.py egg_info -RDb "" sdist register upload'
 alias grep='grep --colour=auto'
 alias ls='ls --color=auto'
-alias wget='wget --no-check-certificate'
-alias svnst='svn st | grep -v "^\?"'
-alias awd="python -c 'import os;  print os.path.realpath(\".\")'"
-alias distribute='python setup.py egg_info -RDb "" sdist register upload'
 alias random="python -c 'import sys, random; foo = sys.argv[1:]; random.shuffle(foo); print \" \".join(foo)'"
+alias svnst='svn st | grep -v "^\?"'
+alias wget='wget --no-check-certificate'
 alias xpcshell="LD_LIBRARY_PATH=${MOZOBJ}/dist/bin ${MOZOBJ}/dist/bin/xpcshell"
 
 # bzconsole aliases for filing bugs
