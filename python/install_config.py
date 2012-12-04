@@ -18,15 +18,10 @@ HOME=os.environ['HOME']
 os.chdir(HOME)
 
 commands = [ # make the home directory a repository
-             ['hg', 'init'],
-             ['hg', 'pull', SRC],
-             ['hg', 'update', '-C'],
-
-             # site-specific files
-             ['mkdir', '-p', '.subversion'],
-             ['rm', '-f', '.subversion/config'],
-             ['ln', '-s', os.path.join(HOME, '.subversion_config/config'), os.path.join(HOME, '.subversion/config')],
-             ]
+    ['hg', 'init'],
+    ['hg', 'pull', SRC],
+    ['hg', 'update', '-C'],
+    ]
 
 def execute(*commands):
     """execute a series of commands"""
