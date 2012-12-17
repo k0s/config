@@ -6,7 +6,11 @@ class Actions(object):
         self.functions = {}
 
     def __call__(self, function):
+        self.functions[function.func_name] = function
         return function
+
+    def do(self, func_name, *args, **kwargs):
+        pass
 
 action = Actions()
 
