@@ -5,7 +5,7 @@ class Actions(object):
     def __init__(self):
         self.functions = {}
 
-    def __call__(self, function, *dependencies):
+    def __call__(self, function, dependencies):
         import pdb; pdb.set_trace()
         self.functions[function.func_name] = function
         return function
