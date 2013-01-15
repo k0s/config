@@ -40,6 +40,7 @@ alias mozbase-bug="bz new Mozbase --cc ':wlach'"
 alias mozharness-bug="bz new 'Release Engineering: Automation (General)' --cc ':aki' --whiteboard 'mozharness'"
 alias releng-bug="bz new 'Release Engineering: Automation (General)'"
 alias talos-bug="bz new Talos --cc ':jmaher' --cc ':BYK'"
+alias mozbuild-bug="bz new --product Core 'Build Config' --cc ':gps'"
 
 # PROMPT
 PS1='│'
@@ -126,7 +127,7 @@ chainff() {
 	    then
 		touch /dev/null
 	    else
-		i=""		
+		i=""
 		break
 	    fi
 	done
@@ -151,7 +152,7 @@ cff () {
         grep --color=auto -i -n -C 3 "$1" $i
     done
 
-} 
+}
 
 # make a temporary file
 tmpfile() {
@@ -226,16 +227,6 @@ killbyname() {
     kill `isrunning "$@" | awk '{ print $1 }' | onelineit.py`
 }
 
-
-tf() {
-    if [[ $@ ]]
-    then
-	echo "true"
-    else
-	echo "false"
-    fi
-}
-
 # full name
 fn() {
     python -c "import os; print os.path.realpath('$*')"
@@ -256,6 +247,8 @@ pyfile() {
 python -c "import $1; print $1.__file__"
 }
 
+### functions for version control systems
+
 svndance(){
 # do the svn import dance!
 if (( $# ))
@@ -274,8 +267,8 @@ difffiles() {
 grep '^+++ ' $@ | sed 's/+++ b\///'
 }
 
-hg-update-all() { 
-for i in *; 
+hg-update-all() {
+for i in *;
 do
     if [ -e $i/.hg ]
     then
@@ -306,15 +299,17 @@ fi
 cd -
 }
 
-blog-file() {
-echo "$HOME/web/blog/k0s/entries/public/$1"
-}
-
 hgrc() {
 ROOT="${1}"
 echo "[paths]"
 echo "default = ${ROOT}"
 echo "default-push = ssh://${ROOT#http*://}"
+}
+
+### functions for web content
+
+blog-file() {
+echo "$HOME/web/blog/k0s/entries/public/$1"
 }
 
 flatten() {
