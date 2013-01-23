@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+"""
+illustrate overriding ``setuptools.setup`` to read package data
+"""
+
 import imp
 import os
 import pprint
