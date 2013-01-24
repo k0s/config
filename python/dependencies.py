@@ -29,7 +29,7 @@ def main(args=sys.argv[1:]):
             current_module = setup_py
             assert os.path.exists(setup_py)
             module = imp.load_source('setup', setup_py)
-    except:
+    finally:
         sys.modules.pop('setuptools')
         if setuptools:
             sys.modules['setuptools'] = setuptoools
