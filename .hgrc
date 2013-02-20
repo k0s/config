@@ -24,6 +24,7 @@ hgext.mq =
 rebase =
 convert =
 share =
+purge =
 
 [trusted]
 users = jhammel
