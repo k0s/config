@@ -38,7 +38,8 @@ channels = (
   { name = "#releng"; chatnet = "mozilla"; autojoin = "Yes"; }
   { name = "#sf"; chatnet = "mozilla"; autojoin = "Yes"; }
   { name = "#jetpack"; chatnet = "mozilla"; autojoin = "Yes"; }
-  { name = "#mozmill"; chatnet = "mozilla"; autojoin = "Yes"; }
+  { name = "#build"; chatnet = "mozilla"; autojoin = "Yes"; }
+
   { name = "#testing"; chatnet = "w3c"; autojoin = "Yes"; }
 );
 
