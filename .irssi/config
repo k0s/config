@@ -213,3 +213,12 @@ settings = {
 };
 hilights = ( { text = "jhammel"; } );
 ignores = ( { mask = "JOINS"; level = "QUITS"; } );
+
+# How to save a window buffer [TODO: -> command]
+# http://forums.bsdnexus.com/viewtopic.php?id=1368
+#  all the output from the lastlog command will be saved to a file stored by default in your homedir.
+
+
+# /window log on
+# /lastlog -force
+# /window log off

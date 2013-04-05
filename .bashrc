@@ -215,6 +215,7 @@ swap() {
 
 isrunning() {
 # is a process running? (by name)
+# see also: talos for a better version
     for i in "$@"
     do
 	ps axwww  | grep "$i" | grep -v 'grep'
@@ -224,6 +225,7 @@ isrunning() {
 
 killbyname() {
 # kill a process by name
+# see also: talos for a better version
     kill `isrunning "$@" | awk '{ print $1 }' | onelineit.py`
 }
 
@@ -300,6 +302,12 @@ cd -
 }
 
 hgrc() {
+# write an hgrc file
+# TODO: in the case you're in an `hg root`...what then?
+# - NOTE: /home/jhammel is an `hg root`, so be careful!
+# There should be a way to update $(hg root)/.hg/hgrc automatically
+# Likewise, git
+# Python script? .dotfile?
 ROOT="${1}"
 echo "[paths]"
 echo "default = ${ROOT}"
@@ -365,5 +373,4 @@ then
     html2flux.py $MENU > ~/.fluxbox/applications
 fi
 }
-
 regeneratefluxmenu
