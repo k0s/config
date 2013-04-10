@@ -1,4 +1,6 @@
-(server-start)
+(require 'server)
+(or (server-running-p)
+    (server-start))
 (if (boundp 'tool-bar-mode) (tool-bar-mode 0))
 (setq inhibit-startup-message t)
 (setq make-backup-files nil)
