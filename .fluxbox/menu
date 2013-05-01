@@ -3,20 +3,20 @@
 [include] (~/.fluxbox/applications)
 
 [submenu] (fluxbox)
-[exec] (edit menu) { emacs ~/web/site/programs.html ~/.fluxbox/menu && ~/python/html2flux.py ~/web/site/programs.html > ~/.fluxbox/applications }
+[exec] (edit menu) { emacs ~/.fluxbox/menu ~/web/site/programs.html && ~/python/html2flux.py ~/web/site/programs.html > ~/.fluxbox/applications }
 [exec] (edit init) { emacs ~/.fluxbox/init }
 [exec] (edit keys) { emacs ~/.fluxbox/keys }
-[config] (Configure) 
+[config] (Configure)
 [submenu] (Styles)
  [stylesdir] (~/.fluxbox/styles)
 [end]
-[workspaces] (Workspace List) 
+[workspaces] (Workspace List)
 [restart] (gnome-session) {gnome-session}
-[commanddialog] (Fluxbox Command) 
-[reconfig] (Reload config) 
-[restart] (Restart) 
-[exec] (About) {(fluxbox -v; fluxbox -info | sed 1d) 2> /dev/null | xmessage -file - -center} 
-[separator] 
-[exit] (Exit) 
+[commanddialog] (Fluxbox Command)
+[reconfig] (Reload config)
+[restart] (Restart)
+[exec] (About) {(fluxbox -v; fluxbox -info | sed 1d) 2> /dev/null | xmessage -file - -center}
+[separator]
+[exit] (Exit)
 [end]
 [end]

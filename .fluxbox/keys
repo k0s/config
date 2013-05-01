@@ -46,13 +46,15 @@ Mod1 F8 :Workspace 8
 Mod1 F9 :Workspace 9
 Mod1 F10 :Workspace 10
 
+# window manipulation
 Shift Right :MaximizeHorizontal
 Shift Up :MaximizeVertical
 F11 :Fullscreen
 Menu :RootMenu
+Mod4 t :ToggleDecor
 
 # commands
-Control Mod1 a :ExecCommand xclip -o | python /home/jhammel/python/window_path.py | xclip -i
+Control Mod1 a :ExecCommand xclip -o | python /home/jhammel/python/window_path.py | xclip -i # absolute path of selected
 Control Mod1 b :ExecCommand sleep 1; xset dpms force off # blank screen
 Control Mod1 c :ExecCommand xterm -geometry 22x9 -T "`date +'%b %-d'`" -e 'cal; sleep 10' # calender
 Control Mod1 d :ExecCommand date | xclip -i # put now's date on the X clipboard
@@ -63,7 +65,7 @@ Control Mod1 h :ExecCommand /home/jhammel/bin/keyshelp.sh # hotkeys help
 Control Mod1 i :ExecCommand import /home/jhammel/screenshot.png
 Control Mod1 k :ExecCommand echo $(curl $(xclip -o)?format=text) - $(xclip -o) | xclip -i # bitsyblog entry
 Control Mod1 l :ExecCommand echo http://letmegooglethatforyou.com/?q=$(xclip -o) | xclip -i
-Control Mod1 m :ExecCommand thunderbird
+Control Mod1 m :ExecCommand thunderbird # mail (thunderbird)
 Control Mod1 o :ExecCommand xclip -o | /home/jhammel/python/onelineit.py | xclip -i # put the clipboard contents on one line
 Control Mod1 p :ExecCommand xclip -o | /home/jhammel/python/pbmoz.py | xclip -i # pastebin
 Control Mod1 q :ExecCommand xclip -o | /home/jhammel/python/quote.py | xclip -i # quote using >'s
@@ -72,5 +74,5 @@ Control Mod1 s :ExecCommand /home/jhammel/bin/smartopen "$(xclip -o)" # smartope
 Control Mod1 t :ExecCommand gnome-terminal # terminal
 Control Mod1 x :ExecCommand xkill
 Control Mod1 0 :ExecCommand xclip -o | sed 's/^[-+]//' | xclip -i # strip leading +s
+Control Mod1 ? :ExecCommand /home/jhammel/bin/keyshelp.sh # hotkeys help
 
-Mod4 t :ToggleDecor
