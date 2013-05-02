@@ -51,6 +51,8 @@ PROMPT_COMMAND='echo -ne "\033]0;${SSH_CLIENT/*/$HOSTNAME:}${PWD/~/~}\007"'
 export PATH=~/firefox:~/bin:~/python:$PATH:/usr/sbin:/usr/games/bin
 export PYTHONPATH=~/python:$PYTHONPATH:~/virtualenv
 
+#
+export BROWSER=$(which firefox)
 
 ### functions
 
