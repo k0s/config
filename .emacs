@@ -1,3 +1,4 @@
+;; emacs server (what a piece of crap)
 (require 'server)
 (or (server-running-p)
     (server-start))
@@ -8,6 +9,15 @@
 (setq truncate-lines nil)
 (setq truncate-partial-width-windows nil) 
 (setq use-file-dialog nil)
+
+;; make directories when they don't exist
+;; from http://stackoverflow.com/questions/6830671/how-to-make-emacs-create-intermediate-dirs-when-saving-a-file
+(add-hook 'before-save-hook
+          (lambda ()
+            (when buffer-file-name
+              (let ((dir (file-name-directory buffer-file-name)))
+                (when (not (file-exists-p dir))
+                  (make-directory dir t))))))
 
 ;; indentation
 
