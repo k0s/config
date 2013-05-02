@@ -74,5 +74,5 @@ Control Mod1 s :ExecCommand /home/jhammel/bin/smartopen "$(xclip -o)" # smartope
 Control Mod1 t :ExecCommand gnome-terminal # terminal
 Control Mod1 x :ExecCommand xkill
 Control Mod1 0 :ExecCommand xclip -o | sed 's/^[-+]//' | xclip -i # strip leading +s
+Control Mod1 + :ExecCommand echo '<dt>' $(xclip -o) '</dt><dd>' $(xclip -o) '</dd>' | xclip -i # add an item
 Control Mod1 ? :ExecCommand /home/jhammel/bin/keyshelp.sh # hotkeys help
-
