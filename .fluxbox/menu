@@ -13,7 +13,7 @@
 [workspaces] (Workspace List)
 [restart] (gnome-session) {gnome-session}
 [commanddialog] (Fluxbox Command)
-[reconfig] (Reload config)
+[reconfig] (Reconfig)
 [restart] (Restart)
 [exec] (About) {(fluxbox -v; fluxbox -info | sed 1d) 2> /dev/null | xmessage -file - -center}
 [separator]
