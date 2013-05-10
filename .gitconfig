@@ -5,3 +5,4 @@
 	email = jhammel@mozilla.com
 [alias]
         st = status
+        branches = branch -a
