@@ -1,8 +1,8 @@
 ;; emacs server (what a piece of crap)
 ;; (commented out for now)
-;; (require 'server)
-;; (or (server-running-p)
-;;     (server-start))
+(require 'server)
+ (or (server-running-p)
+     (server-start))
 
 ;;;; bars
 
