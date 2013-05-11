@@ -2,6 +2,7 @@
 
 import optparse
 import os
+import shlex
 import subprocess
 import sys
 
@@ -38,8 +39,13 @@ def main(args=sys.argv[1:]):
     chosen =  choose_file(options.directory)
     if chosen:
         if options.executable:
-            pass
-        print chosen
+            # TODO: extract this pattern (see ims journal.txt)
+            command = shlex.split(options.executable)
+            executable = command[0]
+            command.append(chosen)
+            os.execlp(executable, *command)
+        else:
+            print chosen
     else:
         sys.exit(1)
 

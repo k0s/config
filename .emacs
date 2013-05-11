@@ -1,13 +1,31 @@
 ;; emacs server (what a piece of crap)
-(require 'server)
-(or (server-running-p)
-    (server-start))
+;; (commented out for now)
+;; (require 'server)
+;; (or (server-running-p)
+;;     (server-start))
+
+;;;; bars
+
+;; Turn off the status bar and on the mouse if we're not in a window system
+(menu-bar-mode (if window-system 1 -1))
+
+;; no need for a tool bar
 (if (boundp 'tool-bar-mode) (tool-bar-mode 0))
+
+;; ...or a startup message
 (setq inhibit-startup-message t)
+
+;; no f-ing backup files
 (setq make-backup-files nil)
+
+;; show trailing whitespace
+(setq-default show-trailing-whitespace t)
+
+;;;;
+
 (put 'downcase-region 'disabled nil)
 (setq truncate-lines nil)
-(setq truncate-partial-width-windows nil) 
+(setq truncate-partial-width-windows nil)
 (setq use-file-dialog nil)
 
 ;; make directories when they don't exist
@@ -19,7 +37,7 @@
                 (when (not (file-exists-p dir))
                   (make-directory dir t))))))
 
-;; indentation
+;;;; indentation
 
 ;; python indentation
 (setq python-indent 4)
@@ -38,28 +56,31 @@
 (transient-mark-mode 1)
 
 (put 'upcase-region 'disabled nil)
+
+;;;; line/col #s
+
 ;; Show line-number in the mode line
 (line-number-mode 1)
 
 ;; Show column-number in the mode line
 (column-number-mode 1)
 
-;; Bind major editing modes to certain file extensions 
+;;;; modes
+
+;; Bind major editing modes to certain file extensions
 (setq auto-mode-alist (cons '("\\.zcml$" . sgml-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.pt$" . sgml-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.cpt$" . sgml-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.cpy$" . python-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.vpy$" . python-mode) auto-mode-alist))
 
-;; Turn off the status bar and on the mouse if we're not in a window system
-(menu-bar-mode (if window-system 1 -1))
+;; set auto-fill for modes
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
-
 (add-hook 'sgml-mode-hook 'turn-off-auto-fill)
 
 (setq grep-command "grep -liE")
 
-;; recentf stuff
+;; recent history stuff
 (require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-menu-items 25)
@@ -86,6 +107,8 @@
 
 (global-set-key "\M-g" 'goto-line)
 
+;;;; python
+
 ;; (when (load "flymake" t)
 ;;   (defun flymake-pyflakes-init ()
 ;;     (let* ((temp-file (flymake-init-create-temp-buffer-copy
@@ -94,16 +117,12 @@
 ;; 			temp-file
 ;; 			(file-name-directory buffer-file-name))))
 ;;       (list "pyflakes" (list local-file))))
-  
 ;;   (add-to-list 'flymake-allowed-file-name-masks
 ;; 	       '("\\.py\\'" flymake-pyflakes-init)))
 
 ;; (add-hook 'find-file-hook 'flymake-find-file-hook)
-(server-start)
 
 (fset 'break "import pdb; pdb.set_trace();\C-a\C-i")
 (add-hook 'python-mode-hook
           '(lambda ()
              (local-set-key  [(meta ?p) (meta ?p)] 'break)))
-
-(setq-default show-trailing-whitespace t)
