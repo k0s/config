@@ -23,7 +23,7 @@ from lsex import lsex # local import
 # available executables
 executables = set([i.rsplit('/', 1)[-1] for i in lsex() ])
 
-def printmenu(dl, output, top=True):
+def readmenu(dl, output, top=True):
 
     menu_items = []
     name = None # menu name
@@ -47,7 +47,14 @@ def printmenu(dl, output, top=True):
     if not top:
         print >> output, '[end]'
 
+def printmenu(dl, output):
+    """
+    - output: file-like object for writing
+    """
+    menu = readmenu(dl, output)
+
 def main(args=sys.argv[1:]):
+    """command line interface"""
 
     # parse command line option
     usage = '%prog [options] [menu.html]'
