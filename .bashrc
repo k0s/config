@@ -4,24 +4,25 @@ source /etc/profile
 # past this point for scp and rcp, and it's important to refrain from
 # outputting anything in those cases.
 if [[ $- != *i* ]] ; then
-	# Shell is non-interactive.  Be done now!
-	return
+    # Shell is non-interactive.  Be done now!
+    return
 fi
 
 # Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
 if [[ -f ~/.dir_colors ]] ; then
-	eval $(dircolors -b ~/.dir_colors)
+    eval $(dircolors -b ~/.dir_colors)
 elif [[ -f /etc/DIR_COLORS ]] ; then
-	eval $(dircolors -b /etc/DIR_COLORS)
+    eval $(dircolors -b /etc/DIR_COLORS)
 fi
 
 # variables
+export BROWSER=$(which firefox)
 export CLICOLOR=1
 export EDITOR='emacs -nw'
+export JS_EDITLINE=1
 export MOZCONFIG=~/mozilla/mozconfigs/mozconfig
 export MOZSOURCE=~/mozilla/src/mozilla-central
 export MOZOBJ=~/mozilla/src/obj-browser
-export JS_EDITLINE=1
 
 # aliases
 alias awd="python -c 'import os;  print os.path.realpath(\".\")'"
@@ -31,16 +32,15 @@ alias distribute='python setup.py egg_info -RDb "" sdist register upload'
 alias grep='grep --colour=auto'
 alias ls='ls --color=auto'
 alias random="python -c 'import sys, random; foo = sys.argv[1:]; random.shuffle(foo); print \" \".join(foo)'"
-alias svnst='svn st | grep -v "^\?"'
 alias wget='wget --no-check-certificate'
 alias xpcshell="LD_LIBRARY_PATH=${MOZOBJ}/dist/bin ${MOZOBJ}/dist/bin/xpcshell"
 
 # bzconsole aliases for filing bugs
 alias mozbase-bug="bz new Mozbase --cc ':wlach'"
+alias mozbuild-bug="bz new --product Core 'Build Config' --cc ':gps'"
 alias mozharness-bug="bz new 'Release Engineering: Automation (General)' --cc ':aki' --whiteboard 'mozharness'"
 alias releng-bug="bz new 'Release Engineering: Automation (General)'"
 alias talos-bug="bz new Talos --cc ':jmaher' --cc ':BYK'"
-alias mozbuild-bug="bz new --product Core 'Build Config' --cc ':gps'"
 
 # PROMPT
 PS1='│'
@@ -51,27 +51,13 @@ PROMPT_COMMAND='echo -ne "\033]0;${SSH_CLIENT/*/$HOSTNAME:}${PWD/~/~}\007"'
 export PATH=~/firefox:~/bin:~/python:$PATH:/usr/sbin:/usr/games/bin
 export PYTHONPATH=~/python:$PYTHONPATH:~/virtualenv
 
-#
-export BROWSER=$(which firefox)
-
 ### functions
 
 cdwin() {
-# change directory to a window's location using its title
+    # change directory to a window's location using its title
     DIR=$(xwininfo | dictify.py xwininfo | awk '{ print $NF }' | sed 's/"//g')
     DIR=${DIR/\~/$HOME}
     cd $DIR
-}
-
-eend() {
-# edit the end of a file with emacs
-    FILE=$1
-    shift
-    emacs +`wc -l "$FILE"` $@
-}
-
-git-diff-master() {
-git diff $(git merge-base HEAD master)
 }
 
 function colors() {
@@ -95,6 +81,18 @@ function colors() {
     CLR_NOTHING="\033[0m"
 }
 colors
+
+eend() {
+    # edit the end of a file with emacs
+    FILE=$1
+    shift
+    emacs +`wc -l "$FILE"` $@
+}
+
+git-diff-master() {
+    # differences of a git repository with master
+    git diff $(git merge-base HEAD master)
+}
 
 # nice fast find function
 EXCLUDES="(\.svn)|(\.mo$)|(\.po$)|(\.pyc$)"
@@ -156,41 +154,66 @@ cff () {
 
 }
 
-# make a temporary file
+# make a temporary file if `tempfile` not available
 tmpfile() {
 
-if [ "$#" == "0" ]
-then
-    args="tmp"
-else
-    args=$@
-fi
+    if [ "$#" == "0" ]
+    then
+        args="tmp"
+    else
+        args=$@
+    fi
 
-for i in $args
-do
-    NEWNAME=${i}.$RANDOM
-
-    while [ -e $NEWNAME ]
+    for i in $args
     do
-	NEWNAME=${NEWNAME}.tmp
+        NEWNAME=${i}.$RANDOM
+
+        while [ -e $NEWNAME ]
+        do
+	    NEWNAME=${NEWNAME}.tmp
+        done
+        echo "$NEWNAME"
     done
-    echo "$NEWNAME"
-done
 }
 
 edpe() {
-# edit and pipe the buffer to stdout
-FILE=`tmpfile`
-$EDITOR $FILE
-cat $FILE
-rm $FILE
+    # edit and pipe the buffer to stdout
+    FILE=`tmpfile`
+    $EDITOR $FILE
+    cat $FILE
+    rm $FILE
+}
+
+isrunning() {
+    # is a process running? (by name)
+    # see also: talos for a better version
+    for i in "$@"
+    do
+	ps axwww  | grep "$i" | grep -v 'grep'
+    done | sort | uniq
+
+}
+
+killbyname() {
+    # kill a process by name
+    kill `isrunning "$@" | awk '{ print $1 }' | onelineit.py`
+}
+
+fn() {
+    # full name
+    python -c "import os; print os.path.realpath('$*')"
+}
+
+pyfile() {
+    # python file name
+    python -c "import $1; print $1.__file__"
 }
 
 swap() {
-# swap two files
+    # swap two files
     if [ "$#" != "2" ]
     then
-	echo "Usage: $FUNCNAME <first_arg> <second_arg>"
+	echo "Usage: $FUNCNAME <file1> <file2>"
 	return
     fi
     for i in "$1" "$2"
@@ -203,52 +226,42 @@ swap() {
     done
 
     NEWNAME=`basename $1`.$RANDOM
-
     while [ -e $NEWNAME ]
     do
 	NEWNAME=${NEWNAME}.tmp
 	echo "$NEWNAME"
     done
 
-    mv `basename $1` $NEWNAME
-    mv `basename $2` `basename $1`
-    mv $NEWNAME `basename $2`
+    mv "$1" "$NEWNAME"
+    mv "$2" "$1"
+    mv "$NEWNAME" "$2"
 }
 
-isrunning() {
-# is a process running? (by name)
-# see also: talos for a better version
-    for i in "$@"
-    do
-	ps axwww  | grep "$i" | grep -v 'grep'
-    done | sort | uniq
 
-}
-
-killbyname() {
-# kill a process by name
-# see also: talos for a better version
-    kill `isrunning "$@" | awk '{ print $1 }' | onelineit.py`
-}
-
-# full name
-fn() {
-    python -c "import os; print os.path.realpath('$*')"
-}
-
-# which view
 whview() {
+    # which view
     less `which $@`
 }
 
-# which emacs
 whemacs() {
+    # which emacs
     emacs -nw `which $@`
 }
 
-pyfile() {
-# python file name
-python -c "import $1; print $1.__file__"
+### functions for python
+
+setup-all() {
+    # setup all for development
+    # TODO: flowerbed?
+    for i in *
+    do
+        if [ -e "${i}/setup.py" ]
+        then
+            cd "${i}"
+            python setup.py develop
+            cd ..
+        fi
+    done
 }
 
 ### functions for version control systems
@@ -268,39 +281,40 @@ fi
 }
 
 difffiles() {
-grep '^+++ ' $@ | sed 's/+++ b\///'
+    grep '^+++ ' $@ | sed 's/+++ b\///'
 }
 
 hg-update-all() {
-for i in *;
-do
-    if [ -e $i/.hg ]
-    then
-        cd $i
-        hg pull
-        hg update
-        cd -
-    fi
-done
+    # update all hg repositories in the current directory
+    for i in *;
+    do
+        if [ -e $i/.hg ]
+        then
+            cd $i
+            hg pull
+            hg update
+            cd -
+        fi
+    done
 }
 
 hg-qcommit() {
-message=$1
-hg qrefresh
-if [ -z "${message}" ]
-then
-    hg qcommit
-else
-    hg qcommit -m "${message}"
-fi
-hgroot=$(hg root)
-patches=${hgroot}/.hg/patches/
-if [ -e ${patches}.hg ]
-then
-    cd ${patches}
-    hg push
-fi
-cd -
+    message=$1
+    hg qrefresh
+    if [ -z "${message}" ]
+    then
+        hg qcommit
+    else
+        hg qcommit -m "${message}"
+    fi
+    hgroot=$(hg root)
+    patches=${hgroot}/.hg/patches/
+    if [ -e ${patches}.hg ]
+    then
+        cd ${patches}
+        hg push
+    fi
+    cd -
 }
 
 hgrc() {
@@ -319,7 +333,7 @@ echo "default-push = ssh://${ROOT#http*://}"
 ### functions for web content
 
 blog-file() {
-echo "$HOME/web/blog/k0s/entries/public/$1"
+    echo "$HOME/web/blog/k0s/entries/public/$1"
 }
 
 flatten() {
@@ -370,9 +384,10 @@ source ~/.bash_overrides
 ### regenerate fluxbox menus here for convenience
 MENU=~/web/site/programs.html
 regeneratefluxmenu() {
-if [ -e $MENU ]
-then
-    html2flux.py $MENU > ~/.fluxbox/applications
-fi
+    if [ -e $MENU ]
+    then
+        # XXX could be safer
+        html2flux.py $MENU > ~/.fluxbox/applications
+    fi
 }
 regeneratefluxmenu
