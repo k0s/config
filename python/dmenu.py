@@ -6,7 +6,8 @@ import subprocess
 import sys
 
 def choose_file(directory, dmenu='dmenu',
-                args=('-i', '-nb', 'black', '-nf', 'white')):
+                args=('-i', '-nb', 'black', '-nf', 'white',
+                      '-fn', '-*-lucidatypewriter-medium-r-*-*-*-120-*-*-*-*-*-*')):
     """choose a file in the directory with dmenu"""
     directory = os.path.abspath(directory)
     files = os.listdir(directory)
