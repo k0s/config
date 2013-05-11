@@ -10,21 +10,19 @@ OnTitlebar Mouse2 :StartTabbing
 OnTitlebar Double Mouse1 :Shade
 OnTitlebar Mouse3 :WindowMenu
 
-!mouse actions added by fluxbox-update_configs
 OnWindow Mod1 Mouse1 :MacroCmd {Raise} {Focus} {StartMoving}
 OnWindow Mod1 Mouse3 :MacroCmd {Raise} {Focus} {StartResizing BottomRight}
 
-!mouse actions added by fluxbox-update_configs
-OnToolbar Mouse4 :NextWorkspace
-OnToolbar Mouse5 :PrevWorkspace
-
-!mouse actions added by fluxbox-update_configs
+# desktop + mouse interaction
 OnDesktop Mouse1 :hideMenus
 OnDesktop Mouse2 :workspaceMenu
 OnDesktop Mouse3 :rootMenu
 OnDesktop Mouse4 :nextWorkspace
 OnDesktop Mouse5 :prevWorkspace
+OnToolbar Mouse4 :NextWorkspace
+OnToolbar Mouse5 :PrevWorkspace
 
+# window navigation
 Mod1 Tab :NextWindow (workspace=[current]) (stuck=no)
 Mod1 Shift Tab :PrevWindow (workspace=[current]) (stuck=no)
 Control Mod1 Left :prevworkspace
@@ -68,4 +66,17 @@ Control Mod1 s :ExecCommand /home/jhammel/bin/smartopen "$(xclip -o)" # smartope
 Control Mod1 t :ExecCommand gnome-terminal # terminal
 Control Mod1 x :ExecCommand xkill
 Control Mod1 0 :ExecCommand xclip -o | sed 's/^[-+]//' | xclip -i # strip leading +s
-Control Mod1 ? :ExecCommand /home/jhammel/bin/keyshelp.sh # hotkeys help
+Control Shift / :ExecCommand /home/jhammel/bin/keyshelp.sh # hotkeys help
+
+# unused keys...what to do, what to do....
+# j: ?
+# u: -> url open, freeing 's' for ???
+# v: ?
+# w: ?
+# y: ?
+# z: zoom?
+
+# keys that belong to
+
+# the graveyard!
+# where old commands go to ...
