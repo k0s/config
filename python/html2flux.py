@@ -16,6 +16,7 @@ x-form -> internal format:
 """
 
 import optparse
+import os
 import sys
 from lxml import etree
 from lsex import lsex # local import
@@ -27,31 +28,50 @@ def readmenu(dl, output, top=True):
 
     menu_items = []
     name = None # menu name
+    firstchild = True
+    label = None
     for child in dl.iterchildren():
 
-        if not top and child.tag == 'a':
+        if not top and child.tag == 'a' and firstchild:
             # TODO: better way of labeling this!
-            print >> output, '[submenu] (%s)' % child.text
+            name = child.text.strip()
 
         if child.tag == 'dt':
             # item label
             label = ' '.join([i.strip() for i in child.itertext() if i.strip()])
         if child.tag == 'dd':
+            # command
             command = ' '.join([i.strip() for i in child.itertext() if i.strip()])
+            # TODO: classes
             executable = command.split()[0]
             if executable in executables or os.path.isabs(executable):
-                print >> output, '[exec] (%s) {%s}' % (label, command)
+                menu_items.append((label, command))
 
+        # submenu
         if child.tag == 'dl':
-            printmenu(child, output, top=False)
+            menu_items.append(readmenu(child, output, top=False))
+
+    return (name, menu_items)
+
+def printflux(name, menu, output, top=True):
+    """
+    - output: file-like object for writing
+    """
+    name = name or ''
+    print >> output, '[submenu] (%s)' % name
+    for name, item in menu:
+        if isinstance(item, basestring):
+            # command
+            print >> output, '[exec] (%s) {%s}' % (name, item)
+        else:
+            # submenu
+            printflux(name, item, output, top=False)
     if not top:
         print >> output, '[end]'
 
 def printmenu(dl, output):
-    """
-    - output: file-like object for writing
-    """
-    menu = readmenu(dl, output)
+    name, menu = readmenu(dl, output)
+    printflux(name, menu, output)
 
 def main(args=sys.argv[1:]):
     """command line interface"""
