@@ -264,6 +264,33 @@ setup-all() {
     done
 }
 
+recreate-venv() {
+    # recreate a virtualenv
+    VIRTUALENV="virtualenv.py"
+    for i in $@
+    do
+        ${VIRTUALENV} --clear "${i}"
+
+        SRCDIR="${i}"/src
+        if [ -d "${SRCDIR}" ]
+        then
+            . "${i}/bin/activate"
+            OLDPWD=${PWD}
+            cd "${SRCDIR}"
+            for j in *
+            do
+                if [ -e "${j}"/setup.py ]
+                then
+                    cd "${j}"
+                    python setup.py develop
+                    cd ..
+                fi
+            done
+            cd "${OLDPWD}"
+        fi
+    done
+}
+
 ### functions for version control systems
 
 svndance(){

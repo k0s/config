@@ -25,6 +25,8 @@ from lsex import lsex # local import
 executables = set([i.rsplit('/', 1)[-1] for i in lsex() ])
 
 def readmenu(dl, output, top=True):
+    """read menu from an <dl> tag"""
+    # TODO: probably don't really need lxml
 
     menu_items = []
     name = None # menu name
@@ -57,8 +59,13 @@ def printflux(name, menu, output, top=True):
     """
     - output: file-like object for writing
     """
+
+    # print [submenu] tag for this menu
     name = name or ''
-    print >> output, '[submenu] (%s)' % name
+    if not top:
+        print >> output, '[submenu] (%s)' % name
+
+    # print menu items
     for name, item in menu:
         if isinstance(item, basestring):
             # command
@@ -66,6 +73,8 @@ def printflux(name, menu, output, top=True):
         else:
             # submenu
             printflux(name, item, output, top=False)
+
+    # print end of this submenu
     if not top:
         print >> output, '[end]'
 
