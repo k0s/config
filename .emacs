@@ -1,5 +1,4 @@
 ;; emacs server (what a piece of crap)
-;; (commented out for now)
 (require 'server)
  (or (server-running-p)
      (server-start))
@@ -21,7 +20,7 @@
 ;; show trailing whitespace
 (setq-default show-trailing-whitespace t)
 
-;;;;
+;;;; ??? no idea
 
 (put 'downcase-region 'disabled nil)
 (setq truncate-lines nil)
@@ -59,10 +58,8 @@
 
 ;;;; line/col #s
 
-;; Show line-number in the mode line
+;; Show line and column numbers in the mode line
 (line-number-mode 1)
-
-;; Show column-number in the mode line
 (column-number-mode 1)
 
 ;;;; modes
@@ -74,19 +71,21 @@
 (setq auto-mode-alist (cons '("\\.cpy$" . python-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.vpy$" . python-mode) auto-mode-alist))
 
-;; set auto-fill for modes
+;; set auto-fill for appropriate modes
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'sgml-mode-hook 'turn-off-auto-fill)
 
+;; set the grep command....for some reason
 (setq grep-command "grep -liE")
 
-;; recent history stuff
+
+;;;; recent history stuff
 (require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-menu-items 25)
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
-;; full-steam-ahead-and-damn-the-torpedoes
+;;;; full-steam-ahead-and-damn-the-torpedoes
 (defun
   full-steam-ahead-and-damn-the-torpedoes
   (prompt) t)
@@ -97,6 +96,8 @@
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward)
+
+;;;;
 
 ;; wheel mouse
 (global-set-key [mouse-4] 'scroll-down)
