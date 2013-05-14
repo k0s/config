@@ -4,5 +4,6 @@
 	name = Jeff Hammel
 	email = jhammel@mozilla.com
 [alias]
-        st = status
         branches = branch -a
+        root = rev-parse --show-toplevel
+        st = status
