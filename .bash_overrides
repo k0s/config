@@ -99,7 +99,7 @@ function lsdiff {
 
     if expr "$1" : 'http[s]\?://.*' &> /dev/null
     then
-        curl "$1" 2> /dev/null | command lsdiff
+        curl --location "$1" 2> /dev/null | command lsdiff
     else
         lsdiff "$1"
     fi
