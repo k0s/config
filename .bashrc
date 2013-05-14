@@ -94,9 +94,9 @@ git-diff-master() {
     git diff $(git merge-base HEAD master)
 }
 
-# nice fast find function
 EXCLUDES="(\.svn)|(\.mo$)|(\.po$)|(\.pyc$)|(\.hg$)|(\.git$)"
 ff() {
+    # nice fast find function
 
     if (( $# < 2 ))
     then
@@ -111,9 +111,11 @@ ff() {
 }
 
 chainff() {
+    # chained fast find
+
     if (( $# < 2 ))
     then
-	return 0
+	return 1 # bad invocation
     fi
 
     RESULTS=`ff "$2" "$1"`
@@ -138,9 +140,9 @@ chainff() {
     done
 }
 
-# contextual fastfind
-cff () {
 
+cff () {
+    # contextual fastfind
     if (( $# < 2 )); then
         local FILENAME='*' # default -- look in all files
     else
