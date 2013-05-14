@@ -95,7 +95,7 @@ git-diff-master() {
 }
 
 # nice fast find function
-EXCLUDES="(\.svn)|(\.mo$)|(\.po$)|(\.pyc$)"
+EXCLUDES="(\.svn)|(\.mo$)|(\.po$)|(\.pyc$)|(\.hg$)|(\.git$)"
 ff() {
 
     if (( $# < 2 ))
@@ -414,6 +414,7 @@ regeneratefluxmenu() {
     if [ -e $MENU ]
     then
         # XXX could be safer
+        # XXX ...along with the fluxbox menu option o_O
         html2flux.py $MENU > ~/.fluxbox/applications
     fi
 }
