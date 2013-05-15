@@ -53,8 +53,55 @@ export PYTHONPATH=~/python:$PYTHONPATH:~/virtualenv
 
 ### functions
 
+apply-patch() {
+    # apply a patch
+    # TODO:
+    # - extract this general pattern as a bash "decorator" like `lsdiff` in .bash_overrides
+    # - right now level=1; make this configurable (somehow)
+    if (( ! $# ))
+    then
+        echo "No patch supplied"
+        return 1
+    fi
+
+    for patch in $@
+    do
+        if expr "$1" : 'http[s]\?://.*' &> /dev/null
+        then
+            IS_URL="true"
+        else
+            IS__URL="false"
+        fi
+
+        if [[ ${IS_URL} == "true" ]]
+        then
+            if curl --location "${patch}" 2> /dev/null | (command patch -p1 --dry-run &> /dev/null)
+            then
+                curl --location "${patch}" 2> /dev/null | command patch -p1
+                continue
+            else
+                echo "curl --location ${patch} 2> /dev/null | command patch -p1 --dry-run"
+                curl --location "${patch}" 2> /dev/null | command patch -p1 --dry-run
+                return $?
+            fi
+        else
+            if patch -p1 --dry-run < ${patch}
+            then
+                patch -p1 < ${patch}
+                continue
+            else
+                echo "patch -p1 --dry-run < ${patch}"
+                patch -p1 --dry-run < ${patch}
+                return $?
+            fi
+        fi
+    done
+}
+
 cdwin() {
-    # change directory to a window's location using its title
+    # change directory to a window's location using its title,
+    # as that is set to the cwd by PS1 [?]
+    # TODO: ssh windows
     DIR=$(xwininfo | dictify.py xwininfo | awk '{ print $NF }' | sed 's/"//g')
     DIR=${DIR/\~/$HOME}
     cd $DIR
@@ -156,8 +203,8 @@ cff () {
 
 }
 
-# make a temporary file if `tempfile` not available
 tmpfile() {
+    # make a temporary file if `tempfile` not available
 
     if [ "$#" == "0" ]
     then
@@ -206,11 +253,6 @@ fn() {
     python -c "import os; print os.path.realpath('$*')"
 }
 
-pyfile() {
-    # python file name
-    python -c "import $1; print $1.__file__"
-}
-
 swap() {
     # swap two files
     if [ "$#" != "2" ]
@@ -251,6 +293,11 @@ whemacs() {
 }
 
 ### functions for python
+
+pyfile() {
+    # python file path
+    python -c "import $1; print $1.__file__"
+}
 
 setup-all() {
     # setup all for development

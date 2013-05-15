@@ -1,5 +1,6 @@
 #!/bin/bash
-# command overrides too elaborate for aliases
+
+### command overrides too elaborate for aliases
 
 cd() {
 
@@ -73,7 +74,8 @@ function find {
 
     if (( ! $# ))
     then
-	return
+	command find
+        return
     fi
 
     if [ -d $1 ]
@@ -96,7 +98,7 @@ function find {
 }
 
 function lsdiff {
-
+    # TODO: extract this general pattern as a bash "decorator"
     if expr "$1" : 'http[s]\?://.*' &> /dev/null
     then
         curl --location "$1" 2> /dev/null | command lsdiff
