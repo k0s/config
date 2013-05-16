@@ -38,12 +38,23 @@ Mod1 F8 :Workspace 8
 Mod1 F9 :Workspace 9
 Mod1 F10 :Workspace 10
 
+# turn off caps lock
+# None 66 : someday!
+
 # window manipulation
 Shift Right :MaximizeHorizontal
 Shift Up :MaximizeVertical
 F11 :Fullscreen
 Menu :RootMenu
 Mod4 t :ToggleDecor
+
+# media keys
+# 107 = Print
+# 122 = XF86AudioLowerVolume
+# 123 = XF86AudioRaiseVolume
+None 107 :ExecCommand import -window root -silent /home/jhammel/screenshot.png
+None 122 :ExecCommand aumix -v-10
+None 123 :ExecCommand aumix -v+10
 
 # commands
 Control Mod1 a :ExecCommand xclip -o | python /home/jhammel/python/window_path.py | xclip -i # absolute path of selected
@@ -70,13 +81,14 @@ Control Shift / :ExecCommand /home/jhammel/bin/keyshelp.sh # hotkeys help
 
 # unused keys...what to do, what to do....
 # j: ?
+# r: if printscreen works
 # u: -> url open, freeing 's' for ???
 # v: ?
 # w: ?
 # y: ?
 # z: zoom?
 
-# keys that belong to
+# also, l could go to launch to free up s
 
 # the graveyard!
 # where old commands go to ...
