@@ -32,6 +32,6 @@ do
 # -t <DESK>
 # Move  a window that has been specified with the -r action to the
 # desktop <DESK>.
-echo "wmctrl -r ${line} -t ${LAST}"
+wmctrl -i -r ${line} -t ${LAST}
 done
 
