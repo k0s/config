@@ -283,22 +283,22 @@ swap() {
 
 ### `which` commands
 
-whview() {
-    # which view
-    less `which $@`
-}
-
-whemacs() {
-    # which emacs
-    emacs -nw `which $@`
-}
-
 realwhich() {
     # which -> real paths
     command which $@ | while read line
     do
         python -c "import os; print os.path.realpath('${line}')"
     done
+}
+
+whview() {
+    # which view
+    less `realwhich $@`
+}
+
+whemacs() {
+    # which emacs
+    emacs -nw `realwhich $@`
 }
 
 ### functions for python
