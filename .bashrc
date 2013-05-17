@@ -281,6 +281,7 @@ swap() {
     mv "$NEWNAME" "$2"
 }
 
+### `which` commands
 
 whview() {
     # which view
@@ -290,6 +291,14 @@ whview() {
 whemacs() {
     # which emacs
     emacs -nw `which $@`
+}
+
+realwhich() {
+    # which -> real paths
+    command which $@ | while read line
+    do
+        python -c "import os; print os.path.realpath('${line}')"
+    done
 }
 
 ### functions for python

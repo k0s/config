@@ -12,6 +12,7 @@
 (if (boundp 'tool-bar-mode) (tool-bar-mode 0))
 
 ;; ...or a startup message
+;; instead, it'd be nice to start with a list of recent files (recentf)
 (setq inhibit-startup-message t)
 
 ;; no f-ing backup files
@@ -57,10 +58,10 @@
 (put 'upcase-region 'disabled nil)
 
 ;;;; line/col #s
-
-;; Show line and column numbers in the mode line
+;;;; Show line and column numbers in the mode line
 (line-number-mode 1)
 (column-number-mode 1)
+
 
 ;;;; modes
 
