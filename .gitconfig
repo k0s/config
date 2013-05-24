@@ -7,3 +7,4 @@
         branches = branch -a
         root = rev-parse --show-toplevel
         st = status
+        up = !git pull mozilla master && git push origin master
