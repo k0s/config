@@ -103,7 +103,7 @@ function lsdiff {
     then
         curl --location "$1" 2> /dev/null | command lsdiff
     else
-        lsdiff "$1"
+        command lsdiff "$@"
     fi
 
 }
