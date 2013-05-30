@@ -32,6 +32,7 @@ alias distribute='python setup.py egg_info -RDb "" sdist register upload'
 alias grep='grep --colour=auto'
 alias ls='ls --color=auto'
 alias random="python -c 'import sys, random; foo = sys.argv[1:]; random.shuffle(foo); print \" \".join(foo)'"
+alias weekstamp="date --date=\"$((`date '+%u'`-1)) days ago\" '+%b %d'"
 alias wget='wget --no-check-certificate'
 alias xpcshell="LD_LIBRARY_PATH=${MOZOBJ}/dist/bin ${MOZOBJ}/dist/bin/xpcshell"
 
