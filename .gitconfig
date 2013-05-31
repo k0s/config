@@ -5,6 +5,7 @@
 	email = jhammel@mozilla.com
 [alias]
         branches = branch -a
+        discard = reset HEAD --hard
         root = rev-parse --show-toplevel
         st = status
         up = !git pull mozilla master && git push origin master
