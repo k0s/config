@@ -464,6 +464,19 @@ sed ${inplace} "${command}" "$1"
 
 }
 
+rmktmp() {
+
+TMPDIR=~/tmp
+if [ -e ${TMPDIR} ]
+then
+  rm -rf ${TMPDIR}
+fi
+mkdir ${TMPDIR}
+cd ${TMPDIR}
+pwd
+
+}
+
 ### include overrides for commands
 source ~/.bash_overrides
 
