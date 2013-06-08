@@ -5,7 +5,7 @@
 # Other solutions (magic markers, etc) are possible
 
 path=`readlink -f $0`
-tmp=`tempfile`
+tmp=`tempfile --mode 0755`
 datestamp=`date`
 nonce="This script regenerated at "
 
