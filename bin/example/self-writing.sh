@@ -26,7 +26,7 @@ then
 fi
 
 # echo last and current generation times for example
-echo "This script last generated at (None)"
+echo "This script last generated at Sat Jun  8 08:52:05 PDT 2013"
 echo "Now: ${datestamp}"
 
 # move tmpfile -> script location via exec
