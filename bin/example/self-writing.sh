@@ -9,9 +9,18 @@ tmp=`tempfile`
 datestamp=`date`
 nonce="This script regenerated at "
 
+# sanity check
+if [[ ! -w "${path}" ]]
+then
+    echo "You don't have write permission for script ${path}"
+    exit 1
+fi
+
 # avoiding -i for safety
 sed 's/\(echo \"'"${nonce}"'\).*\"/\1'"${datestamp}"'\"/' ${path} > ${tmp}
 
 # echo last and current generation times for example
 echo "This script last generated at (None)"
 echo "Now: ${datestamp}"
+
+# move tmpfile -> script location via exec
