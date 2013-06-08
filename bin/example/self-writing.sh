@@ -12,4 +12,6 @@ nonce="This script regenerated at "
 # avoiding -i for safety
 sed 's/\(echo \"'"${nonce}"'\).*\"/\1'"${datestamp}"'\"/' ${path} > ${tmp}
 
-echo "This script regenerated at "
+# echo last and current generation times for example
+echo "This script last generated at (None)"
+echo "Now: ${datestamp}"
