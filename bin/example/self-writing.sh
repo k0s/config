@@ -18,9 +18,15 @@ fi
 
 # avoiding -i for safety
 sed 's/\(echo \"'"${nonce}"'\).*\"/\1'"${datestamp}"'\"/' ${path} > ${tmp}
+if [[ ! -e "${tmp}" ]]
+then
+    echo "Temporary file creation not successful"
+    exit 1
+fi
 
 # echo last and current generation times for example
 echo "This script last generated at (None)"
 echo "Now: ${datestamp}"
 
 # move tmpfile -> script location via exec
+exec mv ${tmp} ${path}
