@@ -5,7 +5,8 @@
 # Other solutions (magic markers, etc) are possible
 
 path=`readlink -f $0`
-tmp=`tempfile --mode 0755`
+mode=`stat --format '%a' ${path}`
+tmp=`tempfile --mode ${mode}`
 datestamp=`date`
 nonce="This script last generated at "
 
