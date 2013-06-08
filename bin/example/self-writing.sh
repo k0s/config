@@ -7,7 +7,7 @@
 path=`readlink -f $0`
 tmp=`tempfile --mode 0755`
 datestamp=`date`
-nonce="This script regenerated at "
+nonce="This script last generated at "
 
 # sanity check
 if [[ ! -w "${path}" ]]
