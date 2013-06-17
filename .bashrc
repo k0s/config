@@ -282,6 +282,11 @@ swap() {
     mv "$NEWNAME" "$2"
 }
 
+buffer() {
+  # temporary buffer with cat and /dev/null
+  cat > /dev/null
+}
+
 ### `which` commands
 
 realwhich() {
@@ -421,6 +426,8 @@ echo "default-push = ssh://${ROOT#http*://}"
 blog-file() {
     echo "$HOME/web/blog/k0s/entries/public/$1"
 }
+
+###
 
 flatten() {
   directory=$PWD
