@@ -57,8 +57,10 @@ export PYTHONPATH=~/python:$PYTHONPATH:~/virtualenv
 apply-patch() {
     # apply a patch
     # TODO:
+    # - rewrite in python!
     # - extract this general pattern as a bash "decorator" like `lsdiff` in .bash_overrides
     # - right now level=1; make this configurable (somehow)
+
     if (( ! $# ))
     then
         echo "No patch supplied"
