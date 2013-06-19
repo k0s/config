@@ -1,3 +1,7 @@
+#!/bin/bash
+### bash rc file ###
+
+# so
 PROFILE=/etc/profile
 if [ -e "${PROFILE}" ]
 then
@@ -337,8 +341,26 @@ setup-all() {
 recreate-venv() {
     # recreate a virtualenv
     VIRTUALENV="virtualenv.py"
+    if ! which ${VIRTUALENV}
+    then
+        return 1
+    fi
+    VENV_PATH=$(which ${VIRTUALENV} &> /dev/null)
+
+    # update virtualenv if possible
+    DIRNAME=$(dirname ${VENV_PATH})
+    if [ -d "${DIRNAME}/.git" ]
+    then
+        cd "${DIRNAME}"
+        git pull
+        cd --
+    fi
+
+
+    # for each virtualenv given...
     for i in $@
     do
+        # ...recreate it...
         ${VIRTUALENV} --clear "${i}"
 
         SRCDIR="${i}"/src
