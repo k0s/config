@@ -1,7 +1,16 @@
-;; emacs server (what a piece of crap)
-(require 'server)
- (or (server-running-p)
-     (server-start))
+;; ;; ;; emacs server (what a piece of crap)
+;; (require 'server)
+;;   (unless (server-running-p)
+;;     (server-start))
+;; ;; ;; An error has occurred while loading `/home/jhammel/.emacs':
+;; ;; ;; Symbol's function definition is void: server-running-p
+;; ;; ;; To ensure normal operation, you should investigate and remove the
+;; ;; ;; cause of the error in your initialization file.  Start Emacs with
+;; ;; ;; the `--debug-init' option to view a complete error backtrace.
+
+;; ;; ;; For information about GNU Emacs and the GNU system, type C-h C-a.
+;; ;; How to fix:
+;; http://stackoverflow.com/questions/9999320/how-to-check-if-a-function-e-g-server-running-p-is-available-under-emacs
 
 ;;;; bars
 
