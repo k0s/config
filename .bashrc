@@ -31,6 +31,7 @@ export JS_EDITLINE=1
 export MOZCONFIG=~/mozilla/mozconfigs/mozconfig
 export MOZSOURCE=~/mozilla/src/mozilla-central
 export MOZOBJ=~/mozilla/src/obj-browser
+export JS_EDITLINE=1
 
 # aliases
 alias awd="python -c 'import os;  print os.path.realpath(\".\")'"
