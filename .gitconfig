@@ -5,7 +5,9 @@
 	email = jhammel@mozilla.com
 [alias]
         branches = branch -a
+        branchname = git rev-parse --abbrev-ref HEAD
         discard = reset HEAD --hard
+        patch = !git diff > ~/$(git rev-parse --abbrev-ref HEAD).diff
         root = rev-parse --show-toplevel
         st = status
         up = !git pull mozilla master && git push origin master
