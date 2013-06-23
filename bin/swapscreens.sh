@@ -1,6 +1,13 @@
 #!/bin/bash
 
 # swap screens between internal laptop monitor and external monitor
+# XXX sensitive to the individual laptop :(
+
+# See also `unxrandr`:
+# unxrandr - inverse tool of xrandr
+# unxrandr  is  a  tool  that  queries  the  XRandR  state using ARandR's
+# libraries and outputs an xrandr command line that reproduces the  state
+
 
 INTERNAL="LVDS1"
 EXTERNAL="VGA1"
