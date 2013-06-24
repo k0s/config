@@ -1,6 +1,10 @@
 #!/bin/bash
 
+# To get all selections:
 # sudo update-alternatives --get-selections
+
+# To get a particular selection:
+# update-alternatives --display x-www-browser
 
 # http://askubuntu.com/questions/100693/how-can-i-manually-change-the-default-web-browser
 # http://askubuntu.com/questions/45885/how-do-i-set-a-custom-browser-as-default-in-preferred-applications?rq=1
@@ -23,7 +27,6 @@ do
     update-alternatives --install ${LINKPATH} ${LINK} ${BROWSER} 99
     update-alternatives --set ${LINK} ${BROWSER}
     update-alternatives --display ${LINK}
-    echo
-    unlink ${LINKPATH}
-    ln -s  ${BROWSER} ${LINKPATH}
+#    unlink ${LINKPATH}
+#    ln -s  ${BROWSER} ${LINKPATH}
 done
