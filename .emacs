@@ -1,3 +1,7 @@
+(setq initial-scratch-message ";; scratch ;;
+
+")
+
 ;; ;; ;; emacs server (what a piece of crap)
 ;; (require 'server)
 ;;   (unless (server-running-p)
@@ -137,3 +141,28 @@
 (add-hook 'python-mode-hook
           '(lambda ()
              (local-set-key  [(meta ?p) (meta ?p)] 'break)))
+
+(fset 'python-file "#!/usr/bin/env python
+
+'''
+
+'''
+
+import optparse
+import os
+import sys
+
+here = os.path.dirname(os.path.realpath(__file__))
+
+def main(args=sys.argv[1:]):
+
+    usage = '%prog [options]'
+    parser = optparse.OptionParser(usage=usage, description=__doc__)
+    options, args = options.parse_args(args)
+
+if __name__ == '__main__':
+    main()")
+
+;;; TODO
+; - needless to say, zeitgeist integration
+; - http://pedrokroger.net/2010/07/configuring-emacs-as-a-python-ide-2/
