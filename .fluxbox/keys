@@ -88,10 +88,11 @@ Control Shift / :ExecCommand /home/jhammel/bin/keyshelp.sh # hotkeys help
 # y: ?
 # z: zoom?
 
+# `l` could go to launch to free up `s`
+# alternately, `l` -> `local resource`,
+# (e.g.) keeping `s` for remote
+# ...or could they be daisy chained?
+
 # TODO: screenshots
 # http://askubuntu.com/questions/168117/how-to-automatically-add-meta-tags-to-screenshot?rq=1
 
-# also, l could go to launch to free up s
-
-# the graveyard!
-# where old commands go to ...
