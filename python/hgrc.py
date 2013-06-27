@@ -6,12 +6,11 @@ Script for modifying hgrc files.
 Actions:
 (TBD)
 """
-
+# imports
 import optparse
 import os
 import sys
-
-here = os.path.dirname(os.path.realpath(__file__))
+from ConfigParser import RawCOnfigParser as ConfigParser
 
 def main(args=sys.argv[1:]):
 
@@ -56,7 +55,12 @@ def main(args=sys.argv[1:]):
                 continue
         else:
             assert os.path.isfile(path), "%s is not a file, exiting" % path
+        hgrc.append(path)
 
+    if options.print:
+        # print the chosen hgrc paths and you're done
+        print '\n'.join(hgrc)
+        parser.exit()
 
 if __name__ == '__main__':
     main()
