@@ -162,6 +162,7 @@ def main(args=sys.argv[1:]):
 
 if __name__ == '__main__':
     main()")
+;; TODO: take directly from MakeItSo
 
 ;;; TODO
 ; - needless to say, zeitgeist integration
