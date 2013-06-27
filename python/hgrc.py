@@ -57,6 +57,14 @@ def main(args=sys.argv[1:]):
             assert os.path.isfile(path), "%s is not a file, exiting" % path
         hgrc.append(path)
 
+    # construct ConfigParser objects and
+    # ensure that all the files are parseable
+    config = {}
+    for path in hgrc:
+        config['path'] = ConfigParser()
+        if isinstance(path, basestring):
+            config['path'].read(path)
+        
     if options.print:
         # print the chosen hgrc paths and you're done
         print '\n'.join(hgrc)
