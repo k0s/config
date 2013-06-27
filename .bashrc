@@ -64,6 +64,10 @@ export PYTHONPATH=~/python:$PYTHONPATH:~/virtualenv
 
 ### functions
 
+lspath() {
+python -c 'import os; print "\n".join(os.environ["PATH"].split(os.path.pathsep))'
+}
+
 apply-patch() {
     # apply a patch
     # TODO:
