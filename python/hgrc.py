@@ -17,18 +17,20 @@ def main(args=sys.argv[1:]):
     # command line parser
     usage = '%prog [options] repository <repository> <...>'
     parser = optparse.OptionParser(usage=usage, description=__doc__)
-    parser.add_option('-p', '--print', dest='print',
+    parser.add_option('-p', '--print', dest='print_hgrc',
                       action='store_true', default=False,
                       help="print full path to hgrc files and exit")
     parser.add_option('--ssh', dest='default_push_ssh',
                       action='store_true', default=False,
                       help="use `default` entries for `default-push`")
+    parser.add_option('--push', '--default-push', dest='default_push',
+                      help="set [paths] default-push location")
     options, args = options.parse_args(args)
     if not args:
         parser.print_usage()
         parser.exit()
 
-    # find all .hgrc files
+    # find all hgrc files
     hgrc = []
     missing = []
     not_hg = []
@@ -57,15 +59,26 @@ def main(args=sys.argv[1:]):
             assert os.path.isfile(path), "%s is not a file, exiting" % path
         hgrc.append(path)
 
+    # raise errors if encountered
+    if sum(errors.values()):
+        for key, value in errors.items():
+            if value:
+                print '%s: %s' % (key, ', '.join(value))
+        parser.exit(1)
+
     # construct ConfigParser objects and
     # ensure that all the files are parseable
     config = {}
     for path in hgrc:
-        config['path'] = ConfigParser()
+        config[path] = ConfigParser()
         if isinstance(path, basestring):
-            config['path'].read(path)
-        
-    if options.print:
+            if os.path.exists(path):
+                config[path].read(path)
+        else:
+            # XXX this code path is untenable
+            config[path].
+
+    if options.print_hgrc:
         # print the chosen hgrc paths and you're done
         print '\n'.join(hgrc)
         parser.exit()
