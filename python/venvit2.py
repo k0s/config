@@ -1,9 +1,3 @@
-#!/usr/bin/python
-
-"""
-make a virtualenv for the product
-"""
-
 import sys
 
 # class for VCS
