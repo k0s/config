@@ -19,6 +19,7 @@ will be executed after installation (or a venvit.txt which would just be output
 to console, maybe falling back to the README
 """
 
+import optparse
 import sys
 
 # class for VCS
@@ -28,15 +29,15 @@ import sys
 
 args = sys.argv[1:]
 if len(args) != 1:
-    print "Usage: %prog <svn-or-hg-location>"
+    print "Usage: %prog <repo-location>"
 
 
 # determine name of the package
-NAME=
-for i in /trunk /branches /tag
-do
-    NAME=${NAME%%$i*}
-done
+name = args[0]
+for i in ('/trunk', '/branches', '/tag'):
+    if name.endswith(i):
+        name = name[:-len(i)]
+
 NAME=${NAME%%/} # remove trailing slash
 NAME=${NAME##*/}
 
