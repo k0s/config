@@ -1,3 +1,5 @@
+(setq max-specpdl-size 5000)
+
 (setq initial-scratch-message ";; scratch ;;
 
 ")
@@ -143,10 +145,6 @@
              (local-set-key  [(meta ?p) (meta ?p)] 'break)))
 
 (fset 'python-file "#!/usr/bin/env python
-
-'''
-
-'''
 
 import optparse
 import os
