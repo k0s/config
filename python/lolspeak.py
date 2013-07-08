@@ -35,6 +35,7 @@ loldict = { 'am': 'is',
             'towel': 'towul',
             'uses': 'uzes',
             'young': 'yung',
+            'you': 'u',
             'your': 'ur'
             }
 
