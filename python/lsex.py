@@ -16,13 +16,17 @@ def ordered_set(alist):
 
 def lsex(path=None):
     """
-    list executable files on the path
-    - path: list of directories to search.  if not specified, use system path
+    list of executable files on the path
+
+    - path: list or PATH-style string of directories to search.
+            if not specified, use system PATH
     """
 
     if path is None:
         # use system path
-        path = ordered_set(os.environ['PATH'].split(':'))
+        path = os.environ['PATH']
+    if isinstance(path, basestring):
+        path = ordered_set(path.split(os.pathsep))
 
     executables = []
 
