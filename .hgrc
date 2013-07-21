@@ -31,5 +31,8 @@ users = jhammel
 groups = jhammel
 
 [web]
-allow_archive = rss, zip, bz2
+allow_archive = atom, rss, zip, bz2
 contact = jhammel at mozilla dot com
+
+[alias]
+sync = !$HG pull && $HG push
