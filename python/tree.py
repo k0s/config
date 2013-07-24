@@ -27,6 +27,7 @@ def tree(directory):
     directories = {}
     lvlndctr = []
     last = {}
+    passed_last = {}
     columns = []
     lastdepth = depth
     for dirpath, dirnames, filenames in os.walk(directory, topdown=True):
@@ -36,6 +37,7 @@ def tree(directory):
         dirnames[:] = sorted(dirnames, key=lambda x: x.lower())
         last[os.path.abspath(dirpath)] = dirnames and dirnames[-1] or None
         directories[dirpath] = dirnames
+        
         retval.append('%s%s%s' % ('│' * (indent-1),
                                   ('├' if basename == basename else '└') if indent else '',
                                   basename))
