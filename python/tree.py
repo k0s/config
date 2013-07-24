@@ -32,11 +32,13 @@ def tree(directory):
         retval.append('%s%s%s' % ('│' * (indent-1),
                                   '├' if indent else '',
                                   os.path.basename(dirpath)))
+        filenames = sorted(filenames, key=lambda x: x.lower())
         retval.extend(['%s%s%s' % ('│' * (indent),
-                                   '├' if index < len(filenames) -1 else '└',
+        #                                   '├' if (((index < len(filenames) -1)) or dirnames) else '└',
+                                   '├' if (((index < len(filenames) -1)) or dirnames) else '└',
                                     name)
                        for index, name in
-                       enumerate(sorted(filenames, key=lambda x: x.lower()))
+                       enumerate(filenames)
                        ])
     return '\n'.join(retval)
 
