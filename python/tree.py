@@ -24,23 +24,26 @@ def depth(directory):
 def tree(directory):
     retval = []
     level = depth(directory)
+    pre = []
     directories = {}
     lvlndctr = []
     last = {}
     passed_last = {}
     columns = []
     lastdepth = depth
+    indent = 0
     for dirpath, dirnames, filenames in os.walk(directory, topdown=True):
         basename = os.path.basename(dirpath)
         parent = os.path.abspath(os.path.dirname(dirpath))
         indent = depth(dirpath) - level
+        import pdb; pdb.set_trace()
         dirnames[:] = sorted(dirnames, key=lambda x: x.lower())
         last[os.path.abspath(dirpath)] = dirnames and dirnames[-1] or None
         directories[dirpath] = dirnames
-        
-        retval.append('%s%s%s' % ('│' * (indent-1),
-                                  ('├' if basename == basename else '└') if indent else '',
-                                  basename))
+
+        retval.append('%s%s%s %s' % ('│' * (indent-1),
+                                     ('├' if basename == basename else '└') if indent else '',
+                                     basename))
         filenames = sorted(filenames, key=lambda x: x.lower())
         retval.extend(['%s%s%s' % ('│' * (indent),
                                    '├' if (((index < len(filenames) -1)) or dirnames) else '└',
