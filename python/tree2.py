@@ -23,14 +23,16 @@ def depth(directory):
 
 def tree(directory):
 
-    sort_key=lambda x: x.lower())
+    sort_key=lambda x: x.lower()
     retval = [directory]
     top = depth(directory)
     indent = []
+    last = {}
     for dirpath, dirnames, filenames in os.walk(directory, topdown=True):
 
         abspath = os.path.abspath(dirpath)
-        parent = os.path.dirname(abspath))
+        basename = os.path.basename(abspath)
+        parent = os.path.dirname(abspath)
         level = depth(abspath) - top
 
         # sort articles of interest
@@ -42,6 +44,11 @@ def tree(directory):
             last[os.path.abspath(dirpath)] = dirnames[-1]
             if last.get(parent) == os.path.basename(abspath):
                 pass
+
+        retval.append('%s%s'% (str(level) * level, basename))
+        level += 1
+        retval.extend([('%s%s' % (str(level) * level, filename))
+                       for filename in filenames])
 
         # retval.append('%s%s%s %s' % ('│' * (indent-1),
         #                              ('├' if basename == basename else '└') if indent else '',

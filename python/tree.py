@@ -36,12 +36,11 @@ def tree(directory):
         basename = os.path.basename(dirpath)
         parent = os.path.abspath(os.path.dirname(dirpath))
         indent = depth(dirpath) - level
-        import pdb; pdb.set_trace()
         dirnames[:] = sorted(dirnames, key=lambda x: x.lower())
         last[os.path.abspath(dirpath)] = dirnames and dirnames[-1] or None
         directories[dirpath] = dirnames
 
-        retval.append('%s%s%s %s' % ('│' * (indent-1),
+        retval.append('%s%s%s' % ('│' * (indent-1),
                                      ('├' if basename == basename else '└') if indent else '',
                                      basename))
         filenames = sorted(filenames, key=lambda x: x.lower())
