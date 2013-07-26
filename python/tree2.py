@@ -27,13 +27,13 @@ def depth(directory):
             break
     return level
 
-def tree(directory):
+def tree(directory, sort_key=lambda x: x.lower()):
 
-    sort_key=lambda x: x.lower()
     retval = []
-    top = depth(directory)
     indent = []
     last = {}
+    top = depth(directory)
+
     for dirpath, dirnames, filenames in os.walk(directory, topdown=True):
 
         abspath = os.path.abspath(dirpath)
@@ -68,11 +68,6 @@ def tree(directory):
         else:
             dirpath_mark = ITEM
 
-
-            #        if basename == 'bin':
-            #            import pdb; pdb.set_trace()
-
-        str_indent = ''.join(indent)
         retval.append('%s%s%s'% (''.join(indent[:-1]), dirpath_mark, basename))
         if filenames:
             last_file = filenames[-1]
