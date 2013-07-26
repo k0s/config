@@ -9,15 +9,19 @@ import optparse
 import os
 import sys
 
-LINE = '|'
+# ASCII delimeters
+VERTICAL_LINE = '|'
 ITEM = '+'
 END = '\\'
-#
-LINE = '│'
+
+# unicode delimiters
+VERTICAL_LINE = '│'
 ITEM = '├'
 END  = '└'
 
 def depth(directory):
+    """returns the integer depth of a directory or path relative to '/' """
+
     directory = os.path.abspath(directory)
     level = 0
     while True:
@@ -49,12 +53,11 @@ def tree(directory, sort_key=lambda x: x.lower()):
         dirpath_marker = ITEM
 
         if level > len(indent):
-            indent.append(LINE)
+            indent.append(VERTICAL_LINE)
         indent = indent[:level]
 
         if dirnames:
             files_end = ITEM
-
             last[abspath] = dirnames[-1]
         else:
             files_end = END
@@ -71,7 +74,7 @@ def tree(directory, sort_key=lambda x: x.lower()):
         retval.append('%s%s%s'% (''.join(indent[:-1]), dirpath_mark, basename))
         if filenames:
             last_file = filenames[-1]
-            retval.extend([('%s%s%s' % (str_indent,
+            retval.extend([('%s%s%s' % (''.join(indent),
                                         files_end if filename == last_file else ITEM,
                                         filename))
                                         for index, filename in enumerate(filenames)])
