@@ -9,7 +9,13 @@ import optparse
 import os
 import sys
 
-here = os.path.dirname(os.path.realpath(__file__))
+LINE = '|'
+ITEM = '+'
+END = '\\'
+#
+LINE = '│'
+ITEM = '├'
+END  = '└'
 
 def depth(directory):
     directory = os.path.abspath(directory)
@@ -24,7 +30,7 @@ def depth(directory):
 def tree(directory):
 
     sort_key=lambda x: x.lower()
-    retval = [directory]
+    retval = []
     top = depth(directory)
     indent = []
     last = {}
@@ -39,27 +45,42 @@ def tree(directory):
         for resource in (dirnames, filenames):
             resource[:] = sorted(resource, key=sort_key)
 
-        # set last for current dirpath
+        files_end =  ITEM
+        dirpath_marker = ITEM
+
+        if level > len(indent):
+            indent.append(LINE)
+        indent = indent[:level]
+
         if dirnames:
-            last[os.path.abspath(dirpath)] = dirnames[-1]
-            if last.get(parent) == os.path.basename(abspath):
-                pass
+            files_end = ITEM
 
-        retval.append('%s%s'% (str(level) * level, basename))
-        level += 1
-        retval.extend([('%s%s' % (str(level) * level, filename))
-                       for filename in filenames])
+            last[abspath] = dirnames[-1]
+        else:
+            files_end = END
 
-        # retval.append('%s%s%s %s' % ('│' * (indent-1),
-        #                              ('├' if basename == basename else '└') if indent else '',
-        #                              basename))
-        # filenames = sorted(filenames, key=lambda x: x.lower())
-        # retval.extend(['%s%s%s' % ('│' * (indent),
-        #                            '├' if (((index < len(filenames) -1)) or dirnames) else '└',
-        #                             name)
-        #                for index, name in
-        #                enumerate(filenames)
-        #                ])
+        if last.get(parent) == os.path.basename(abspath):
+            # last directory of parent
+            dirpath_mark = END
+            indent[-1] = ' '
+        elif not indent:
+            dirpath_mark = ''
+        else:
+            dirpath_mark = ITEM
+
+
+            #        if basename == 'bin':
+            #            import pdb; pdb.set_trace()
+
+        str_indent = ''.join(indent)
+        retval.append('%s%s%s'% (''.join(indent[:-1]), dirpath_mark, basename))
+        if filenames:
+            last_file = filenames[-1]
+            retval.extend([('%s%s%s' % (str_indent,
+                                        files_end if filename == last_file else ITEM,
+                                        filename))
+                                        for index, filename in enumerate(filenames)])
+
     return '\n'.join(retval)
 
 def main(args=sys.argv[1:]):
