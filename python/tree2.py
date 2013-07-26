@@ -22,35 +22,37 @@ def depth(directory):
     return level
 
 def tree(directory):
-    retval = []
-    level = depth(directory)
-    pre = []
-    directories = {}
-    lvlndctr = []
-    last = {}
-    passed_last = {}
-    columns = []
-    lastdepth = depth
-    indent = 0
-    for dirpath, dirnames, filenames in os.walk(directory, topdown=True):
-        basename = os.path.basename(dirpath)
-        parent = os.path.abspath(os.path.dirname(dirpath))
-        indent = depth(dirpath) - level
-        import pdb; pdb.set_trace()
-        dirnames[:] = sorted(dirnames, key=lambda x: x.lower())
-        last[os.path.abspath(dirpath)] = dirnames and dirnames[-1] or None
-        directories[dirpath] = dirnames
 
-        retval.append('%s%s%s %s' % ('│' * (indent-1),
-                                     ('├' if basename == basename else '└') if indent else '',
-                                     basename))
-        filenames = sorted(filenames, key=lambda x: x.lower())
-        retval.extend(['%s%s%s' % ('│' * (indent),
-                                   '├' if (((index < len(filenames) -1)) or dirnames) else '└',
-                                    name)
-                       for index, name in
-                       enumerate(filenames)
-                       ])
+    sort_key=lambda x: x.lower())
+    retval = [directory]
+    top = depth(directory)
+    indent = []
+    for dirpath, dirnames, filenames in os.walk(directory, topdown=True):
+
+        abspath = os.path.abspath(dirpath)
+        parent = os.path.dirname(abspath))
+        level = depth(abspath) - top
+
+        # sort articles of interest
+        for resource in (dirnames, filenames):
+            resource[:] = sorted(resource, key=sort_key)
+
+        # set last for current dirpath
+        if dirnames:
+            last[os.path.abspath(dirpath)] = dirnames[-1]
+            if last.get(parent) == os.path.basename(abspath):
+                pass
+
+        # retval.append('%s%s%s %s' % ('│' * (indent-1),
+        #                              ('├' if basename == basename else '└') if indent else '',
+        #                              basename))
+        # filenames = sorted(filenames, key=lambda x: x.lower())
+        # retval.extend(['%s%s%s' % ('│' * (indent),
+        #                            '├' if (((index < len(filenames) -1)) or dirnames) else '└',
+        #                             name)
+        #                for index, name in
+        #                enumerate(filenames)
+        #                ])
     return '\n'.join(retval)
 
 def main(args=sys.argv[1:]):
