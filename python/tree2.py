@@ -99,19 +99,29 @@ def tree(directory,
 
 def main(args=sys.argv[1:]):
 
+    # parse command line options
     usage = '%prog [options]'
     parser = optparse.OptionParser(usage=usage, description=__doc__)
+    parser.add_option('-a', '--ascii', dest='use_ascii',
+                      action='store_true', default=False,
+                      help="use ascii delimeters (%s)" % ascii_delimeters)
     options, args = parser.parse_args(args)
     if not args:
         args = ['.']
 
+    # sanity check
     not_directory = [arg for arg in args
                      if not os.path.isdir(arg)]
     if not_directory:
         parser.error("Not a directory: %s" % (', '.join(not_directory)))
 
+    delimeters = unicode_delimeters
+    if options.use_ascii:
+        delimeters = ascii_delimeters
+
+    # print the tree
     for arg in args:
-        print (tree(arg))
+        print (tree(arg, **delimeters))
 
 if __name__ == '__main__':
     main()
