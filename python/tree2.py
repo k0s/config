@@ -10,9 +10,11 @@ import os
 import sys
 
 # ASCII delimeters
-VERTICAL_LINE = '|'
-ITEM = '+'
-END = '\\'
+ascii_delimeters = {
+    VERTICAL_LINE = '|'
+    ITEM = '+'
+    END = '\\'
+    }
 
 # unicode delimiters
 VERTICAL_LINE = '│'
@@ -31,7 +33,12 @@ def depth(directory):
             break
     return level
 
-def tree(directory, sort_key=lambda x: x.lower()):
+def tree(directory,
+         item_marker='',
+         sort_key=lambda x: x.lower()):
+    """
+    display tree directory structure for `directory`
+    """
 
     retval = []
     indent = []
@@ -71,7 +78,12 @@ def tree(directory, sort_key=lambda x: x.lower()):
         else:
             dirpath_mark = ITEM
 
-        retval.append('%s%s%s'% (''.join(indent[:-1]), dirpath_mark, basename))
+        # append the directory and piece of tree structure
+        # if the top-level entry directory, print as passed
+        retval.append('%s%s%s'% (''.join(indent[:-1]),
+                                 dirpath_mark,
+                                 basename if retval else directory))
+        # add the files
         if filenames:
             last_file = filenames[-1]
             retval.extend([('%s%s%s' % (''.join(indent),
