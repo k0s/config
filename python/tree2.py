@@ -11,15 +11,17 @@ import sys
 
 # ASCII delimeters
 ascii_delimeters = {
-    VERTICAL_LINE = '|'
-    ITEM = '+'
-    END = '\\'
+    'vertical_line' : '|',
+    'item_marker'   : '+',
+    'last_child'    : '\\'
     }
 
 # unicode delimiters
-VERTICAL_LINE = '│'
-ITEM = '├'
-END  = '└'
+unicode_delimeters = {
+    'vertical_line' : '│',
+    'item_marker'   : '├',
+    'last_child'    : '└'
+    }
 
 def depth(directory):
     """returns the integer depth of a directory or path relative to '/' """
@@ -34,7 +36,9 @@ def depth(directory):
     return level
 
 def tree(directory,
-         item_marker='',
+         item_marker=unicode_delimeters['item_marker'],
+         vertical_line=unicode_delimeters['vertical_line'],
+         last_child=unicode_delimeters['last_child'],
          sort_key=lambda x: x.lower()):
     """
     display tree directory structure for `directory`
@@ -56,27 +60,27 @@ def tree(directory,
         for resource in (dirnames, filenames):
             resource[:] = sorted(resource, key=sort_key)
 
-        files_end =  ITEM
-        dirpath_marker = ITEM
+        files_end =  item_marker
+        dirpath_marker = item_marker
 
         if level > len(indent):
-            indent.append(VERTICAL_LINE)
+            indent.append(vertical_line)
         indent = indent[:level]
 
         if dirnames:
-            files_end = ITEM
+            files_end = item_marker
             last[abspath] = dirnames[-1]
         else:
-            files_end = END
+            files_end = last_child
 
         if last.get(parent) == os.path.basename(abspath):
             # last directory of parent
-            dirpath_mark = END
+            dirpath_mark = last_child
             indent[-1] = ' '
         elif not indent:
             dirpath_mark = ''
         else:
-            dirpath_mark = ITEM
+            dirpath_mark = item_marker
 
         # append the directory and piece of tree structure
         # if the top-level entry directory, print as passed
@@ -87,7 +91,7 @@ def tree(directory,
         if filenames:
             last_file = filenames[-1]
             retval.extend([('%s%s%s' % (''.join(indent),
-                                        files_end if filename == last_file else ITEM,
+                                        files_end if filename == last_file else item_marker,
                                         filename))
                                         for index, filename in enumerate(filenames)])
 
