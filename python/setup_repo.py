@@ -78,8 +78,8 @@ def main(args=sys.argv[1:]):
 
         # write local .hgrc file
         # TODO: use ConfigParser
-        f = file(os.path.join('.hg', 'hgrc'), 'w')
-        print >> f, HGRC % { 'host': HOST, 'repo': repo, 'name': name}
+        with file(os.path.join(directory, '.hg', 'hgrc'), 'w') as f:
+            print >> f, HGRC % { 'host': host, 'repo': repo, 'name': name}
 
         # push changes
         call(['hg', 'push', '-R', directory])
