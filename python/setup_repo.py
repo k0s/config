@@ -25,6 +25,13 @@ default-push = ssh://%(host)s/%(repo)s/%(name)s
 
 call = subprocess.check_output
 
+def init_repo(directory):
+    """setup repository"""
+    call(['hg', 'init', directory])
+    call(['hg', 'add', '-R', directory])
+    call(['hg', 'commit', '-m', options.message, '-R', directory])
+
+
 def main(args=sys.argv[1:]):
 
     # parse command line arguments
@@ -42,16 +49,13 @@ def main(args=sys.argv[1:]):
     if len(args) != 1:
         parser.print_usage()
         parser.exit()
-    # TODO: sanity check for remote_url, remote_path
-
-    # setup repository
     directory = args[0]
-    name = os.path.basename(directory) # XXX unnecessary?
-    call(['hg', 'init', directory])
-    call(['hg', 'add', '-R', directory])
-    call(['hg', 'commit', '-m', options.message, '-R', directory])
+
+    # initialize repository
+    init_repo(directory)
 
     # setup remote, if specified
+    name = os.path.basename(directory)
     if options.remote_url:
 
         # parse remote URL
