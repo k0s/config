@@ -44,8 +44,8 @@ def main(args=sys.argv[1:]):
     parser.add_option('-u', '--remote-url', dest='remote_url',
                       default="http://k0s.org/hg/",
                       help="URL of host hg repository collection [Default: %default]")
-    parser.add_options('-p', '--remote-path', dest='remote_path',
-                       help="remote path of hg repository links; otherwise taken from --remote-url, if specified")
+    parser.add_option('-p', '--remote-path', dest='remote_path',
+                      help="remote path of hg repository links; otherwise taken from --remote-url, if specified")
     options, args = parser.parse_args(args)
     if len(args) != 1:
         parser.print_usage()
