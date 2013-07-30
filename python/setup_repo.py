@@ -13,7 +13,6 @@ import subprocess
 import sys
 import urlparse
 
-from subprocess import check_call as call
 from optparse import OptionParser
 
 
@@ -24,21 +23,12 @@ default = http://%(host)s/%(repo)s/%(name)s
 default-push = ssh://%(host)s/%(repo)s/%(name)s
 """
 
-def call(command, *args, **kw):
-
-    code = subprocess.call(command, *args, **kw)
-    if isinstance(command, basestring):
-        cmdstr = command
-    else:
-        cmdstr = ' '.join(command)
-    print cmdstr
-    if code:
-        raise SystemExit("Command `%s` exited with code %d" % (cmdstr, code))
+call = subprocess.check_output
 
 def main(args=sys.argv[1:]):
 
     # parse command line arguments
-    parser = OptionParser('%prog [options] location')
+    parser = OptionParser('%prog [options] directory')
     parser.add_option('-m', '--message', dest='message',
                       default='initial commit',
                       help='commit message [Default: %default]')
@@ -74,7 +64,8 @@ def main(args=sys.argv[1:]):
             remote_path = path
 
         # setup remote repository
-        call(['ssh', host, "mkdir -p cd %s/%s && hg init && hg add && hg ci -m '%s'" % (repo, name, options.message)])
+        remote_dir = '%s/%s' % (path, name)
+        call(['ssh', host, "mkdir -p %s && cd %s && hg init" % (remote_dir, remote_dir)])
 
         # write local .hgrc file
         # TODO: use ConfigParser
