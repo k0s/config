@@ -1,3 +1,0 @@
-Catalog of Generic Requested Python Implementations That Should Be Written
-
-(empty placeholder)
