@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# TODO: add url2txt as pluggable thingy for smartopen
+
 # xclip -o | sed 's/_//' | sed 's/.html//'
 
 def url2txt(url):

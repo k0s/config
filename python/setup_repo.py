@@ -23,6 +23,20 @@ def init_repo(directory):
     call(['hg', 'add', '-R', directory])
     call(['hg', 'commit', '-m', options.message, '-R', directory])
 
+def write_hgrc(directory, host, repo, name):
+    """write hgrc file"""
+
+    HGRC="""[paths]
+default = http://%(host)s/%(repo)s/%(name)s
+default-push = ssh://%(host)s/%(repo)s/%(remote_path)s
+"""
+
+    path = os.path.join(directory, '.hg', 'hgrc')
+    # TODO: use ConfigParser
+    with file(os.path.join(directory, '.hg', 'hgrc'), 'w') as f:
+        print >> f, HGRC % { 'host': host, 'repo': repo, 'name': name}
+
+
 def setup_remote(local_repo, remote_url, push='ssh', remote_path=None):
     """
     setup a remote repository for local_repo
@@ -43,19 +57,6 @@ def setup_remote(local_repo, remote_url, push='ssh', remote_path=None):
     # setup remote repository
     remote_dir = '%s/%s' % (path, name)
     call(['ssh', host, "mkdir -p %s && cd %s && hg init" % (remote_dir, remote_dir)])
-
-def write_hgrc(directory, host, repo, name):
-    """write hgrc file"""
-
-    HGRC="""[paths]
-default = http://%(host)s/%(repo)s/%(name)s
-default-push = ssh://%(host)s/%(repo)s/%(name)s
-"""
-
-    path = os.path.join(directory, '.hg', 'hgrc')
-    # TODO: use ConfigParser
-    with file(os.path.join(directory, '.hg', 'hgrc'), 'w') as f:
-        print >> f, HGRC % { 'host': host, 'repo': repo, 'name': name}
 
 
 def main(args=sys.argv[1:]):
