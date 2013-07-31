@@ -15,14 +15,6 @@ import urlparse
 
 from optparse import OptionParser
 
-
-# global variables
-HOST='k0s.org'
-HGRC="""[paths]
-default = http://%(host)s/%(repo)s/%(name)s
-default-push = ssh://%(host)s/%(repo)s/%(name)s
-"""
-
 call = subprocess.check_output
 
 def init_repo(directory):
@@ -30,6 +22,40 @@ def init_repo(directory):
     call(['hg', 'init', directory])
     call(['hg', 'add', '-R', directory])
     call(['hg', 'commit', '-m', options.message, '-R', directory])
+
+def setup_remote(local_repo, remote_url, push='ssh', remote_path=None):
+    """
+    setup a remote repository for local_repo
+    - remote_url : public (pull) URL for remote repository
+    - push : protocol for push
+    - remote_path : remote path of hg repository links; otherwise taken from --remote-url, if specified
+    """
+
+    # parse remote URL
+    host, netloc, path, query, anchor = urlparse.urlsplit(options.remote_url)
+    if options.remote_path:
+        remote_host = host
+        if ':' in remote_path:
+            remote_host, remote_path = remote_path.split(':', 1)
+    else:
+        remote_path = path
+
+    # setup remote repository
+    remote_dir = '%s/%s' % (path, name)
+    call(['ssh', host, "mkdir -p %s && cd %s && hg init" % (remote_dir, remote_dir)])
+
+def write_hgrc(directory, host, repo, name):
+    """write hgrc file"""
+
+    HGRC="""[paths]
+default = http://%(host)s/%(repo)s/%(name)s
+default-push = ssh://%(host)s/%(repo)s/%(name)s
+"""
+
+    path = os.path.join(directory, '.hg', 'hgrc')
+    # TODO: use ConfigParser
+    with file(os.path.join(directory, '.hg', 'hgrc'), 'w') as f:
+        print >> f, HGRC % { 'host': host, 'repo': repo, 'name': name}
 
 
 def main(args=sys.argv[1:]):
@@ -44,7 +70,9 @@ def main(args=sys.argv[1:]):
                       help="URL of host hg repository collection [Default: %default]")
     parser.add_option('-p', '--remote-path', dest='remote_path',
                       help="remote path of hg repository links; otherwise taken from --remote-url, if specified")
-    parser.add_option
+    parser.add_option('-o', '--remote-only', dest='remote_only',
+                      action='store_true', default=False,
+                      help="setup remote server only")
     options, args = parser.parse_args(args)
     if len(args) != 1:
         parser.print_usage()
@@ -52,29 +80,14 @@ def main(args=sys.argv[1:]):
     directory = args[0]
 
     # initialize repository
-    init_repo(directory)
+    if not options.remote_only:
+        init_repo(directory)
 
     # setup remote, if specified
     name = os.path.basename(directory)
     if options.remote_url:
 
-        # parse remote URL
-        host, netloc, path, query, anchor = urlparse.urlsplit(options.remote_url)
-        if options.remote_path:
-            remote_host = host
-            if ':' in remote_path:
-                remote_host, remote_path = remote_path.split(':', 1)
-        else:
-            remote_path = path
-
-        # setup remote repository
-        remote_dir = '%s/%s' % (path, name)
-        call(['ssh', host, "mkdir -p %s && cd %s && hg init" % (remote_dir, remote_dir)])
-
-        # write local .hgrc file
-        # TODO: use ConfigParser
-        with file(os.path.join(directory, '.hg', 'hgrc'), 'w') as f:
-            print >> f, HGRC % { 'host': host, 'repo': repo, 'name': name}
+        setup_remote(directory, options.remote_url, remote_path=options.remote_path)
 
         # push changes
         call(['hg', 'push', '-R', directory])
