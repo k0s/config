@@ -36,6 +36,11 @@ class Step(object):
 
 class InitializeRepository(Step):
     """make the home directory a repository"""
+    commands = [
+        ['hg', 'init'],
+        ['hg', 'pull', SRC],
+        ['hg', 'update', '-C'],
+        ]
 
 commands = [
     ['hg', 'init'],
@@ -61,6 +66,8 @@ f.write(hgrc)
 f.close()
 
 def install_develop(package):
+    """install k0s.ware for development"""
+
     src = 'http://k0s.org/hg/%s' % package
     directory = '%s/src/%s' % (package, package)
     commands = [ ['virtualenv/virtualenv.py', package],
@@ -107,8 +114,11 @@ def main(args=sys.argv[1:]):
     usage = '%prog [options]'
     parser = optparse.OptionParser(usage=usage, description=__doc__)
     options, args = parser.parse_args()
+    return
 
     steps = [InitializeRepository]
-
+    for step in steps:
+        
+        
 if __name__ == '__main__':
     main()
