@@ -6,22 +6,18 @@ this can be done with
 curl http://k0s.org/hg/config/raw-file/tip/python/install_config.py | python
 """
 
-SRC='http://k0s.org/hg/config'
-
 import imp
+import optparse
 import os
 import subprocess
 import sys
 
+# config repository
+SRC='http://k0s.org/hg/config'
+
 # go home
 HOME=os.environ['HOME']
 os.chdir(HOME)
-
-commands = [ # make the home directory a repository
-    ['hg', 'init'],
-    ['hg', 'pull', SRC],
-    ['hg', 'update', '-C'],
-    ]
 
 def execute(*commands):
     """execute a series of commands"""
@@ -30,6 +26,22 @@ def execute(*commands):
         code = subprocess.call(command)
         if code:
             sys.exit(code)
+
+class Step(object):
+    @classmethod
+    def check(cls):
+        """checks if the step may be run"""
+    def __call__(self):
+        execute(*self.commands)
+
+class InitializeRepository(Step):
+    """make the home directory a repository"""
+
+commands = [
+    ['hg', 'init'],
+    ['hg', 'pull', SRC],
+    ['hg', 'update', '-C'],
+    ]
 
 execute(*commands)
 
@@ -85,6 +97,18 @@ else:
     print "git not installed"
 
 # - ubuntu packages to install:
-PACKAGES="mercurial unison fluxbox antiword xclip graphviz python-dev python-lxml curl arandr git emacs irssi"
+PACKAGES=["mercurial", "unison", "fluxbox", "antiword", "xclip",
+          "graphviz", "python-dev", "python-lxml", "curl", "arandr",
+          "git", "emacs", "irssi"]
 print "Ensure the following packages are installed:"
-print "sudo apt-get install %s" % PACKAGES
+print "sudo apt-get install %s" % ' '.join(PACKAGES)
+
+def main(args=sys.argv[1:]):
+    usage = '%prog [options]'
+    parser = optparse.OptionParser(usage=usage, description=__doc__)
+    options, args = parser.parse_args()
+
+    steps = [InitializeRepository]
+
+if __name__ == '__main__':
+    main()
