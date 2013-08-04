@@ -19,6 +19,8 @@ SRC='http://k0s.org/hg/config'
 HOME=os.environ['HOME']
 os.chdir(HOME)
 
+### standalone functions
+
 def execute(*commands):
     """execute a series of commands"""
     for command in commands:
@@ -26,44 +28,6 @@ def execute(*commands):
         code = subprocess.call(command)
         if code:
             sys.exit(code)
-
-class Step(object):
-    @classmethod
-    def check(cls):
-        """checks if the step may be run"""
-    def __call__(self):
-        execute(*self.commands)
-
-class InitializeRepository(Step):
-    """make the home directory a repository"""
-    commands = [
-        ['hg', 'init'],
-        ['hg', 'pull', SRC],
-        ['hg', 'update', '-C'],
-        ]
-
-commands = [
-    ['hg', 'init'],
-    ['hg', 'pull', SRC],
-    ['hg', 'update', '-C'],
-    ]
-
-execute(*commands)
-
-
-# get the which command
-sys.path.append(os.path.join(HOME, 'python'))
-from which import which
-
-
-# make a (correct) .hg/hgrc file for $HOME
-hgrc = """[paths]
-default = http://k0s.org/hg/config
-default-push = ssh://k0s.org/hg/config
-"""
-f = file('.hg/hgrc', 'w')
-f.write(hgrc)
-f.close()
 
 def install_develop(package):
     """install k0s.ware for development"""
@@ -79,6 +43,58 @@ def install_develop(package):
     command = ['../../bin/python',  'setup.py', 'develop']
     execute(command)
     os.chdir(old_directory)
+
+
+### process steps
+
+class Step(object):
+    @classmethod
+    def check(cls):
+        """checks if the step may be run"""
+    def __call__(self):
+        execute(*self.commands)
+
+class InitializeRepository(Step):
+    """make the home directory a repository"""
+    commands = [
+        ['hg', 'init'],
+        ['hg', 'pull', SRC],
+        ['hg', 'update', '-C'],
+        ]
+    @classmethd
+    def write_hgrc(self):
+        hgrc = """[paths]
+default = http://k0s.org/hg/config
+default-push = ssh://k0s.org/hg/config
+"""
+        with file('.hg/hgrc', 'w') as f
+            f.write(hgrc)
+    def __call__(self):
+        Step.__call__(self)
+        self.write_hgrc()
+
+commands = [
+    ['hg', 'init'],
+    ['hg', 'pull', SRC],
+    ['hg', 'update', '-C'],
+    ]
+
+execute(*commands)
+
+
+# make a (correct) .hg/hgrc file for $HOME
+hgrc = """[paths]
+default = http://k0s.org/hg/config
+default-push = ssh://k0s.org/hg/config
+"""
+f = file('.hg/hgrc', 'w')
+f.write(hgrc)
+f.close()
+
+# get the which command
+sys.path.append(os.path.join(HOME, 'python'))
+from which import which
+
 
 # do git stuff
 git = which('git')
