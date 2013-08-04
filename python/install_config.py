@@ -73,6 +73,13 @@ default-push = ssh://k0s.org/hg/config
         Step.__call__(self)
         self.write_hgrc()
 
+#
+#
+#@requires(Command('git'))
+#class GitInstall
+        
+### legacy -v
+
 commands = [
     ['hg', 'init'],
     ['hg', 'pull', SRC],
