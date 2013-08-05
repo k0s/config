@@ -97,6 +97,21 @@ function find {
     `which find` -L "$DIR" -not -path '*.svn*' "$@"
 }
 
+function hg {
+    if [[ "$(hg root)" == "${HOME}" ]]
+    then
+        if [[ "$*" == st* ]]
+        then
+            command hg st -q
+            return
+        fi
+        if [[ "$*" == res* ]] || [[ "$*" == pu* ]]
+        then
+            echo "Aborting \'hg $*\'; hg root is ${HOME}!"
+        fi
+    fi
+}
+
 function lsdiff {
     # TODO: extract this general pattern as a bash "decorator"
     if expr "$1" : 'http[s]\?://.*' &> /dev/null
