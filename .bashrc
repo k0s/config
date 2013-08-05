@@ -41,6 +41,7 @@ alias datestamp='date +%Y%m%d%H%M%S'
 alias distribute='python setup.py egg_info -RDb "" sdist register upload'
 alias grep='grep --colour=auto'
 alias ls='ls --color=auto'
+alias maze='python <(curl https://raw.github.com/joewing/maze/master/maze.py)'
 alias patch='patch --reject-file=-'
 alias random="python -c 'import sys, random; foo = sys.argv[1:]; random.shuffle(foo); print \" \".join(foo)'"
 alias weekstamp="date --date=\"$((`date '+%u'`-1)) days ago\" '+%b %d'"
@@ -147,6 +148,7 @@ function colors() {
     CLR_NOTHING="\033[0m"
 }
 colors
+
 
 eend() {
     # edit the end of a file with emacs
