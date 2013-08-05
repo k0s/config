@@ -58,10 +58,10 @@ alias talos-bug="bz new Talos --cc ':jmaher' --cc ':BYK'"
 PS1='│'
 PS2='.'
 PROMPT_COMMAND='echo -ne "\033]0;${SSH_CLIENT/*/$HOSTNAME:}${PWD/~/~}\007"'
-# Alt: PS2='☰'
+# Alt: PS2='☰', PS1='🎩 '
 
 # PATHs
-export PATH=~/firefox:~/bin:~/bin/mozilla:~/python:$PATH:/usr/sbin:/usr/games/bin:~/silvermirror/bin
+export PATH=~/firefox:~/bin:~/bin/mozilla:~/python:$PATH:/usr/sbin:/usr/games/bin:~/silvermirror/bin:~/virtualenv
 export PYTHONPATH=~/python:$PYTHONPATH:~/virtualenv
 
 ### functions
