@@ -111,8 +111,8 @@ function hg {
             echo "Aborting \'hg $*\'; hg root is ${HOME}!"
             return 1
         fi
-        command hg "$@"
     fi
+    command hg "$@"
 }
 
 function lsdiff {
