@@ -97,6 +97,7 @@ function find {
     `which find` -L "$DIR" -not -path '*.svn*' "$@"
 }
 
+# make hg safer since $HOME is versioned
 function hg {
     if [[ "$(command hg root)" == "${HOME}" ]]
     then
@@ -105,11 +106,12 @@ function hg {
             command hg st -q
             return
         fi
-        if [[ "$*" == res* ]] || [[ "$*" == pu* ]]
+        if [[ "$*" == res* ]] || [[ "$*" == pur* ]]
         then
             echo "Aborting \'hg $*\'; hg root is ${HOME}!"
             return 1
         fi
+        command hg "$@"
     fi
 }
 
