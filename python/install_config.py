@@ -133,6 +133,9 @@ PACKAGES=["mercurial", "unison", "fluxbox", "antiword", "xclip",
 print "Ensure the following packages are installed:"
 print "sudo apt-get install %s" % ' '.join(PACKAGES)
 
+# TODO: dl and get ~/web/sync.ini :
+# ln -s /home/jhammel/web/sync.ini /home/jhammel/.silvermirror
+
 def main(args=sys.argv[1:]):
     usage = '%prog [options]'
     parser = optparse.OptionParser(usage=usage, description=__doc__)
@@ -141,7 +144,7 @@ def main(args=sys.argv[1:]):
 
     steps = [InitializeRepository]
     for step in steps:
-        
-        
+        pass # TODO
+
 if __name__ == '__main__':
     main()
