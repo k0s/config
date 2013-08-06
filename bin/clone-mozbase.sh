@@ -23,6 +23,7 @@ else
     cd ${VIRTUAL_ENV}
     . bin/activate
     mkdir -p src
+    cd src
 fi
 
 git clone git@github.com:k0s/mozbase.git
