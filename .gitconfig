@@ -8,7 +8,7 @@
         branchname = git rev-parse --abbrev-ref HEAD
         discard = reset HEAD --hard
         patch = !git diff > ~/$(git rev-parse --abbrev-ref HEAD).diff
-        pushbug = !git push origin $(git rev-parse --abbrev-ref HEAD)
+        pushbranch = !git push origin $(git rev-parse --abbrev-ref HEAD)
         root = rev-parse --show-toplevel
         st = status
         up = !git pull mozilla master && git push origin master
