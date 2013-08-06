@@ -62,7 +62,7 @@ PROMPT_COMMAND='echo -ne "\033]0;${SSH_CLIENT/*/$HOSTNAME:}${PWD/~/~}\007"'
 # Alt: PS2='☰', PS1='🎩 '
 
 # PATHs
-export PATH=~/firefox:~/bin:~/bin/mozilla:~/python:$PATH:/usr/sbin:/usr/games/bin:~/silvermirror/bin:~/virtualenv
+export PATH=~/firefox:~/bin:~/bin/mozilla:~/python:$PATH:/usr/sbin:/usr/games/bin:~/virtualenv~/silvermirror/bin:~/smartopen/bin
 export PYTHONPATH=~/python:$PYTHONPATH:~/virtualenv
 
 ### functions
