@@ -31,3 +31,8 @@ cd mozbase
 git remote add mozilla git@github.com:mozilla/mozbase.git
 git pull mozilla master
 git push origin master
+
+if [ -d "${VIRTUAL_ENV}" ]
+then
+    python setup_development.py
+fi
