@@ -12,3 +12,4 @@
         root = rev-parse --show-toplevel
         st = status
         up = !git pull mozilla master && git push origin master
+        wip = !git commit -a -m 'wip' && git push origin $(git rev-parse --abbrev-ref HEAD)
