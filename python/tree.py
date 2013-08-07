@@ -68,6 +68,17 @@ class Tree(object):
 class DirectoryTree(Tree):
     """directory structure as a tree"""
 
+    def __init__(self, directory):
+        self.directory = directory
+        self._return_type = os.path.abspath
+
+    def children(self):
+        return os.listdir(self.directory) # -> self._return_type
+
+## Serializers
+
+# How to serialize a tree -> JSON?
+
 ###
 
 def tree(directory,
