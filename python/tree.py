@@ -5,6 +5,8 @@
 tree in python
 """
 
+# TODO: script2package
+
 import optparse
 import os
 import sys
@@ -23,6 +25,7 @@ unicode_delimeters = {
     'last_child'    : '└'
     }
 
+
 def depth(directory):
     """returns the integer depth of a directory or path relative to '/' """
 
@@ -34,6 +37,36 @@ def depth(directory):
         if not remainder:
             break
     return level
+
+
+### stuff for tree generalization
+
+class Tree(object):
+    """tree structure in python"""
+
+    def __init__(self, parent=None):
+        self.parent = parent
+
+    def children(self):
+        """returns children of the tree"""
+
+    def add(self, item):
+        """add a child to the tree root"""
+
+    def update(self, tree):
+        """add a subtree to the tree"""
+        self.add(tree)
+        tree.parent = self # XXX .add should probably do this for scary reasons
+
+    def output(self, serializer):
+        """output the tree via the given serializer"""
+        # XXX or should this method exist at all and instead the
+        # __call__ method of serializers take a Tree object?
+
+class DirectoryTree(Tree):
+    """directory structure as a tree"""
+
+###
 
 def tree(directory,
          item_marker=unicode_delimeters['item_marker'],
