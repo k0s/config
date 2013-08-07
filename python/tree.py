@@ -46,9 +46,11 @@ class Tree(object):
 
     def __init__(self, parent=None):
         self.parent = parent
+        self._children = []
 
     def children(self):
         """returns children of the tree"""
+        return self._children # base implementation
 
     def add(self, item):
         """add a child to the tree root"""
