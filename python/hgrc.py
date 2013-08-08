@@ -11,7 +11,7 @@ import optparse
 import os
 import subprocess
 import sys
-from ConfigParser import RawCOnfigParser as ConfigParser
+from ConfigParser import RawConfigParser as ConfigParser
 
 def main(args=sys.argv[1:]):
 
@@ -26,11 +26,11 @@ def main(args=sys.argv[1:]):
                       help="use `default` entries for `default-push`")
     parser.add_option('--push', '--default-push', dest='default_push',
                       help="set [paths] default-push location")
-    options, args = options.parse_args(args)
+    options, args = parser.parse_args(args)
 
     # if not specified, use repo from `hg root`
     if not args:
-        args = [subprocess.check_output(['hg', 'root'])]
+        args = [subprocess.check_output(['hg', 'root']).strip()]
 
     # if not specified, set a default action
     default_action = 'default_push_ssh'
@@ -60,15 +60,17 @@ def main(args=sys.argv[1:]):
                 if not os.path.isdir(subhgdir):
                     not_a_directory.append(subhgdir)
                     continue
+                hgrcpath = os.path.join(subhgdir, 'hgrc')
             else:
                 not_hg.append(path)
                 continue
+            hgrc.append(hgrcpath)
         else:
             assert os.path.isfile(path), "%s is not a file, exiting" % path
-        hgrc.append(path)
+            hgrc.append(path)
 
     # raise errors if encountered
-    if sum(errors.values()):
+    if filter(None, errors.values()):
         for key, value in errors.items():
             if value:
                 print '%s: %s' % (key, ', '.join(value))
