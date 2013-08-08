@@ -1,2 +1,6 @@
-include "/usr/share/themes/Tenebrific/gtk-2.0/gtkrc"
-gtk-key-theme-name = "Emacs"
+# -- THEME AUTO-WRITTEN BY gtk-theme-switch2 DO NOT EDIT
+include "/home/jhammel/.themes/Water Vapor/gtk-2.0/gtkrc"
+
+include "/home/jhammel/.gtkrc-2.0.mine"
+
+# -- THEME AUTO-WRITTEN BY gtk-theme-switch2 DO NOT EDIT
