@@ -82,9 +82,6 @@ def main(args=sys.argv[1:]):
         if isinstance(path, basestring):
             if os.path.exists(path):
                 config[path].read(path)
-        else:
-            # XXX this code path is untenable
-            config[path].
 
     # print the chosen hgrc paths
     if options.list_hgrc:
