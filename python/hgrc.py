@@ -3,32 +3,40 @@
 """
 Script for modifying hgrc files.
 
-Actions:
-(TBD)
+If no arguments specified, the repository given by `hg root` is used.
 """
+
 # imports
 import optparse
 import os
+import subprocess
 import sys
 from ConfigParser import RawCOnfigParser as ConfigParser
 
 def main(args=sys.argv[1:]):
 
-    # command line parser
+    # parse command line arguments
     usage = '%prog [options] repository <repository> <...>'
     parser = optparse.OptionParser(usage=usage, description=__doc__)
-    parser.add_option('-p', '--print', dest='print_hgrc',
+    parser.add_option('-l', '--list', dest='list_hgrc',
                       action='store_true', default=False,
-                      help="print full path to hgrc files and exit")
+                      help="list full path to hgrc files")
     parser.add_option('--ssh', dest='default_push_ssh',
                       action='store_true', default=False,
                       help="use `default` entries for `default-push`")
     parser.add_option('--push', '--default-push', dest='default_push',
                       help="set [paths] default-push location")
     options, args = options.parse_args(args)
+
+    # if not specified, use repo from `hg root`
     if not args:
-        parser.print_usage()
-        parser.exit()
+        args = [subprocess.check_output(['hg', 'root'])]
+
+    # if not specified, set a default action
+    default_action = 'default_push_ssh'
+    actions = ('default_push',
+               'default_push_ssh',
+               )
 
     # find all hgrc files
     hgrc = []
@@ -78,10 +86,10 @@ def main(args=sys.argv[1:]):
             # XXX this code path is untenable
             config[path].
 
-    if options.print_hgrc:
-        # print the chosen hgrc paths and you're done
+    # print the chosen hgrc paths
+    if options.list_hgrc:
         print '\n'.join(hgrc)
-        parser.exit()
+
 
 if __name__ == '__main__':
     main()
