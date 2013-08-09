@@ -40,12 +40,12 @@ def strip_first_column(lines, separator=None):
         if not line:
             continue # XXX desirable?
         prefix, rest = line.split(separator, 1)
-        if length is not None:
+        if length is None:
             length = len(prefix)
         else:
             if len(prefix) != length:
                 if not line[:len(prefix)].isspace():
-                    raise AssertionError # XXX
+                    raise AssertionError("Non whitespace found below pre (%s) in line %s" % (length, line))
         stripped.append(line[length:])
     return stripped
 
@@ -76,7 +76,7 @@ def join(lines):
                 if last:
                     last = '%s %s' % (last, line.strip())
                 else:
-                    joined.append(line.strip()
+                    joined.append(line.strip())
             else:
                 if last:
                     joined.append(last)
@@ -98,5 +98,12 @@ def main(args=sys.argv[1:]):
     #    parser.add_option - strip nicks
     options, args = parser.parse_args(args)
 
+    log = sys.stdin.read().strip()
+
+    # strip timestamps
+    lines = strip_first_column(log)
+
+    print '\n'.join(lines)
+    
 if __name__ == '__main__':
     main()
