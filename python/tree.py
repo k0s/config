@@ -77,6 +77,21 @@ class DirectoryTree(Tree):
 
 ## Serializers
 
+def tree2html(tree):
+    """
+    .
+    ├── a8e.py
+    ├── abstract.py
+    ├── accentuate.py
+
+    ->
+
+    <ul>
+    <li>a8e.py</li>
+    ...
+    """
+
+
 # How to serialize a tree -> JSON?
 
 ###
