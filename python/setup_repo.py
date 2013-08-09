@@ -56,7 +56,8 @@ def setup_remote(local_repo, remote_url, push='ssh', remote_path=None):
 
     # setup remote repository
     remote_dir = '%s/%s' % (path, name)
-    call(['ssh', host, "mkdir -p %s && cd %s && hg init" % (remote_dir, remote_dir)])
+    command = ['ssh', host, "mkdir -p %s && cd %s && hg init" % (remote_dir, remote_dir)]
+    call(command)
 
 
 def main(args=sys.argv[1:]):
@@ -75,13 +76,15 @@ def main(args=sys.argv[1:]):
                       action='store_true', default=False,
                       help="setup remote server only")
     options, args = parser.parse_args(args)
-    if len(args) != 1:
-        parser.print_usage()
-        parser.exit()
-    directory = args[0]
 
     # initialize repository
-    if not options.remote_only:
+    if options.remote_only:
+        assert options.remote_url
+    else:
+        if len(args) != 1:
+            parser.print_usage()
+            parser.exit()
+        directory = args[0]
         init_repo(directory)
 
     # setup remote, if specified
