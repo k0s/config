@@ -39,7 +39,11 @@ def strip_first_column(lines, separator=None):
     for line in lines:
         if not line:
             continue # XXX desirable?
-        prefix, rest = line.split(separator, 1)
+        try:
+                prefix, rest = line.split(separator, 1)
+        except ValueError:
+                import pdb; pdb.set_trace()
+                prefix, rest = None, None
         if length is None:
             length = len(prefix)
         else:
@@ -56,9 +60,9 @@ def remove_lines(lines, startswith):
     # really, one could take most functions for str and map -> lines
 
 @splitlines
-def remove_time(lines):
-    """removes leading 24 hour timestamp: HH:MM"""
-    # XXX :ss?
+def remove_prefix_stamp(lines, stamp):
+    """removes leading stamp: HH:MM"""
+    return [line[len(stamp):] for line in lines]
 
 @splitlines
 def join(lines):
@@ -88,8 +92,11 @@ def join(lines):
 
 ### CLI
 
+
+
 def main(args=sys.argv[1:]):
 
+    # parse command line
     usage = '%prog [options]'
     parser = optparse.OptionParser(usage=usage, description=__doc__)
     parser.add_option('-i', '--in-place', dest='in_place',
@@ -104,6 +111,7 @@ def main(args=sys.argv[1:]):
     lines = strip_first_column(log)
 
     import pdb; pdb.set_trace()
+    
 
     print '\n'.join(lines)
 
