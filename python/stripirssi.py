@@ -103,7 +103,9 @@ def main(args=sys.argv[1:]):
     # strip timestamps
     lines = strip_first_column(log)
 
+    import pdb; pdb.set_trace()
+
     print '\n'.join(lines)
-    
+
 if __name__ == '__main__':
     main()
