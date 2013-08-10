@@ -52,7 +52,10 @@ def setup_remote(local_repo, remote_url, push='ssh', remote_path=None):
 
     # parse remote URL
     host, netloc, path, query, anchor = urlparse.urlsplit(remote_url)
-    if options.remote_path:
+    if remote_path:
+
+        # split off remote host and path
+        # XXX is a separate host necessary?
         remote_host = host
         if ':' in remote_path:
             remote_host, remote_path = remote_path.split(':', 1)
