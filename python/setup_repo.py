@@ -82,14 +82,18 @@ def main(args=sys.argv[1:]):
                       help="setup remote server only")
     options, args = parser.parse_args(args)
 
+    # sanitization
+    if not args:
+        args = [os.getcwd()]
+    if len(args) != 1:
+        parser.print_usage()
+        parser.exit()
+    directory = args[0]
+
     # initialize repository
     if options.remote_only:
         assert options.remote_url
     else:
-        if len(args) != 1:
-            parser.print_usage()
-            parser.exit()
-        directory = args[0]
         init_repo(directory)
 
     # setup remote, if specified
