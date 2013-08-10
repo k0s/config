@@ -42,7 +42,7 @@ default-push = ssh://%(host)s/%(repo)s/%(remote_path)s
         print >> f, HGRC % { 'host': host, 'repo': repo, 'name': name}
 
 
-def setup_remote(local_repo, remote_url, push='ssh', remote_path=None):
+def setup_remote(local_repo, remote_url, push='ssh', remote_path=None, name=None):
     """
     setup a remote repository for local_repo
     - remote_url : public (pull) URL for remote repository
@@ -52,6 +52,17 @@ def setup_remote(local_repo, remote_url, push='ssh', remote_path=None):
 
     # parse remote URL
     host, netloc, path, query, anchor = urlparse.urlsplit(remote_url)
+    path = path.rstrip('/')
+
+    # derive name
+    if name is None:
+        if '/' in path:
+            prefix, name = path.rsplit('/', 1)
+        else:
+            name = path
+    assert name
+
+    # get remote path, if specified
     if remote_path:
 
         # split off remote host and path
@@ -63,7 +74,7 @@ def setup_remote(local_repo, remote_url, push='ssh', remote_path=None):
         remote_path = path
 
     # setup remote repository
-    remote_dir = '%s/%s' % (path, name)
+    remote_dir = '~/%s/%s' % (path.lstrip('/'), name)
     command = ['ssh', host, "mkdir -p %s && cd %s && hg init" % (remote_dir, remote_dir)]
     print command
     #    call(command)
@@ -105,7 +116,7 @@ def main(args=sys.argv[1:]):
     if options.remote_url:
 
         # setup remote repository
-        setup_remote(directory, options.remote_url, remote_path=options.remote_path)
+        setup_remote(directory, options.remote_url, name=name, remote_path=options.remote_path)
 
         # push changes
         call(['hg', 'push', '-R', directory])
