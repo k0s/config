@@ -51,7 +51,7 @@ def setup_remote(local_repo, remote_url, push='ssh', remote_path=None):
     """
 
     # parse remote URL
-    host, netloc, path, query, anchor = urlparse.urlsplit(options.remote_url)
+    host, netloc, path, query, anchor = urlparse.urlsplit(remote_url)
     if options.remote_path:
         remote_host = host
         if ':' in remote_path:
@@ -62,7 +62,8 @@ def setup_remote(local_repo, remote_url, push='ssh', remote_path=None):
     # setup remote repository
     remote_dir = '%s/%s' % (path, name)
     command = ['ssh', host, "mkdir -p %s && cd %s && hg init" % (remote_dir, remote_dir)]
-    call(command)
+    print command
+    #    call(command)
 
 
 def main(args=sys.argv[1:]):
@@ -100,6 +101,7 @@ def main(args=sys.argv[1:]):
     name = os.path.basename(directory)
     if options.remote_url:
 
+        # setup remote repository
         setup_remote(directory, options.remote_url, remote_path=options.remote_path)
 
         # push changes
