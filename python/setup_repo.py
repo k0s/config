@@ -8,6 +8,11 @@ Parameters:
 - location on host disk
 """
 
+# TODO:
+# There are patterns here...
+# - actions
+# - ...
+
 import os
 import subprocess
 import sys
