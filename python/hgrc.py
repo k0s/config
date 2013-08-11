@@ -26,6 +26,8 @@ def set_default_push_to_ssh(parser):
     turn the protocol to 'ssh'
     """
 
+    import pdb; pdb.set_trace()
+
     # get default path
     default = ''
 
