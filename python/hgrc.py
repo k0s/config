@@ -108,13 +108,20 @@ def main(args=sys.argv[1:]):
                 config[path].read(path)
 
     # print the chosen hgrc paths
-    if options.list_hgrc:
+    if actions.pop('list_hgrc', None):
         print '\n'.join(hgrc)
 
-    # alter .hgrc files
-    for path, ini in config.items():
+    # map of actions -> functions;
+    # XXX this is pretty improv; to be improved
+    action_map = {'default_push_ssh': set_default_push_to_ssh
+                  'default_push': set_default_push
+        }
 
-        import pdb; pdb.set_trace()
+    # alter .hgrc files
+    while actions:
+
+        for path, ini in config.items():
+            import pdb; pdb.set_trace()
 
 if __name__ == '__main__':
     main()
