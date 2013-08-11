@@ -22,7 +22,8 @@ def set_default_push(parser, default_push):
 
 def set_default_push_to_ssh(parser):
     """
-    pass
+    set `[path]:default_push` to that given by `[path]:default` but
+    turn the protocol to 'ssh'
     """
 
     # get default path
