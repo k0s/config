@@ -34,7 +34,7 @@ def main(args=sys.argv[1:]):
 
     # if not specified, set a default action
     default_action = 'default_push_ssh'
-    avaiable_actions = ('default_push',
+    available_actions = ('default_push',
                         'default_push_ssh',
                         'list_hgrc',
                         )
