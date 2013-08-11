@@ -21,18 +21,19 @@ class section(object):
     def __init__(self, section_name, *section_names):
         self.sections = [section_name]
         self.sections.extend(section_names)
-    def __call__(self, parser):
+    def __call__(self, function):
         def wrapped(parser, *args, **kwargs):
             for section in self.sections:
                 if section not in parser.sections():
                     parser.add_section(section)
-            f(*args, **kwargs)
+            function(parser, *args, **kwargs)
         return wrapped
 
 #@parser # decorator makes this x-form path -> ConfigParser automagically
 @section('paths')
 def set_default(parser, default):
     """set [paths]:default"""
+    print 'OIOIOIOI!'
 
 @section('paths')
 def set_default_push(parser, default_push):
@@ -176,7 +177,7 @@ def main(args=sys.argv[1:]):
     print_ini = actions.pop('print_ini', None)
 
     # alter .hgrc files
-    for action_name, parameter in actions:
+    for action_name, parameter in actions.items():
 
         # XXX crappy
         method = action_map[action_name]
@@ -187,10 +188,10 @@ def main(args=sys.argv[1:]):
         for path, ini in config.items():
 
             # call method with parser
-            if parameter is not None:
-                method(ini, parameter)
-            else:
+            if parameter is None:
                 method(ini)
+            else:
+                method(ini, parameter)
 
     # print .hgrc files, if specified
     if print_ini:
