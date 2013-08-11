@@ -14,6 +14,7 @@ import sys
 import urlparse
 from collections import OrderedDict
 from ConfigParser import RawConfigParser as ConfigParser
+from StringIO import StringIO
 
 ### global methods
 
@@ -86,6 +87,9 @@ def main(args=sys.argv[1:]):
     parser.add_option('-p', '--print', dest='print_ini',
                       action='store_true', default=False,
                       help="print .ini contents")
+    parser.add_option('--dry-run', dest='dry_run',
+                      action='store_true', default=False,
+                      help="don't write to disk")
     options, args = parser.parse_args(args)
 
     # sanitization
@@ -194,10 +198,17 @@ def main(args=sys.argv[1:]):
 
     # print .hgrc files, if specified
     if print_ini:
+        values = []
         for path, ini in config.items():
-            print '+++ %s' % (path)
-            ini.write(sys.stdout)
-            print
+            _buffer = StringIO()
+            ini.write(_buffer)
+            values.append('+++ %s\n%s' % (path, _buffer.getvalue()))
+        print '\n'.join(values)
+
+    # write .ini files
+    for path, ini in config.items():
+        with file(path, 'w') as f:
+            ini.write(f)
 
 if __name__ == '__main__':
     main()
