@@ -15,18 +15,23 @@ import urlparse
 from ConfigParser import RawConfigParser as ConfigParser
 
 class section(object):
-    def __init__(self, function, section_name, *section_names):
-        self.function = function
+    def __init__(self, section_name, *section_names):
         self.sections = [section_name]
         self.sections.extend(section_names)
     def __call__(self, parser):
-        import pdb; pdb.set_trace()
+        def wrapped(parser, *args, **kwargs):
+            for section in self.sections:
+                if section not in parser.sections():
+                    parser.add_section(section)
+            f(*args, **kwargs)
+        return wrapped
 
 #@parser # decorator makes this x-form path -> ConfigParser automagically
 @section('paths')
 def set_default(parser, default):
     """set [paths]:default"""
 
+@section('paths')
 def set_default_push(parser, default_push):
     """
     set [paths]:default-push to `default_push`
@@ -97,7 +102,7 @@ def main(args=sys.argv[1:]):
                         )
     actions = [(name, getattr(options, name))
                for name in available_actions
-               if getattr(options, name)])
+               if getattr(options, name)]
     if not actions:
         actions = [('default_push_ssh', True)]
 
@@ -152,8 +157,10 @@ def main(args=sys.argv[1:]):
     if options.list_hgrc:
         print '\n'.join(hgrc)
 
+        # remove from actions list
         # TODO -> OrderedDict
-        actions.pop('list_hgrc', None):
+        actions.pop('list_hgrc', None)
+        actions.pop()
 
     # map of actions -> functions;
     # XXX this is pretty improv; to be improved
