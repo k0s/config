@@ -34,6 +34,7 @@ def call(command, *args, **kwargs):
         command_str = ' '.join(command)
     print 'Running:\n%s' % (command_str)
     if globals()['dry_run']:
+        import pdb; pdb.set_trace()
         return
     return subprocess.check_output(*args, **kwargs)
 
@@ -93,8 +94,7 @@ def setup_remote(local_repo, remote_url, push='ssh', remote_path=None, name=None
     # setup remote repository
     remote_dir = '~/%s/%s' % (path.lstrip('/'), name)
     command = ['ssh', host, "mkdir -p %s && cd %s && hg init" % (remote_dir, remote_dir)]
-    print command
-    #    call(command)
+    call(command)
 
 
 def main(args=sys.argv[1:]):
@@ -141,8 +141,7 @@ def main(args=sys.argv[1:]):
 
         # push changes
         command = ['hg', 'push', '-R', directory]
-        print command
-        # call(command)
+        call(command)
 
 if __name__ == '__main__':
   main()
