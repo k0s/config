@@ -33,6 +33,8 @@ def call(command, *args, **kwargs):
     else:
         command_str = ' '.join(command)
     print 'Running:\n%s' % (command_str)
+    if globals()['dry_run']:
+        return
     return subprocess.check_output(*args, **kwargs)
 
 def init_repo(directory):
