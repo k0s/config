@@ -112,8 +112,11 @@ def main(args=sys.argv[1:]):
                for name in available_actions
                if getattr(options, name)]
     if not actions:
+        # add a default action for our convenience
         actions = [('default_push_ssh', True)]
     actions = OrderedDict(actions)
+    if not actions:
+        parser.error("Please specify an action")
 
     # find all hgrc files
     hgrc = []
