@@ -12,7 +12,10 @@ import os
 import subprocess
 import sys
 import urlparse
+from collections import OrderedDict
 from ConfigParser import RawConfigParser as ConfigParser
+
+### global methods
 
 class section(object):
     def __init__(self, section_name, *section_names):
@@ -78,7 +81,7 @@ def main(args=sys.argv[1:]):
                       help="use `default` entries for `default-push`")
     parser.add_option('--push', '--default-push', dest='default_push',
                       help="set [paths] default-push location")
-    parser.add_option('--default', dest='default',
+    parser.add_option('-d', '--default', dest='default',
                       help="set [paths] default entry")
     parser.add_option('-p', '--print', dest='print_ini',
                       action='store_true', default=False,
@@ -98,13 +101,15 @@ def main(args=sys.argv[1:]):
     available_actions = ('default',
                          'default_push',
                          'default_push_ssh',
+                         'print_ini',
                          'list_hgrc',
                         )
     actions = [(name, getattr(options, name))
                for name in available_actions
-               if getattr(options, name)]
+               if getattr(options, name)])
     if not actions:
         actions = [('default_push_ssh', True)]
+    actions = OrderedDict(actions)
 
     # find all hgrc files
     hgrc = []
@@ -154,19 +159,21 @@ def main(args=sys.argv[1:]):
                 config[path].read(path)
 
     # print the chosen hgrc paths
-    if options.list_hgrc:
+    if 'list_hgrc' in actions:
         print '\n'.join(hgrc)
 
         # remove from actions list
-        # TODO -> OrderedDict
-        #        actions.pop('list_hgrc', None)
-        actions.pop()
+        actions.pop('list_hgrc', None)
 
     # map of actions -> functions;
     # XXX this is pretty improv; to be improved
     action_map = {'default_push_ssh': set_default_push_to_ssh,
-                  'default_push': set_default_push
+                  'default_push': set_default_push,
+                  'default': set_default
                   }
+
+    # cache for later (XXX)
+    print_ini = actions.pop('print_ini', None)
 
     # alter .hgrc files
     for action_name, parameter in actions:
@@ -186,10 +193,11 @@ def main(args=sys.argv[1:]):
                 method(ini)
 
     # print .hgrc files, if specified
-    for path, ini in config.items():
-        print '+++ %s' % (path)
-        ini.write(sys.stdout)
-        print
+    if print_ini:
+        for path, ini in config.items():
+            print '+++ %s' % (path)
+            ini.write(sys.stdout)
+            print
 
 if __name__ == '__main__':
     main()
