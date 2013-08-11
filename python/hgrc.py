@@ -122,7 +122,8 @@ def main(args=sys.argv[1:]):
     while actions:
 
         # XXX crappy
-        action, parameter = actions.pop(action_names.pop())
+        action_name = action_names.pop()
+        parameter = actions.pop(action_name)
 
         # apply to all files
         for path, ini in config.items():
