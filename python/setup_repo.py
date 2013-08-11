@@ -52,8 +52,9 @@ def setup_remote(local_repo, remote_url, push='ssh', remote_path=None, name=None
     """
 
     # parse remote URL
-    host, netloc, path, query, anchor = urlparse.urlsplit(remote_url)
+    scheme, netloc, path, query, anchor = urlparse.urlsplit(remote_url)
     path = path.rstrip('/')
+    host = netloc # -> host, port, etc
 
     # derive name
     if name is None:
