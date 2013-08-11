@@ -113,13 +113,18 @@ def main(args=sys.argv[1:]):
 
     # map of actions -> functions;
     # XXX this is pretty improv; to be improved
-    action_map = {'default_push_ssh': set_default_push_to_ssh
+    action_map = {'default_push_ssh': set_default_push_to_ssh,
                   'default_push': set_default_push
-        }
+                  }
 
     # alter .hgrc files
+    action_names = actions.keys()
     while actions:
 
+        # XXX crappy
+        action, parameter = actions.pop(action_names.pop())
+
+        # apply to all files
         for path, ini in config.items():
             import pdb; pdb.set_trace()
 
