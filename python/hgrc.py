@@ -90,15 +90,16 @@ def main(args=sys.argv[1:]):
 
     # if not specified, set a default action
     default_action = 'default_push_ssh'
-    available_actions = ('default_push',
-                        'default_push_ssh',
-                        'list_hgrc',
+    available_actions = ('default',
+                         'default_push',
+                         'default_push_ssh',
+                         'list_hgrc',
                         )
-    actions = dict([(name, getattr(options, name))
-                    for name in available_actions
-                    if getattr(options, name)])
+    actions = [(name, getattr(options, name))
+               for name in available_actions
+               if getattr(options, name)])
     if not actions:
-        actions = {'default_push_ssh': True}
+        actions = [('default_push_ssh', True)]
 
     # find all hgrc files
     hgrc = []
@@ -148,8 +149,11 @@ def main(args=sys.argv[1:]):
                 config[path].read(path)
 
     # print the chosen hgrc paths
-    if actions.pop('list_hgrc', None):
+    if options.list_hgrc:
         print '\n'.join(hgrc)
+
+        # TODO -> OrderedDict
+        actions.pop('list_hgrc', None):
 
     # map of actions -> functions;
     # XXX this is pretty improv; to be improved
@@ -158,18 +162,17 @@ def main(args=sys.argv[1:]):
                   }
 
     # alter .hgrc files
-    action_names = actions.keys()
-    while actions:
+    for action_name, parameter in actions:
 
         # XXX crappy
-        action_name = action_names.pop()
-        parameter = actions.pop(action_name)
         method = action_map[action_name]
         if action_name == 'default_push_ssh':
             parameter = None
 
         # apply to all files
         for path, ini in config.items():
+
+            # call method with parser
             if parameter is not None:
                 method(ini, parameter)
             else:
