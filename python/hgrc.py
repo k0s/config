@@ -159,7 +159,7 @@ def main(args=sys.argv[1:]):
 
         # remove from actions list
         # TODO -> OrderedDict
-        actions.pop('list_hgrc', None)
+        #        actions.pop('list_hgrc', None)
         actions.pop()
 
     # map of actions -> functions;
