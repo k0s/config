@@ -11,7 +11,7 @@ Parameters:
 # TODO:
 # There are patterns here...
 # - actions
-# - ...
+# - --dry-run/call()
 
 import os
 import subprocess
@@ -20,7 +20,8 @@ import urlparse
 
 from optparse import OptionParser
 
-call = subprocess.check_output
+def call(command, *args, **kwargs):
+    return subprocess.check_output(*args, **kwargs)
 
 def init_repo(directory):
     """setup repository"""
@@ -119,7 +120,9 @@ def main(args=sys.argv[1:]):
         setup_remote(directory, options.remote_url, name=name, remote_path=options.remote_path)
 
         # push changes
-        call(['hg', 'push', '-R', directory])
+        command = ['hg', 'push', '-R', directory]
+        print command
+        # call(command)
 
 if __name__ == '__main__':
   main()
