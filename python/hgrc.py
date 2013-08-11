@@ -13,14 +13,17 @@ import subprocess
 import sys
 from ConfigParser import RawConfigParser as ConfigParser
 
+#@parser # decorator makes this x-form path -> ConfigParser automagically
 def set_default_push(parser, default_push):
     """
     set [paths]:default_push to `default_push`
     """
     pass
 
-def set_default_push_to_ssh():
+def set_default_push_to_ssh(parser):
+    """
     pass
+    """
 
 def main(args=sys.argv[1:]):
 
@@ -110,6 +113,7 @@ def main(args=sys.argv[1:]):
 
     # alter .hgrc files
     for path, ini in config.items():
+
         import pdb; pdb.set_trace()
 
 if __name__ == '__main__':
