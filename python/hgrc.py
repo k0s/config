@@ -56,7 +56,7 @@ def main(args=sys.argv[1:]):
                         )
     actions = dict([(name, getattr(options, name))
                     for name in available_actions
-                    if getattr(options, name) is not None])
+                    if getattr(options, name)])
     if not actions:
         actions = {'default_push_ssh': True}
 
