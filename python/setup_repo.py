@@ -22,6 +22,10 @@ from optparse import OptionParser
 
 string = (basestring,)
 
+# global variables that probably shouldn't be
+dry_run = True
+verbose = True
+
 def call(command, *args, **kwargs):
 
     if isinstance(command, string):
@@ -46,7 +50,8 @@ default-push = ssh://%(host)s/%(repo)s/%(remote_path)s
 """
 
     path = os.path.join(directory, '.hg', 'hgrc')
-    # TODO: use ConfigParser
+    # TODO: use ConfigParser and i.e
+    # http://k0s.org/hg/config/file/95afeaf9c42d/python/hgrc.py
     with file(os.path.join(directory, '.hg', 'hgrc'), 'w') as f:
         print >> f, HGRC % { 'host': host, 'repo': repo, 'name': name}
 
@@ -105,6 +110,9 @@ def main(args=sys.argv[1:]):
     parser.add_option('-o', '--remote-only', dest='remote_only',
                       action='store_true', default=False,
                       help="setup remote server only")
+    parser.add_option('--dry-run', dest='dry_run',
+                      action='store_true', default=True,
+                      help="")
     options, args = parser.parse_args(args)
 
     # sanitization
