@@ -14,8 +14,16 @@ import sys
 import urlparse
 from ConfigParser import RawConfigParser as ConfigParser
 
+class section(object):
+    def __init__(self, function, section_name, *section_names):
+        self.function = function
+        self.sections = [section_name]
+        self.sections.extend(section_names)
+    def __call__(self, parser):
+        import pdb; pdb.set_trace()
+
 #@parser # decorator makes this x-form path -> ConfigParser automagically
-#@section('paths')
+@section('paths')
 def set_default(parser, default):
     """set [paths]:default"""
 
