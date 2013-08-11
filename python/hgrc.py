@@ -11,9 +11,11 @@ import optparse
 import os
 import subprocess
 import sys
+import urlparse
 from ConfigParser import RawConfigParser as ConfigParser
 
 #@parser # decorator makes this x-form path -> ConfigParser automagically
+#@section('paths')
 def set_default_push(parser, default_push):
     """
     set [paths]:default_push to `default_push`
@@ -22,14 +24,23 @@ def set_default_push(parser, default_push):
 
 def set_default_push_to_ssh(parser):
     """
-    set `[path]:default_push` to that given by `[path]:default` but
+    set `[paths]:default_push` to that given by `[paths]:default` but
     turn the protocol to 'ssh'
+    If `[paths]:default` is not there, do nothing.
+    Returns True if written, otherwise False
     """
 
-    import pdb; pdb.set_trace()
+    # get [paths]:default value
+    if 'paths' not in parser.sections():
+        return False
+    if not parser.has_option('paths', 'default'):
+        return False
+    default = parser.get('paths', 'default')
 
-    # get default path
-    default = ''
+    # parse URL
+    scheme, netloc, path, query, anchor = urlparse.urlsplit(default)
+    ssh_url = urlparse.urlunsplit(('ssh', netloc, path, query, anchor))
+
 
 def main(args=sys.argv[1:]):
 
