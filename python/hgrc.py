@@ -106,7 +106,7 @@ def main(args=sys.argv[1:]):
                         )
     actions = [(name, getattr(options, name))
                for name in available_actions
-               if getattr(options, name)])
+               if getattr(options, name)]
     if not actions:
         actions = [('default_push_ssh', True)]
     actions = OrderedDict(actions)
