@@ -25,6 +25,9 @@ def set_default_push_to_ssh(parser):
     pass
     """
 
+    # get default path
+    default = ''
+
 def main(args=sys.argv[1:]):
 
     # parse command line arguments
@@ -124,10 +127,15 @@ def main(args=sys.argv[1:]):
         # XXX crappy
         action_name = action_names.pop()
         parameter = actions.pop(action_name)
+        method = action_map[action_name]
 
         # apply to all files
         for path, ini in config.items():
-            import pdb; pdb.set_trace()
+            if parameter is not None:
+                method(ini, parameter)
+            else:
+                method(ini)
+
 
 if __name__ == '__main__':
     main()
