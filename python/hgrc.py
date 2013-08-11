@@ -131,6 +131,8 @@ def main(args=sys.argv[1:]):
         action_name = action_names.pop()
         parameter = actions.pop(action_name)
         method = action_map[action_name]
+        if action_name == 'default_push_ssh':
+            parameter = None
 
         # apply to all files
         for path, ini in config.items():
