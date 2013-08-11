@@ -33,7 +33,7 @@ class section(object):
 @section('paths')
 def set_default(parser, default):
     """set [paths]:default"""
-    parser.set('paths', 'default-push', default_push)
+    parser.set('paths', 'default', default)
 
 
 @section('paths')
