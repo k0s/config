@@ -23,7 +23,7 @@ from optparse import OptionParser
 string = (basestring,)
 
 # global variables that probably shouldn't be
-dry_run = True
+dry_run = True # XXX instead, should have runner class
 verbose = True
 
 def call(command, *args, **kwargs):
@@ -122,6 +122,7 @@ def main(args=sys.argv[1:]):
         parser.print_usage()
         parser.exit()
     directory = args[0]
+    globals()['dry_run'] = options.dry_run
 
     # initialize repository
     if options.remote_only:
