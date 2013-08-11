@@ -20,7 +20,15 @@ import urlparse
 
 from optparse import OptionParser
 
+string = (basestring,)
+
 def call(command, *args, **kwargs):
+
+    if isinstance(command, string):
+        command_str = command
+    else:
+        command_str = ' '.join(command)
+    print 'Running:\n%s' % (command_str)
     return subprocess.check_output(*args, **kwargs)
 
 def init_repo(directory):
