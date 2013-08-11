@@ -31,7 +31,12 @@ def call(command, *args, **kwargs):
     if isinstance(command, string):
         command_str = command
     else:
-        command_str = ' '.join(command)
+        if len(command) == 1:
+            command_str = command[0]
+        else:
+            command_str = '%s %s' % (command[0],
+                                     ' '.join(["'%s'" % i
+                                               for i in command[1:])))
     print 'Running:\n%s' % (command_str)
     if globals()['dry_run']:
         return
