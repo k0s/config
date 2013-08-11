@@ -18,13 +18,16 @@ from ConfigParser import RawConfigParser as ConfigParser
 #@section('paths')
 def set_default_push(parser, default_push):
     """
-    set [paths]:default_push to `default_push`
+    set [paths]:default-push to `default_push`
     """
-    pass
+    if 'paths' not in parser.sections():
+        parser.add_section('paths')
+    parser.set('paths', 'default-push', default_push)
+
 
 def set_default_push_to_ssh(parser):
     """
-    set `[paths]:default_push` to that given by `[paths]:default` but
+    set `[paths]:default-push` to that given by `[paths]:default` but
     turn the protocol to 'ssh'
     If `[paths]:default` is not there, do nothing.
     Returns True if written, otherwise False
@@ -41,6 +44,10 @@ def set_default_push_to_ssh(parser):
     scheme, netloc, path, query, anchor = urlparse.urlsplit(default)
     ssh_url = urlparse.urlunsplit(('ssh', netloc, path, query, anchor))
 
+    # set
+    set_default_push(parser, ssh_url)
+    return True # XXX could instead be url to set to or old value
+
 
 def main(args=sys.argv[1:]):
 
@@ -55,6 +62,9 @@ def main(args=sys.argv[1:]):
                       help="use `default` entries for `default-push`")
     parser.add_option('--push', '--default-push', dest='default_push',
                       help="set [paths] default-push location")
+    parser.add_option('-p', '--print', dest='print_ini',
+                      action='store_true', default=False,
+                      help="print .ini contents")
     options, args = parser.parse_args(args)
 
     # sanitization
@@ -152,6 +162,11 @@ def main(args=sys.argv[1:]):
             else:
                 method(ini)
 
+    # print .hgrc files, if specified
+    for path, ini in config.items():
+        print '+++ %s' % (path)
+        ini.write(sys.stdout)
+        print
 
 if __name__ == '__main__':
     main()
