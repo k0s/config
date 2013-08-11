@@ -33,15 +33,14 @@ class section(object):
 @section('paths')
 def set_default(parser, default):
     """set [paths]:default"""
-    print 'OIOIOIOI!'
+    parser.set('paths', 'default-push', default_push)
+
 
 @section('paths')
 def set_default_push(parser, default_push):
     """
     set [paths]:default-push to `default_push`
     """
-    if 'paths' not in parser.sections():
-        parser.add_section('paths')
     parser.set('paths', 'default-push', default_push)
 
 
