@@ -34,9 +34,15 @@ def main(args=sys.argv[1:]):
 
     # if not specified, set a default action
     default_action = 'default_push_ssh'
-    actions = ('default_push',
-               'default_push_ssh',
-               )
+    avaiable_actions = ('default_push',
+                        'default_push_ssh',
+                        'list_hgrc',
+                        )
+    actions = dict([(name, getattr(options, name))
+                    for name in available_actions
+                    if getattr(options, name) is not None])
+    if not actions:
+        actions = {'default_push_ssh': True}
 
     # find all hgrc files
     hgrc = []
@@ -89,6 +95,9 @@ def main(args=sys.argv[1:]):
     if options.list_hgrc:
         print '\n'.join(hgrc)
 
+    # alter .hgrc files
+    for path, ini in config.items():
+        import pdb; pdb.set_trace()
 
 if __name__ == '__main__':
     main()
