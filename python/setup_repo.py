@@ -34,7 +34,6 @@ def call(command, *args, **kwargs):
         command_str = ' '.join(command)
     print 'Running:\n%s' % (command_str)
     if globals()['dry_run']:
-        import pdb; pdb.set_trace()
         return
     return subprocess.check_output(*args, **kwargs)
 
