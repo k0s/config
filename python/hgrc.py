@@ -13,6 +13,15 @@ import subprocess
 import sys
 from ConfigParser import RawConfigParser as ConfigParser
 
+def set_default_push(parser, default_push):
+    """
+    set [paths]:default_push to `default_push`
+    """
+    pass
+
+def set_default_push_to_ssh():
+    pass
+
 def main(args=sys.argv[1:]):
 
     # parse command line arguments
@@ -27,6 +36,10 @@ def main(args=sys.argv[1:]):
     parser.add_option('--push', '--default-push', dest='default_push',
                       help="set [paths] default-push location")
     options, args = parser.parse_args(args)
+
+    # sanitization
+    if options.default_push and options.default_push_ssh:
+        parser.error("Cannot set --push and --ssh")
 
     # if not specified, use repo from `hg root`
     if not args:
