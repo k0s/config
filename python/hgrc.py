@@ -16,6 +16,9 @@ from ConfigParser import RawConfigParser as ConfigParser
 
 #@parser # decorator makes this x-form path -> ConfigParser automagically
 #@section('paths')
+def set_default(parser, default):
+    """set [paths]:default"""
+
 def set_default_push(parser, default_push):
     """
     set [paths]:default-push to `default_push`
@@ -62,6 +65,8 @@ def main(args=sys.argv[1:]):
                       help="use `default` entries for `default-push`")
     parser.add_option('--push', '--default-push', dest='default_push',
                       help="set [paths] default-push location")
+    parser.add_option('--default', dest='default',
+                      help="set [paths] default entry")
     parser.add_option('-p', '--print', dest='print_ini',
                       action='store_true', default=False,
                       help="print .ini contents")
