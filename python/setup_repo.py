@@ -31,8 +31,7 @@ def call(command, *args, **kwargs):
     if isinstance(command, string):
         command_str = command
     else:
-        if len(command) == 1:
-            command_str = subprocess.list2cmdline(command)
+        command_str = subprocess.list2cmdline(command)
 
     print 'Running:\n%s' % (command_str)
     if globals()['dry_run']:
