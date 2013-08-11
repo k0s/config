@@ -11,6 +11,7 @@ import optparse
 import os
 import subprocess
 import sys
+import tempfile
 
 def add_options(parser):
     """add options to the OptionParser instance"""
@@ -29,11 +30,25 @@ def main(args=sys.argv[1:]):
     parser = optparse.OptionParser(usage=usage, description=__doc__, formatter=PlainDescriptionFormatter())
     options, args = parser.parse_args(args)
 
-    # STUB
-    # before = lsex... # get executables before
-    # raw_input("Press [Enter] to continue")
-    # after = lsex... # get executables after
-    # difflib.diff() # get difference
+    # get difference
+    before = lsex.executable_names() # get executables before
+    raw_input("Press [Enter] to continue")
+    after = lsex.executable_names()  # get executables after
+
+    # display
+    added = [i for i in after if i not in before]
+    removed = [i for i in before if i not in after]
+    added.sort()
+    removed.sort()
+
+    display = [('Added', added),
+               ('Removed', removed),
+               ]
+
+    for display_name, var in display:
+        if var:
+            print '%s:' % display_name
+            print '\n'.join(var)
 
 if __name__ == '__main__':
   main()
