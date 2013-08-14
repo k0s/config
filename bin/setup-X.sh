@@ -15,3 +15,5 @@ do
 done
 
 # TODO: add workspace specific programs
+
+# ssh-add
