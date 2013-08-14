@@ -17,3 +17,11 @@ done
 # TODO: add workspace specific programs
 
 # ssh-add
+if [[ `ssh-add -l` != *id_?sa* ]]
+then
+ SSH_ASKPASS=/usr/bin/ksshaskpass
+ if [[ -e $SSH_ASKPASS ]]
+ then
+   ssh-add
+ fi
+fi
