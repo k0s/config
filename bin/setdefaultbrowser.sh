@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # To get all selections:
-# sudo update-alternatives --get-selections
+# update-alternatives --get-selections
 
 # To get a particular selection:
 # update-alternatives --display x-www-browser
