@@ -16,6 +16,12 @@ done
 
 # TODO: add workspace specific programs
 
+# arbitrary time tracker
+if which arbtt-capture
+then
+    arbtt-capture
+fi
+
 # ssh-add
 if [[ `ssh-add -l` != *id_?sa* ]]
 then
