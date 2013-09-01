@@ -447,18 +447,6 @@ hg-qcommit() {
     cd -
 }
 
-hgrc() {
-# write an hgrc file
-# TODO: in the case you're in an `hg root`...what then?
-# - NOTE: /home/jhammel is an `hg root`, so be careful!
-# There should be a way to update $(hg root)/.hg/hgrc automatically
-# Likewise, git
-# Python script? .dotfile?
-ROOT="${1}"
-echo "[paths]"
-echo "default = ${ROOT}"
-echo "default-push = ssh://${ROOT#http*://}"
-}
 
 ### functions for web content
 
