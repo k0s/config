@@ -20,6 +20,10 @@ from StringIO import StringIO
 
 ### global methods
 
+def isHTTP(path):
+    """is path an {http,https}:// URL?"""
+    return urlparse.urlsplit(path)[0] in ('http', 'https')
+
 class section(object):
     def __init__(self, section_name, *section_names):
         self.sections = [section_name]
@@ -32,12 +36,11 @@ class section(object):
             function(parser, *args, **kwargs)
         return wrapped
 
-#@parser # decorator makes this x-form path -> ConfigParser automagically
+
 @section('paths')
 def set_default(parser, default):
     """set [paths]:default"""
     parser.set('paths', 'default', default)
-
 
 @section('paths')
 def set_default_push(parser, default_push):
@@ -45,7 +48,6 @@ def set_default_push(parser, default_push):
     set [paths]:default-push to `default_push`
     """
     parser.set('paths', 'default-push', default_push)
-
 
 def set_default_push_to_ssh(parser):
     """
@@ -120,17 +122,22 @@ def main(args=sys.argv[1:]):
     if not actions:
         parser.error("Please specify an action")
 
-    # find all hgrc files
+    # find all hgrc files and URLs
     hgrc = []
     missing = []
     not_hg = []
     not_a_directory = []
+    urls = []
     errors = {'Missing path': missing,
               'Not a mercurial directory': not_hg,
               'Not a directory': not_a_directory,
               }
     for path in args:
         if not os.path.exists(path):
+            if isHTTP(path):
+                hgrc.append(path)
+                urls.append(path)
+                continue
             missing.append(path)
         path = os.path.abspath(os.path.normpath(path))
         if os.path.isdir(path):
@@ -166,6 +173,9 @@ def main(args=sys.argv[1:]):
         if isinstance(path, basestring):
             if os.path.exists(path):
                 config[path].read(path)
+            elif path in urls:
+                if 'default' not in actions:
+                    set_default(config[path], path)
 
     # print the chosen hgrc paths
     if 'list_hgrc' in actions:
@@ -182,7 +192,7 @@ def main(args=sys.argv[1:]):
                   }
 
     # cache for later (XXX)
-    print_ini = actions.pop('print_ini', None)
+    print_ini = actions.pop('print_ini', bool(urls))
 
     # alter .hgrc files
     for action_name, parameter in actions.items():
@@ -207,11 +217,17 @@ def main(args=sys.argv[1:]):
         for path, ini in config.items():
             _buffer = StringIO()
             ini.write(_buffer)
-            values.append('+++ %s\n%s' % (path, _buffer.getvalue()))
+            value = _buffer.getvalue().strip()
+            if len(config) == 1:
+                values = [value]
+            else:
+                values.append('+++ %s\n%s' % (path, value))
         print '\n'.join(values)
 
     # write .ini files
     for path, ini in config.items():
+        if path in urls:
+            continue
         with file(path, 'w') as f:
             ini.write(f)
 
