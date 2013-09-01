@@ -4,6 +4,12 @@
 
 ")
 
+;; server: gnuserv
+;; http://www.emacswiki.org/emacs/GnuClient
+(if (boundp 'gnuserv-start) (gnuserv-start))
+;; frames: http://www.emacswiki.org/emacs/GnuClient#toc6
+(setq gnuserv-frame (selected-frame))
+
 ;; ;; ;; emacs server (what a piece of crap)
 ;; (require 'server)
 ;;   (unless (server-running-p)
