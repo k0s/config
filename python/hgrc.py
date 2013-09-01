@@ -4,6 +4,8 @@
 Script for modifying hgrc files.
 
 If no arguments specified, the repository given by `hg root` is used.
+
+[WIP] If http(s):// arguments are given, create hgrc file from such a thing
 """
 
 # imports
