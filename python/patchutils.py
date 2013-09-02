@@ -1,7 +1,9 @@
 
 """
-http://k0s.org/blog/20100821174911
+utilities to deal with patches
 
+http://k0s.org/blog/20100821174911
+https://github.com/k0s/patchit/blob/develop/patchit.py
 Tag -> hg
 """
 
