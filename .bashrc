@@ -29,10 +29,17 @@ export BROWSER=$(which firefox)
 export CLICOLOR=1
 export EDITOR='emacs -nw'
 export JS_EDITLINE=1
+export JS_EDITLINE=1
+
+# mozilla env vairables
 export MOZCONFIG=~/mozilla/mozconfigs/mozconfig
 export MOZSOURCE=~/mozilla/src/mozilla-central
 export MOZOBJ=~/mozilla/src/obj-browser
-export JS_EDITLINE=1
+unsetmozenv() {
+unset MOZCONFIG
+unset MOZSOURCE
+unset MOZOBJ
+}
 
 # aliases
 alias awd="python -c 'import os;  print os.path.realpath(\".\")'"
