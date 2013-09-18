@@ -168,6 +168,25 @@ if __name__ == '__main__':
     main()")
 ;; TODO: take directly from MakeItSo
 
+(fset 'python-require "def require(url):
+    # http://k0s.org/hg/config/file/68635bbb3d3e/python/require.py
+    # import a module from the web
+    # url should be like scheme://host.name/path/to/module.py
+
+    import imp
+    import os
+    import tempfile
+    import urllib2
+    contents = urllib2.urlopen(url).read()
+    filename = url.rsplit('/', 1)[-1]
+    module = filename.rsplit('.', 1)[0]
+    dest = tempfile.mkstemp(suffix='.py', prefix=module)
+    f = file(dest, 'w')
+    f.write(contents)
+    f.close()
+    return imp.load_source(module, dest)
+")
+
 (fset 'mozbase-test "#!/usr/bin/env python
 
 # This Source Code Form is subject to the terms of the Mozilla Public
