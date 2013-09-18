@@ -43,7 +43,7 @@ unset MOZOBJ
 
 # aliases
 alias awd="python -c 'import os;  print os.path.realpath(\".\")'"
-alias currentpatch='echo `hg root`/.hg/patches/`hg qapp -v | head -n 1 | cut -f 3 -d " "`'
+alias currentpatch='echo `hg root`/.hg/patches/`hg qapp -v | tail -n 1 | cut -f 3 -d " "`'
 alias datestamp='date +%Y%m%d%H%M%S'
 alias distribute='python setup.py egg_info -RDb "" sdist register upload'
 alias grep='grep --colour=auto'
