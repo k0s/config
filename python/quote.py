@@ -4,6 +4,10 @@
 quote text
 """
 
+# TODO:
+# - combine with quotemail...wth?
+# -> textshaper
+
 import sys
 import textwrap
 from subprocess import check_output as call
