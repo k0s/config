@@ -19,12 +19,12 @@ wiggle = which('wiggle')
 
 def find(directory, pattern):
     # TODO: -> python
-    return [i for i in subprocess.check_output(['find', directory, '-iname', patten]).splitlines() if i.strip()]
-    
+    return [i for i in subprocess.check_output(['find', directory, '-iname', pattern]).splitlines() if i.strip()]
+
 def rejects(directory):
     """all rejects in directory"""
     # TODO: not call out to find
-    
+    return find(directory, '*.rej')
 
 def main(args=sys.argv[1:]):
 
@@ -33,7 +33,15 @@ def main(args=sys.argv[1:]):
     parser.add_option('-d', '--directory', default=os.getcwd())
     options, args = parser.parse_args(args)
 
-    
+    # get rejects
+    rej = rejects(options.directory)
+    if not rej:
+        parser.error("No rejects")
+    print 'rej:\n%s\n' % '\n'.join([' %s' % r for r in rej])
+
+    for r in rej:
+        # find the corresponding file
+        pass
 
 if __name__ == '__main__':
     main()
