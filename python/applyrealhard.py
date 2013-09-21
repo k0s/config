@@ -28,10 +28,15 @@ def rejects(directory):
 
 def main(args=sys.argv[1:]):
 
+    # parse command line args
     usage = '%prog [options]'
     parser = optparse.OptionParser(usage=usage, description=__doc__)
     parser.add_option('-d', '--directory', default=os.getcwd())
     options, args = parser.parse_args(args)
+
+    # sanity check
+    if not wiggle:
+        parser.error("Need wiggle")
 
     # get rejects
     rej = rejects(options.directory)
@@ -39,9 +44,16 @@ def main(args=sys.argv[1:]):
         parser.error("No rejects")
     print 'rej:\n%s\n' % '\n'.join([' %s' % r for r in rej])
 
+    # get the originals
+    orig = []
     for r in rej:
         # find the corresponding file
-        pass
+        o = r.rsplit('.rej')[0]
+        if not os.path.exists(o):
+            parser.error("%s not found")
+        orig.append(o)
+
+    # try to wiggle them
 
 if __name__ == '__main__':
     main()
