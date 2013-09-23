@@ -75,6 +75,7 @@ Control Mod1 q :ExecCommand xclip -o | /home/jhammel/python/quote.py | xclip -i 
 Control Mod1 r :ExecCommand import -window root -silent /home/jhammel/screenshot.png
 Control Mod1 s :ExecCommand /home/jhammel/bin/smartopen "$(xclip -o)" # smartopen
 Control Mod1 t :ExecCommand gnome-terminal # terminal
+Control Mod1 v :ExecCommand xterm -e 'xclip -o | /home/jhammel/k0s/bin/textshaper'
 Control Mod1 x :ExecCommand xkill
 Control Mod1 y :ExecCommand /home/jhammel/python/pypi.py "$(xclip -o)"| xclip -i # pypi package summary
 Control Mod1 0 :ExecCommand xclip -o | sed 's/^[-+]//' | xclip -i # strip leading +s
