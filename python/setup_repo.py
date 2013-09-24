@@ -38,11 +38,11 @@ def call(command, *args, **kwargs):
         return
     return subprocess.check_output(*args, **kwargs)
 
-def init_repo(directory):
+def init_repo(directory, message):
     """setup repository"""
     call(['hg', 'init', directory])
     call(['hg', 'add', '-R', directory])
-    call(['hg', 'commit', '-m', options.message, '-R', directory])
+    call(['hg', 'commit', '-m', message, '-R', directory])
 
 def write_hgrc(directory, host, repo, name):
     """write hgrc file"""
@@ -130,7 +130,7 @@ def main(args=sys.argv[1:]):
     if options.remote_only:
         assert options.remote_url
     else:
-        init_repo(directory)
+        init_repo(directory, options.message)
 
     # setup remote, if specified
     name = os.path.basename(directory)
