@@ -36,7 +36,7 @@ def call(command, *args, **kwargs):
     print 'Running:\n%s' % (command_str)
     if globals()['dry_run']:
         return
-    return subprocess.check_output(*args, **kwargs)
+    return subprocess.check_output(command, *args, **kwargs)
 
 def init_repo(directory, message):
     """setup repository"""
@@ -113,7 +113,7 @@ def main(args=sys.argv[1:]):
                       action='store_true', default=False,
                       help="setup remote server only")
     parser.add_option('--dry-run', dest='dry_run',
-                      action='store_true', default=True,
+                      action='store_true', default=False,
                       help="")
     options, args = parser.parse_args(args)
 
