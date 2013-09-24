@@ -92,7 +92,7 @@ def setup_remote(local_repo, remote_url, push='ssh', remote_path=None, name=None
         remote_path = path
 
     # setup remote repository
-    remote_dir = '~/%s/%s' % (path.lstrip('/'), name)
+    remote_dir = '~/%s' % (path.lstrip('/'), name)
     command = ['ssh', host, "mkdir -p %s && cd %s && hg init" % (remote_dir, remote_dir)]
     call(command)
 
