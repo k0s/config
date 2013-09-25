@@ -133,6 +133,7 @@ cdwin() {
     DIR=$(xwininfo | dictify.py xwininfo | awk '{ print $NF }' | sed 's/"//g')
     DIR=${DIR/\~/$HOME}
     cd $DIR
+    activate-nearest
 }
 
 function colors() {
