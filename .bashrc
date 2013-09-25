@@ -356,6 +356,39 @@ setup-all() {
     done
 }
 
+nearest-venv() {
+if [[ "$#" == "0" ]]
+then
+directory=$PWD
+else
+directory=$1
+fi
+directory=$(python -c "import os; print os.path.abspath('${directory}')")
+
+while [[ "${directory}" != "/" ]]
+do
+activate="${directory}/bin/activate"
+if [ -e "${activate}" ]
+then
+echo ${directory}
+return 0
+fi
+
+directory=$(dirname ${directory})
+
+done
+return 1
+}
+
+activate-nearest() {
+nearest=$(nearest-venv)
+activate=${nearest}/bin/activate
+if [ -e "${activate}" ]
+then
+. ${activate}
+fi
+}
+
 recreate-venv() {
     # recreate a virtualenv
     VIRTUALENV="virtualenv.py"
@@ -522,6 +555,10 @@ pwd
 source ~/.bash_overrides
 
 ### regenerate fluxbox menus here for convenience
+if type deactivate &> /dev/null
+then
+deactivate
+fi
 MENU=~/web/site/programs.html
 regeneratefluxmenu() {
     if [ -e $MENU ]

@@ -4,9 +4,10 @@
 # nm-applet: network manager
 # gkrellm: system monitor
 # diodon: clipboard manager
-# arbtt-capture: arbitrary time tracker (redundant with tracker?)
-# To add: x-tile; qamixer (well, some mixer); gnome-activity journal
-for i in nm-applet gkrellm diodon arbtt-capture
+# arbtt-capture: arbitrary time tracker
+# x-tile: window tiling
+# To add: qamixer (well, some mixer); gnome-activity journal
+for i in nm-applet gkrellm diodon arbtt-capture x-tile
 do
     if which ${i}
     then
