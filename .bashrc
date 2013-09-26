@@ -166,10 +166,7 @@ eend() {
     emacs +`wc -l "$FILE"` $@
 }
 
-git-diff-master() {
-    # differences of a git repository with master
-    git diff $(git merge-base HEAD master)
-}
+### find functionality
 
 EXCLUDES="(\.svn)|(\.mo$)|(\.po$)|(\.pyc$)|(\.hg$)|(\.git$)"
 ff() {
@@ -452,7 +449,18 @@ fi
 }
 
 difffiles() {
+    # which files are diffed; could use `lsdiff`
     grep '^+++ ' $@ | sed 's/+++ b\///'
+}
+
+git-diff-master() {
+    # differences of a git repository with master
+    git diff $(git merge-base HEAD master)
+}
+
+git-diff-total() {
+    # diff of both added + modified files
+    combinediff <(git diff) <(git diff --cached)
 }
 
 hg-update-all() {
