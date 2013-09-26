@@ -1,0 +1,4 @@
+# bash TTW
+
+alias maze='python <(curl https://raw.github.com/joewing/maze/master/maze.py 2> /dev/null)'
+alias wikify='pyton <(curl https://bitbucket.org/techtonik/wikify/raw/tip/wikify.py 2> /dev/null)
