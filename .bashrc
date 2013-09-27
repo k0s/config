@@ -161,13 +161,6 @@ function colors() {
 colors
 
 
-eend() {
-    # edit the end of a file with emacs
-    FILE=$1
-    shift
-    emacs +`wc -l "$FILE"` $@
-}
-
 ### find functionality
 
 EXCLUDES="(\.svn)|(\.mo$)|(\.po$)|(\.pyc$)|(\.hg$)|(\.git$)"
@@ -232,6 +225,8 @@ cff () {
 
 }
 
+### functions for files
+
 tmpfile() {
     # make a temporary file if `tempfile` not available
 
@@ -252,29 +247,6 @@ tmpfile() {
         done
         echo "$NEWNAME"
     done
-}
-
-edpe() {
-    # edit and pipe the buffer to stdout
-    FILE=`tmpfile`
-    $EDITOR $FILE
-    cat $FILE
-    rm $FILE
-}
-
-isrunning() {
-    # is a process running? (by name)
-    # see also: talos for a better version
-    for i in "$@"
-    do
-	ps axwww  | grep "$i" | grep -v 'grep'
-    done | sort | uniq
-
-}
-
-killbyname() {
-    # kill a process by name
-    kill `isrunning "$@" | awk '{ print $1 }' | onelineit.py`
 }
 
 fn() {
@@ -309,6 +281,44 @@ swap() {
     mv "$2" "$1"
     mv "$NEWNAME" "$2"
 }
+
+
+### functions for editing
+
+edpe() {
+    # edit and pipe the buffer to stdout
+    FILE=`tmpfile`
+    $EDITOR $FILE
+    cat $FILE
+    rm $FILE
+}
+
+eend() {
+    # edit the end of a file with emacs
+    FILE=$1
+    shift
+    emacs +`wc -l "$FILE"` $@
+}
+
+
+### functions for processes
+
+isrunning() {
+    # is a process running? (by name)
+    # see also: talos for a better version
+    for i in "$@"
+    do
+	ps axwww  | grep "$i" | grep -v 'grep'
+    done | sort | uniq
+
+}
+
+killbyname() {
+    # kill a process by name
+    kill `isrunning "$@" | awk '{ print $1 }' | onelineit.py`
+}
+
+###
 
 buffer() {
   # temporary buffer with cat and /dev/null
