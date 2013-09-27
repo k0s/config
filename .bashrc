@@ -62,9 +62,8 @@ fi
 # bzconsole aliases for filing bugs
 alias mozbase-bug="bz new Mozbase --cc ':wlach'"
 alias mozbuild-bug="bz new --product Core 'Build Config' --cc ':gps'"
-alias mozharness-bug="bz new 'Release Engineering: Automation (General)' --cc ':aki' --whiteboard 'mozharness'"
-alias releng-bug="bz new 'Release Engineering: Automation (General)'"
-alias talos-bug="bz new Talos --cc ':jmaher' --cc ':BYK'"
+alias mozharness-bug="bz new --produce 'Release Engineering' 'General Automation ' --cc ':aki' --whiteboard 'mozharness'"
+alias talos-bug="bz new Talos --cc ':jmaher'"
 
 # PROMPT
 PS1='│'
