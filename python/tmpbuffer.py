@@ -2,6 +2,7 @@
 
 # from http://k0s.org/hg/bitsyblog/file/5c04cf601aba/bitsyblog/blogme.py
 
+import optparse
 import os
 import subprocess
 import tempfile
