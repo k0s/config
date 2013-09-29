@@ -39,6 +39,7 @@ unsetmozenv() {
 unset MOZCONFIG
 unset MOZSOURCE
 unset MOZOBJ
+env | sort
 }
 
 # aliases
