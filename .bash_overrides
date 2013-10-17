@@ -126,6 +126,24 @@ function lsdiff {
 
 }
 
+function mv {
+    num=$#
+    if (( num == 0 ))
+    then
+        command mv "$@"
+        return
+    fi
+    last=${!#}
+    directory=$(dirname ${last})
+    if [[ ! -e "${directory}" ]]
+    then
+        mkdir -p "${directory}"
+    fi
+    command mv "$@"
+    return
+
+}
+
 function unlink {
     command unlink `echo $@ | sed 's/\/$//g'`
 }
