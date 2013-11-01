@@ -92,8 +92,10 @@ def setup_remote(local_repo, remote_url, push='ssh', remote_path=None, name=None
         remote_path = path
 
     # setup remote repository
-    remote_dir = '~/%s' % (path.lstrip('/'), name)
+    remote_dir = '~/%s/%s' % (path.lstrip('/'), name)
     command = ['ssh', host, "mkdir -p %s && cd %s && hg init" % (remote_dir, remote_dir)]
+    print "setting up remote repo:"
+    print command
     call(command)
 
 
@@ -136,11 +138,16 @@ def main(args=sys.argv[1:]):
     name = os.path.basename(directory)
     if options.remote_url:
 
+        import pdb; pdb.set_trace()
+
         # setup remote repository
         setup_remote(directory, options.remote_url, name=name, remote_path=options.remote_path)
 
         # push changes
-        command = ['hg', 'push', '-R', directory]
+        url = '/'.join((options.remote_url.rstrip('/'),
+                        (options.remote_path or name).lstrip('/')))
+        # TODO: setup hgrc
+        command = ['hg', 'push', '-R', directory, url]
         call(command)
 
 if __name__ == '__main__':
