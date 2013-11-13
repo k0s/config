@@ -573,6 +573,10 @@ pwd
 
 }
 
+exists() {
+while read line;  do echo ${line} : $(($(test "-e ${line}"\") )); done
+}
+
 ### include overrides for commands
 source ~/.bash_overrides
 
