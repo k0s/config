@@ -66,6 +66,12 @@ alias mozbuild-bug="bz new --product Core 'Build Config' --cc ':gps'"
 alias mozharness-bug="bz new --product 'Release Engineering' 'General Automation' --cc ':aki' --whiteboard 'mozharness'"
 alias talos-bug="bz new Talos --cc ':jmaher'"
 
+# notification: from
+# http://www.netinfinity.org/2013/02/4/bits-and-pieces-ubuntu-terminal-notification.html
+alias alert_helper='history|tail -n1|sed -e "s/^\s*[0-9]\+\s*//" -e "s/;\s*alert$//"'
+alias alert='notify-send -i /usr/share/icons/gnome/32x32/apps/gnome-terminal.png "[$?] $(alert_helper)"'
+
+
 # PROMPT
 PS1='│'
 PS2='.'
