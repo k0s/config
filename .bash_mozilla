@@ -2,6 +2,16 @@
 
 # mozilla-specific bash customizations
 
+# mozilla env vairables
+export MOZCONFIG=~/mozilla/mozconfigs/mozconfig
+export MOZSOURCE=~/mozilla/src/mozilla-central
+export MOZOBJ=~/mozilla/src/obj-browser
+unsetmozenv() {
+unset MOZCONFIG
+unset MOZSOURCE
+unset MOZOBJ
+env | sort
+}
 MOZCONFIGS=${HOME}/mozilla/mozconfigs
 MOZSRC=${HOME}/mozilla/src
 

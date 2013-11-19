@@ -31,17 +31,6 @@ export EDITOR='emacs -nw'
 export JS_EDITLINE=1
 export JS_EDITLINE=1
 
-# mozilla env vairables
-export MOZCONFIG=~/mozilla/mozconfigs/mozconfig
-export MOZSOURCE=~/mozilla/src/mozilla-central
-export MOZOBJ=~/mozilla/src/obj-browser
-unsetmozenv() {
-unset MOZCONFIG
-unset MOZSOURCE
-unset MOZOBJ
-env | sort
-}
-
 # aliases
 alias awd="python -c 'import os;  print os.path.realpath(\".\")'"
 alias currentpatch='echo `hg root`/.hg/patches/`hg qapp -v | tail -n 1 | cut -f 3 -d " "`'
@@ -585,6 +574,12 @@ while read line;  do echo ${line} : $(($(test "-e ${line}"\") )); done
 
 ### include overrides for commands
 source ~/.bash_overrides
+
+### include mozilla customizations
+if [ -e ~/.bash_mozilla ]
+then
+    source ~/.bash_mozilla
+fi
 
 ### regenerate fluxbox menus here for convenience
 if type deactivate &> /dev/null
