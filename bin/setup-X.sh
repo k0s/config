@@ -28,5 +28,7 @@ then
  if [[ -e $SSH_ASKPASS ]]
  then
    SSH_ASKPASS=${SSH_ASKPASS} ssh-add
+ else
+   echo "not running ssh-add: ${SSH_ASKPASS} not found"
  fi
 fi
