@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# mozilla-specific bash customizations
+
+MOZCONFIGS=${HOME}/mozilla/mozconfigs
+
+mozconfig() {
+
+if [ ! -e ${MOZCONFIGS} ]
+then
+    echo "MOZCONFIGS directory ${MOZCONFIGS} does not exist"
+    return 1
+fi
+
+if [[ "$#" == "0" ]]
+then
+    # list the available configs
+    ls -1 ${MOZCONFIGS} | sort
+elif [[ "$#" == "1" ]]
+then
+    # activate the chosen mozconfig
+    name=$1
+    for _MOZCONFIG in "${MOZCONFIGS}/${name}" "${MOZCONFIGS}/mozconfig.${name}"
+    do
+        echo $_MOZCONFIG
+    done
+else
+    # print usage
+    echo "Usage: mozconfig <configname>"
+    return 1
+fi
+
+}
