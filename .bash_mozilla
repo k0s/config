@@ -3,6 +3,7 @@
 # mozilla-specific bash customizations
 
 MOZCONFIGS=${HOME}/mozilla/mozconfigs
+MOZSRC=${HOME}/mozilla/src
 
 mozconfig() {
 
@@ -24,7 +25,6 @@ then
     do
         if [[ -e "${_MOZCONFIG}" ]]
         then
-            echo "Using MOZCONFIG : ${_MOZCONFIG}"
             break
         fi
     done
@@ -33,6 +33,24 @@ then
         echo "MOZCONFIG ${name} not found"
         return 1
     fi
+
+    # get name of file
+    filename=$(basename $_MOZCONFIG)
+    if [[ "${filename}" == *.* ]]
+    then
+        name="${filename##*.}"
+        prefix="${name}"
+    else
+        name=".default."
+        prefix="obj"
+    fi
+
+    # set environment variables
+    export MOZCONFIG=${_MOZCONFIG}
+
+    # print info
+    echo "Using MOZCONFIG=${MOZCONFIG} [${name}] :"
+    cat "${MOZCONFIG}"
 else
     # print usage
     echo "Usage: mozconfig <configname>"
