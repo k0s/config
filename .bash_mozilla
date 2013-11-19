@@ -22,8 +22,17 @@ then
     name=$1
     for _MOZCONFIG in "${MOZCONFIGS}/${name}" "${MOZCONFIGS}/mozconfig.${name}"
     do
-        echo $_MOZCONFIG
+        if [[ -e "${_MOZCONFIG}" ]]
+        then
+            echo "Using MOZCONFIG : ${_MOZCONFIG}"
+            break
+        fi
     done
+    if [[ ! -e "${_MOZCONFIG}" ]]
+    then
+        echo "MOZCONFIG ${name} not found"
+        return 1
+    fi
 else
     # print usage
     echo "Usage: mozconfig <configname>"
