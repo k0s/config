@@ -57,6 +57,7 @@ then
 
     # set environment variables
     export MOZCONFIG=${_MOZCONFIG}
+    export PS1="[${name}]${PS1}"
 
     # print info
     echo "Using MOZCONFIG=${MOZCONFIG} [${name}] :"
