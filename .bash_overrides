@@ -134,7 +134,12 @@ function mv {
         return
     fi
     last=${!#}
-    directory=$(dirname ${last})
+    if [[ "${last:(-1)}" == "/" ]]
+    then
+        directory=${last}
+    else
+        directory=$(dirname ${last})
+    fi
     if [[ ! -e "${directory}" ]]
     then
         mkdir -p "${directory}"
