@@ -278,6 +278,14 @@ swap() {
     mv "$NEWNAME" "$2"
 }
 
+verifyfiles() {
+    # verify each line is an existing file
+    while read line
+    do
+        test -e "${line}"
+        echo $? $line
+    done
+}
 
 ### functions for editing
 
