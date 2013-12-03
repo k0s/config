@@ -35,7 +35,6 @@ export JS_EDITLINE=1
 alias awd="python -c 'import os;  print os.path.realpath(\".\")'"
 alias currentpatch='echo `hg root`/.hg/patches/`hg qapp -v | tail -n 1 | cut -f 3 -d " "`'
 alias datestamp='date +%Y%m%d%H%M%S'
-alias distribute='python setup.py egg_info -RDb "" sdist register upload'
 alias grep='grep --colour=auto'
 alias ls='ls --color=auto'
 alias patch='patch --reject-file=-'
@@ -349,6 +348,7 @@ whemacs() {
     emacs -nw `realwhich $@`
 }
 
+
 ### functions for python
 
 pyfile() {
@@ -368,6 +368,10 @@ setup-all() {
             cd ..
         fi
     done
+}
+
+distribute() {
+    python setup.py egg_info -RDb "" sdist register upload develop
 }
 
 nearest-venv() {
