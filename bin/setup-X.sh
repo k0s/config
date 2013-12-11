@@ -11,7 +11,7 @@ for i in nm-applet gkrellm diodon arbtt-capture x-tile
 do
     if which ${i}
     then
-        if ! pidof ${i}
+        if ! pidof -x ${i}
         then
             echo "not running: $i"
             ${i} &
