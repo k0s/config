@@ -483,6 +483,12 @@ git-diff-total() {
     combinediff <(git diff) <(git diff --cached)
 }
 
+hg-add-commit() {
+    # add a file + commit
+    MESSAGE=$(hg add $@)
+    hg commit -m "${MESSAGE}"
+}
+
 hg-update-all() {
     # update all hg repositories in the current directory
     for i in *;
