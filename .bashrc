@@ -32,13 +32,13 @@ export JS_EDITLINE=1
 export JS_EDITLINE=1
 
 # aliases
-alias awd="python -c 'import os;  print os.path.realpath(\".\")'"
+alias awd="python -c 'import os;  print (os.path.realpath(\".\"))'"
 alias currentpatch='echo `hg root`/.hg/patches/`hg qapp -v | tail -n 1 | cut -f 3 -d " "`'
 alias datestamp='date +%Y%m%d%H%M%S'
 alias grep='grep --colour=auto'
 alias ls='ls --color=auto'
 alias patch='patch --reject-file=-'
-alias random="python -c 'import sys, random; foo = sys.argv[1:]; random.shuffle(foo); print \" \".join(foo)'"
+alias random="python -c 'import sys, random; foo = sys.argv[1:]; random.shuffle(foo); print (\" \".join(foo)')"
 alias straceff="attach.py firefox --kill"
 alias weekstamp="date --date=\"$((`date '+%u'`-1)) days ago\" '+%b %d'"
 alias wget='wget --no-check-certificate'
@@ -73,7 +73,7 @@ export PYTHONPATH=~/python:$PYTHONPATH:~/virtualenv
 ### functions
 
 lspath() {
-python -c 'import os; print "\n".join(os.environ["PATH"].split(os.path.pathsep))'
+python -c 'import os; print ("\n".join(os.environ["PATH"].split(os.path.pathsep)))'
 }
 
 apply-patch() {
@@ -246,7 +246,7 @@ tmpfile() {
 
 fn() {
     # full name
-    python -c "import os; print os.path.realpath('$*')"
+    python -c "import os; print (os.path.realpath('$*'))"
 }
 
 swap() {
@@ -334,7 +334,7 @@ realwhich() {
     # which -> real paths
     command which $@ | while read line
     do
-        python -c "import os; print os.path.realpath('${line}')"
+        python -c "import os; print (os.path.realpath('${line}'))"
     done
 }
 
@@ -353,7 +353,7 @@ whemacs() {
 
 pyfile() {
     # python file path
-    python -c "import $1; print $1.__file__"
+    python -c "import $1; print ($1.__file__)"
 }
 
 setup-all() {
@@ -381,7 +381,7 @@ directory=$PWD
 else
 directory=$1
 fi
-directory=$(python -c "import os; print os.path.abspath('${directory}')")
+directory=$(python -c "import os; print (os.path.abspath('${directory}'))")
 
 while [[ "${directory}" != "/" ]]
 do
