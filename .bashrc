@@ -244,9 +244,14 @@ tmpfile() {
     done
 }
 
-fn() {
-    # full name
+abspath() {
     python -c "import os; print (os.path.realpath('$*'))"
+}
+
+fn() {
+    # put full name on clipboard and echo it
+    python -c "import os; print (os.path.realpath('$*'))" | xclip -i
+    xclip -o
 }
 
 swap() {
