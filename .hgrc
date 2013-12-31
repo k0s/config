@@ -1,5 +1,5 @@
 [ui]
-username = Jeff Hammel <jhammel@mozilla.com>
+username = Jeff Hammel <k0scist@gmail.com>
 ignore = /home/jhammel/.hgignore
 merge = meld
 verbose = True
@@ -35,6 +35,6 @@ allow_archive = atom, rss, zip, bz2
 contact = jhammel at mozilla dot com
 
 [alias]
-blind-push = !($HG st -q | python -c "import sys, subprocess; print ' '.join([line[2:].rstrip() for line in sys.stdin.readlines() if len(line) > 2])" > blind_commit_message) && $HG commit -l blind_commit_message && $HG push
+blind-push = !($HG st -q | python -c "import sys, subprocess; print ' '.join([line[2:].rstrip() for line in sys.stdin.readlines() if len(line) > 2])" > blind_commit_message) && $HG commit -l blind_commit_message && $HG push && rm blind_commit_message
 reset = !$HG revert --no-backup --all && $HG purge
 sync = !$HG pull && $HG push
