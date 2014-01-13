@@ -5,8 +5,15 @@ Script for modifying hgrc files.
 
 If no arguments specified, the repository given by `hg root` is used.
 
-[WIP] If http(s):// arguments are given, create hgrc file from such a thing
+If http(s):// arguments are given, create hgrc file from such a thing
 """
+
+## TODO:
+#  - functionality to populate [web]-> description in hgrc file from
+#    setup.py, e.g.
+#    http://stackoverflow.com/questions/1541778/mercurial-how-do-i-populate-repository-descriptions-for-hgwebdir-cgi
+#    Could also loop over a directory; e.g.
+#    `hgrc --setup-web . # loop over all .hg repos in this directory`
 
 # imports
 import optparse
