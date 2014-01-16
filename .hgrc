@@ -35,6 +35,6 @@ allow_archive = atom, rss, zip, bz2
 contact = k0scist @ gmail
 
 [alias]
-blind-push = !($HG st -q | python -c "import sys, subprocess; print 'STUB: %s' % ' '.join([line[2:].rstrip() for line in sys.stdin.readlines() if len(line) > 2])" > blind_commit_message) && $HG commit -l blind_commit_message && $HG push && rm blind_commit_message
+blind-push = !($HG st -q | python -c "import sys, subprocess; print 'STUB: %s' % ' '.join([line[2:].rstrip() for line in sys.stdin.readlines() if len(line) > 2])" > blind_commit_message) && $HG commit -l blind_commit_message && $HG pull && $HG push && rm blind_commit_message
 reset = !$HG revert --no-backup --all && $HG purge
 sync = !$HG pull && $HG push
