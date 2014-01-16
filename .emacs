@@ -150,7 +150,7 @@
           '(lambda ()
              (local-set-key  [(meta ?p) (meta ?p)] 'break)))
 
-(fset 'pytodo "raise NotImplementedError('TODO') # -> record")
+(fset 'pytodo "raise NotImplementedError('TODO') # -> record TODO items")
 
 (fset 'python-file "#!/usr/bin/env python
 
