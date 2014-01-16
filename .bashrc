@@ -353,6 +353,13 @@ whemacs() {
     emacs -nw `realwhich $@`
 }
 
+lswhich() {
+    # ls -l real which
+    for i in "$@"
+    do
+        ls -l $(realwhich $i)
+    done
+}
 
 ### functions for python
 
