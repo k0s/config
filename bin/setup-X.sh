@@ -29,6 +29,7 @@ then
  then
    SSH_ASKPASS=${GUI_SSH_ASKPASS} ssh-add
  elif [[ -z "$PS1" ]]
+ then
              # http://www.cyberciti.biz/faq/linux-unix-bash-check-interactive-shell/
 
    echo "not running ssh-add: PS1 not found"
