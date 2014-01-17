@@ -12,8 +12,8 @@ def find_extensions(*directories):
         for _, _, fnames in os.walk(directory):
             _extensions.update(extensions(*fnames))
     return _extensions
-        
+
 if __name__ == '__main__':
     import sys
-    for ext in sorted(find_extensions(*sys.argv[1:])):
+    for ext in sorted(find_extensions(*(sys.argv[1:] or [os.getcwd()]))):
         print ext
