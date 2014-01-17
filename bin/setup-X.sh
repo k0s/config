@@ -24,11 +24,15 @@ done
 # ssh-add
 if [[ `ssh-add -l` != *id_?sa* ]]
 then
- SSH_ASKPASS=/usr/bin/ksshaskpass
- if [[ -e $SSH_ASKPASS ]]
+ GUI_SSH_ASKPASS=/usr/bin/ksshaskpass
+ if [[ -e "${GUI_SSH_ASKPASS}" ]]
  then
-   SSH_ASKPASS=${SSH_ASKPASS} ssh-add
+   SSH_ASKPASS=${GUI_SSH_ASKPASS} ssh-add
+ elif [[ -z "$PS1" ]]
+             # http://www.cyberciti.biz/faq/linux-unix-bash-check-interactive-shell/
+
+   echo "not running ssh-add: PS1 not found"
  else
-   echo "not running ssh-add: ${SSH_ASKPASS} not found"
+   ssh-add # interactive terminal
  fi
 fi
