@@ -61,13 +61,13 @@ class InitializeRepository(Step):
         ['hg', 'pull', SRC],
         ['hg', 'update', '-C'],
         ]
-    @classmethd
+    @classmethod
     def write_hgrc(self):
         hgrc = """[paths]
 default = http://k0s.org/hg/config
 default-push = ssh://k0s.org/hg/config
 """
-        with file('.hg/hgrc', 'w') as f
+        with file('.hg/hgrc', 'w') as f:
             f.write(hgrc)
     def __call__(self):
         Step.__call__(self)
@@ -77,7 +77,7 @@ default-push = ssh://k0s.org/hg/config
 #
 #@requires(Command('git'))
 #class GitInstall
-        
+
 ### legacy -v
 
 commands = [
