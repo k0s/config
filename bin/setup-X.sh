@@ -28,7 +28,7 @@ then
  if [[ -e "${GUI_SSH_ASKPASS}" ]]
  then
    SSH_ASKPASS=${GUI_SSH_ASKPASS} ssh-add
- elif [[ -z "$PS1" ]]
+ elif [[ -n "$PS1" ]]
  then
              # http://www.cyberciti.biz/faq/linux-unix-bash-check-interactive-shell/
 
