@@ -168,7 +168,7 @@ def main(args=sys.argv[1:]):
     parser.add_option('-l', '--list', '--list-steps',
                       dest='list_steps',
                       action='store_true', default=False,
-                      help="list steps to be run")
+                      help="list steps to be run and exit")
     options, args = parser.parse_args()
 
     # plan steps
@@ -180,6 +180,7 @@ def main(args=sys.argv[1:]):
         # list steps if specified
         for step in steps:
             print step
+        parser.exit()
 
     # execute steps
     for step in steps:
