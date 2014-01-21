@@ -14,10 +14,7 @@ import sys
 
 # config repository
 SRC='http://k0s.org/hg/config'
-
-# go home
 HOME=os.environ['HOME']
-os.chdir(HOME)
 
 ### standalone functions
 
@@ -86,17 +83,17 @@ commands = [
     ['hg', 'update', '-C'],
     ]
 
-execute(*commands)
+os.chdir(HOME) # go home
 
+execute(*commands)
 
 # make a (correct) .hg/hgrc file for $HOME
 hgrc = """[paths]
 default = http://k0s.org/hg/config
 default-push = ssh://k0s.org/hg/config
 """
-f = file('.hg/hgrc', 'w')
-f.write(hgrc)
-f.close()
+with file(os.path.join(HOME, '.hg/hgrc', 'w')) as f:
+    f.write(hgrc)
 
 # get the which command
 sys.path.append(os.path.join(HOME, 'python'))
@@ -126,7 +123,9 @@ if git:
 else:
     print "git not installed"
 
-# - ubuntu packages to install:
+class UbuntuPackages(Step):
+    """ubuntu packages to install"""
+
 PACKAGES=["mercurial", "unison", "fluxbox", "antiword", "xclip",
           "graphviz", "python-dev", "python-lxml", "curl", "arandr",
           "git", "emacs", "irssi"]
@@ -140,12 +139,23 @@ print "sudo apt-get install %s" % ' '.join(PACKAGES)
 #   to have some base (e.g. .gkrellm2/user_config)
 
 def main(args=sys.argv[1:]):
+
+    # go home
+    os.chdir(HOME)
+
+    # parse command line
     usage = '%prog [options]'
     parser = optparse.OptionParser(usage=usage, description=__doc__)
+    parser.add_option('--deb', '--dpkg', '--debian-packages',
+                      dest='debian_packages',
+                      action='store_true', default=False,
+                      help="display debian packages to install")
     options, args = parser.parse_args()
-    return
 
+    # plan steps
     steps = [InitializeRepository]
+
+    # execute steps
     for step in steps:
         pass # TODO
 
