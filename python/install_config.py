@@ -81,7 +81,7 @@ default-push = ssh://k0s.org/hg/config
 #@requires(Command('git'))
 #class GitInstall
 
-class UbuntuPackages(Step):
+class DebianPackages(Step):
     """ubuntu packages to install"""
 
     PACKAGES=["mercurial",
@@ -99,7 +99,7 @@ class UbuntuPackages(Step):
               "irssi"]
     def __call__(self):
         print "Ensure the following packages are installed:"
-        print "sudo apt-get install %s" % ' '.join(PACKAGES)
+        print "sudo apt-get install %s" % ' '.join(self.PACKAGES)
 
 
 ### legacy -v-
@@ -152,6 +152,7 @@ default-push = ssh://k0s.org/hg/config
         print "git not installed"
 
 
+### CLI
 
 def main(args=sys.argv[1:]):
 
@@ -172,7 +173,7 @@ def main(args=sys.argv[1:]):
     options, args = parser.parse_args()
 
     # plan steps
-    steps = [InitializeRepository, UbuntuPackages]
+    steps = [InitializeRepository, DebianPackages]
     if options.debian_packages:
         steps = [DebianPackages]
 
