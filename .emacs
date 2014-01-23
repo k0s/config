@@ -153,8 +153,9 @@
 (fset 'pytodo "raise NotImplementedError('TODO') # -> record TODO items")
 
 (fset 'python-file "#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-import optparse
+import argpase
 import os
 import sys
 
@@ -163,7 +164,7 @@ here = os.path.dirname(os.path.realpath(__file__))
 def main(args=sys.argv[1:]):
 
     usage = '%prog [options]'
-    parser = optparse.OptionParser(usage=usage, description=__doc__)
+    parser = argparse.ArgumentParser(usage=usage, description=__doc__)
     options, args = parser.parse_args(args)
 
 if __name__ == '__main__':
