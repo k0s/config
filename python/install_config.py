@@ -48,15 +48,23 @@ def install_develop(package):
     execute(command)
     os.chdir(old_directory)
 
-
-### process steps
+### generic step framework
 
 class Step(object):
     @classmethod
     def check(cls):
         """checks if the step may be run"""
+    @classmethod
+    def name(cls):
+        return cls.__name__
+    __str__ = name
     def __call__(self):
         execute(*self.commands)
+
+class Command(object):
+    """require a command"""
+
+### process steps
 
 class InitializeRepository(Step):
     """make the home directory a repository"""
@@ -67,6 +75,8 @@ class InitializeRepository(Step):
         ]
     @classmethod
     def write_hgrc(self):
+        """make a (correct) .hg/hgrc file for $HOME"""
+
         hgrc = """[paths]
 default = http://k0s.org/hg/config
 default-push = ssh://k0s.org/hg/config
@@ -77,12 +87,21 @@ default-push = ssh://k0s.org/hg/config
         Step.__call__(self)
         self.write_hgrc()
 
+        # get the which command
+        sys.path.append(os.path.join(HOME, 'python'))
+        from which import which
 
 #@requires(Command('git'))
-#class GitInstall
+class InstallVirtualenv(Step):
+    commands = [['git', 'clone', 'https://github.com/pypa/virtualenv.git'],
+                ['ln', '-s', 
+                 os.path.join(HOME, 'virtualenv/virtualenv.py'), 
+                 os.path.join(HOME, 'bin/')]
+            ]
 
 class DebianPackages(Step):
     """ubuntu packages to install"""
+    # TODO: actually install packages
 
     PACKAGES=["mercurial",
               "unison",
@@ -100,40 +119,19 @@ class DebianPackages(Step):
     def __call__(self):
         print "Ensure the following packages are installed:"
         print "sudo apt-get install %s" % ' '.join(self.PACKAGES)
-
+    
 
 ### legacy -v-
 
 def legacy():
     """legacy : TO DEPRECATE!"""
-    commands = [
-        ['hg', 'init'],
-        ['hg', 'pull', SRC],
-        ['hg', 'update', '-C'],
-        ]
-    os.chdir(HOME) # go home
-
-    execute(*commands)
-
-    # make a (correct) .hg/hgrc file for $HOME
-    hgrc = """[paths]
-default = http://k0s.org/hg/config
-default-push = ssh://k0s.org/hg/config
-"""
-    with file(os.path.join(HOME, '.hg/hgrc', 'w')) as f:
-        f.write(hgrc)
-
-    # get the which command
-    sys.path.append(os.path.join(HOME, 'python'))
-    from which import which
 
     # do git stuff
     git = which('git')
     if git:
 
         # get virtual env
-        virtualenv_commands = [['git', 'clone', 'https://github.com/pypa/virtualenv.git'],
-                               ['ln', '-s', HOME + '/virtualenv/virtualenv.py', HOME + '/bin/']]
+        virtualenv_
         execute(*virtualenv_commands)
 
         # setup git's global ignore, since git is silly about this
@@ -180,7 +178,7 @@ def main(args=sys.argv[1:]):
     if options.list_steps:
         # list steps if specified
         for step in steps:
-            print step
+            print(step.name())
         parser.exit()
 
     # execute steps
