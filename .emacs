@@ -165,7 +165,7 @@ def main(args=sys.argv[1:]):
 
     usage = '%prog [options]'
     parser = argparse.ArgumentParser(usage=usage, description=__doc__)
-    options, args = parser.parse_args(args)
+    options = parser.parse_args(args)
 
 if __name__ == '__main__':
     main()")
