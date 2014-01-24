@@ -155,7 +155,7 @@
 (fset 'python-file "#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import argpase
+import argparse
 import os
 import sys
 
