@@ -20,27 +20,25 @@ import subprocess
 import sys
 
 # globals
-SRC='http://k0s.org/hg/config' # config repository
-HOME=os.environ['HOME']
+SRC = 'http://k0s.org/hg/config' # config repository
+HOME = os.environ['HOME'] # home directory
 
 ### standalone functions
 
-def execute(*commands):
+def execute(*commands, **kwargs):
     """execute a series of commands"""
     for command in commands:
-        print ' '.join(command)
-        code = subprocess.call(command)
-        if code:
-            sys.exit(code)
+        print (subprocess.list2cmdline(' '.join(command))
+        code = subprocess.call(command, **kwargs)
 
 def install_develop(package):
     """install k0s.ware for development"""
 
     src = 'http://k0s.org/hg/%s' % package
     directory = '%s/src/%s' % (package, package)
-    commands = [ ['virtualenv/virtualenv.py', package],
-                 ['mkdir', '-p', directory ],
-                 ['hg', 'clone', src, directory] ]
+    commands = [['virtualenv/virtualenv.py', package],
+                ['mkdir', '-p', directory ],
+                ['hg', 'clone', src, directory] ]
     execute(*commands)
     old_directory = os.getcwd()
     os.chdir(directory)
@@ -49,6 +47,8 @@ def install_develop(package):
     os.chdir(old_directory)
 
 ### generic step framework
+
+
 
 class Step(object):
     @classmethod
@@ -92,12 +92,20 @@ default-push = ssh://k0s.org/hg/config
         from which import which
 
 #@requires(Command('git'))
+class ConfigureGit(Step):
+    """configure git"""
+    commands = [['git', 'config', '--global', 'core.excludesfile', os.path.join(HOME, '.gitignore')]]
+
+#@requires(Command('git'))
 class InstallVirtualenv(Step):
     commands = [['git', 'clone', 'https://github.com/pypa/virtualenv.git'],
-                ['ln', '-s', 
-                 os.path.join(HOME, 'virtualenv/virtualenv.py'), 
-                 os.path.join(HOME, 'bin/')]
-            ]
+                ['ln', '-s',
+                 os.path.join(HOME, 'virtualenv/virtualenv.py'),
+                 os.path.join(HOME, 'bin', 'virtualenv.py')]
+    ]
+
+class InstallKWare(Step):
+    """install k0s.ware"""
 
 class DebianPackages(Step):
     """ubuntu packages to install"""
@@ -119,7 +127,7 @@ class DebianPackages(Step):
     def __call__(self):
         print "Ensure the following packages are installed:"
         print "sudo apt-get install %s" % ' '.join(self.PACKAGES)
-    
+
 
 ### legacy -v-
 
@@ -130,13 +138,8 @@ def legacy():
     git = which('git')
     if git:
 
-        # get virtual env
-        virtualenv_
-        execute(*virtualenv_commands)
-
         # setup git's global ignore, since git is silly about this
         # and doesn't look for the file in the right place
-        execute(['git', 'config', '--global', 'core.excludesfile', os.path.join(HOME, '.gitignore')])
 
         # install some python
         install_develop('smartopen')
