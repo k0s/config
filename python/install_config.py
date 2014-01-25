@@ -41,6 +41,7 @@ def execute(*commands, **kwargs):
         if code:
             raise subprocess.CalledProcessError(code, command)
 
+
 def install_develop(package):
     """install k0s.ware for development"""
 
@@ -58,6 +59,9 @@ def install_develop(package):
 
 
 ### generic step framework
+
+class StepGraph(object):
+    """a bunch of steps"""
 
 class Step(object):
     @classmethod
