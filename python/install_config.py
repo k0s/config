@@ -125,22 +125,27 @@ class DebianPackages(Step):
     # TODO: actually install packages
 
     PACKAGES=["antiword",
+              "arandr",
+              "curl",
+              "emacs",
               "fluxbox",
+              "git",
+              "gkrellm",
+              "graphviz",
+              "graphviz-dev",
+              "irssi",
               "mercurial",
+              "python-dev",
+              "python-lxml",
               "libxml2"
               "libxml2-dev",
               "libxslt1-dev",
               "unison",
               "xclip",
-              "graphviz",
-              "python-dev",
-              "python-lxml",
-              "curl",
-              "arandr",
-              "git",
-              "emacs",
-              "irssi"]
+    ]
+
     def __call__(self):
+        # TODO: actually install this shit
         print "Ensure the following packages are installed:"
         print "sudo apt-get install %s" % ' '.join(self.PACKAGES)
 
