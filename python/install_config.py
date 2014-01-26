@@ -124,10 +124,13 @@ class DebianPackages(Step):
     """ubuntu packages to install"""
     # TODO: actually install packages
 
-    PACKAGES=["mercurial",
-              "unison",
+    PACKAGES=["antiword",
               "fluxbox",
-              "antiword",
+              "mercurial",
+              "libxml2"
+              "libxml2-dev",
+              "libxslt1-dev",
+              "unison",
               "xclip",
               "graphviz",
               "python-dev",
