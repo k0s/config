@@ -13,6 +13,7 @@ curl http://k0s.org/hg/config/raw-file/tip/python/install_config.py | python
 #   to have some base (e.g. .gkrellm2/user_config)
 # - scp k0s.org:~/web/sync.ini ~/.silvermirror
 # - make idempotent
+# - step to install (and setup) firefox
 
 # imports
 import imp
@@ -74,8 +75,15 @@ class Step(object):
     def __call__(self):
         execute(*self.commands)
 
+
 class Command(object):
     """require a command"""
+
+#@require(Virtualenv)
+class InstallVirtualenv(Step):
+    """ABC for installing packages in a virtualenv"""
+    # TODO: move install_develop sctuff to here
+
 
 ### process steps
 
@@ -96,6 +104,7 @@ default-push = ssh://k0s.org/hg/config
 """
         with file('.hg/hgrc', 'w') as f:
             f.write(hgrc)
+
     def __call__(self):
         Step.__call__(self)
         self.write_hgrc()
@@ -107,7 +116,11 @@ default-push = ssh://k0s.org/hg/config
 #@requires(Command('git'))
 class ConfigureGit(Step):
     """configure git"""
-    commands = [['git', 'config', '--global', 'core.excludesfile', os.path.join(HOME, '.gitignore')]]
+    commands = [
+        # setup git's global ignore, since git is silly about this
+        # and doesn't look for the file in the right place
+        ['git', 'config', '--global', 'core.excludesfile', os.path.join(HOME, '.gitignore')]
+    ]
 
 #@requires(Command('git'))
 class InstallVirtualenv(Step):
@@ -117,8 +130,19 @@ class InstallVirtualenv(Step):
                  os.path.join(HOME, 'bin', 'virtualenv.py')]
     ]
 
-class InstallKWare(Step):
+class InstallKWare(In):
     """install k0s.ware"""
+    # TODO
+    # from legacy
+        # # install some python
+        # install_develop('smartopen')
+        # install_develop('silvermirror') # XXX this won't actually work since python-dev isn't installed; install it first
+
+        # postinstall_commands = [['ln', '-s', os.path.join(HOME, 'smartopen', 'bin', 'smartopen'), os.path.join(HOME, 'bin', 'smartopen') ],
+        #                         ['ln', '-s', os.path.join(HOME, 'silvermirror', 'bin', 'silvermirror'), os.path.join(HOME, 'bin', 'silvermirror') ],
+        #                      ]
+        # execute(*postinstall_commands)
+
 
 class DebianPackages(Step):
     """ubuntu packages to install"""
@@ -159,17 +183,6 @@ def legacy():
     git = which('git')
     if git:
 
-        # setup git's global ignore, since git is silly about this
-        # and doesn't look for the file in the right place
-
-        # install some python
-        install_develop('smartopen')
-        install_develop('silvermirror') # XXX this won't actually work since python-dev isn't installed; install it first
-
-        postinstall_commands = [['ln', '-s', os.path.join(HOME, 'smartopen', 'bin', 'smartopen'), os.path.join(HOME, 'bin', 'smartopen') ],
-                                ['ln', '-s', os.path.join(HOME, 'silvermirror', 'bin', 'silvermirror'), os.path.join(HOME, 'bin', 'silvermirror') ],
-                             ]
-        execute(*postinstall_commands)
     else:
         print "git not installed"
 
