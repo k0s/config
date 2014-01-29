@@ -165,6 +165,9 @@ def main(args=sys.argv[1:]):
 
     usage = '%prog [options]'
     parser = argparse.ArgumentParser(usage=usage, description=__doc__)
+    parser.add_option('input', nargs='?',
+                      type=argparse.FileType('r'), default=sys.stdin,
+                      help='input file, or read from stdin if ommitted')
     options = parser.parse_args(args)
 
 if __name__ == '__main__':
@@ -190,7 +193,7 @@ if __name__ == '__main__':
     return imp.load_source(module, dest)
 ")
 
-(fset 'mozbase-test "#!/usr/bin/env python
+(fset 'python-test "#!/usr/bin/env python
 
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
