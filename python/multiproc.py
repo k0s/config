@@ -11,7 +11,12 @@ import sys
 import time
 import tempfile
 
-class
+class Process(subprocess.Popen):
+    """why would you name a subprocess object Popen?"""
+
+    def __init__(self, *args, **kwargs):
+        self.output = tempfile.SpooledTemporaryFile()
+        subprocess.Popen.__init__(self, *args, **kwargs)
 
 def main(args=sys.argv[1:]):
     """CLI"""
