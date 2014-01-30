@@ -11,11 +11,15 @@ import sys
 import time
 import tempfile
 
-progs = {'yes': ["yes"],
-         'ping': ['ping', 'google.com']}
+class
 
 def main(args=sys.argv[1:]):
     """CLI"""
+
+    # available programs
+    progs = {'yes': ["yes"],
+             'ping': ['ping', 'google.com']}
+
 
     # parse command line
     usage = '%prog [options]'
@@ -25,12 +29,16 @@ def main(args=sys.argv[1:]):
                         help="seconds to run for")
     parser.add_argument("-s", "--sleep", dest="sleep",
                         type=float, default=1.,
-                        help="")
+                        help="sleep this number of seconds between polling")
+    parser.add_argument("-p", "--prog", dest='program',
+                        choices=progs.keys(),
+                        help="subprocess to run")
+    # TODO parser.add_argument("--list-programs", help="list available programs")
     options = parser.parse_args(args)
 
 
     # select program
-    prog = progs['ping']
+    prog = progs[options.program]
 
     # start the main subprocess loop
     # TODO -> OO
