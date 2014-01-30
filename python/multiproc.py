@@ -17,6 +17,7 @@ class Process(subprocess.Popen):
     def __init__(self, *args, **kwargs):
         self.output = tempfile.SpooledTemporaryFile()
         subprocess.Popen.__init__(self, *args, **kwargs)
+    # TODO: finish
 
 def main(args=sys.argv[1:]):
     """CLI"""
