@@ -2,7 +2,7 @@
 	excludesfile = /home/jhammel/.gitignore
 [user]
 	name = Jeff Hammel
-	email = jhammel@mozilla.com
+	email = k0scist@gmail.com
 [alias]
         branches = branch -a
         branchname = git rev-parse --abbrev-ref HEAD
@@ -11,5 +11,5 @@
         pushbranch = !git push origin $(git rev-parse --abbrev-ref HEAD)
         root = rev-parse --show-toplevel
         st = status
-        up = !git pull mozilla master && git push origin master
+        up = !git pull origin master && git push origin master
         wip = !git commit -a -m 'wip' && git push origin $(git rev-parse --abbrev-ref HEAD)
