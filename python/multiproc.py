@@ -14,6 +14,9 @@ import tempfile
 class Process(subprocess.Popen):
     """why would you name a subprocess object Popen?"""
 
+    defaults = {'buffsize': 'line buffered'
+                }
+
     def __init__(self, *args, **kwargs):
         self.output = tempfile.SpooledTemporaryFile()
         subprocess.Popen.__init__(self, *args, **kwargs)
