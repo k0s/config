@@ -11,16 +11,64 @@ import sys
 import time
 import tempfile
 
+string = (str, unicode)
+
 class Process(subprocess.Popen):
     """why would you name a subprocess object Popen?"""
 
-    defaults = {'buffsize': 'line buffered'
+    # http://docs.python.org/2/library/subprocess.html#popen-constructor
+    defaults = {'buffsize': 1, # line buffered
                 }
 
-    def __init__(self, *args, **kwargs):
-        self.output = tempfile.SpooledTemporaryFile()
-        subprocess.Popen.__init__(self, *args, **kwargs)
-    # TODO: finish
+    def __init__(self, command, **kwargs):
+
+        # setup arguments
+        self.command = command
+        _kwargs = self.defaults.copy()
+        _kwargs.update(kwargs)
+
+        # output buffer
+        self.output_buffer = tempfile.SpooledTemporaryFile()
+        self.location = 0
+        self.output = []
+        _kwargs['stdout'] = self.output_buffer
+
+        # launch subprocess
+        self.start = time.time()
+        subprocess.Popen.__init__(self, *args, **_kwargs)
+
+    def wait(self, maxtime=None, sleep=1.):
+        """
+        maxtime -- timeout in seconds
+        sleep -- number of seconds to sleep between polling
+        """
+        while self.poll() is None:
+
+            # check for timeout
+            curr_time = time.time()
+            run_time = curr_time - self.start
+            if run_time > maxtime:
+                # TODO: read from output
+                return process.kill()
+
+            # naptime
+            if sleep:
+                time.sleep(sleep)
+
+            # read from output buffer
+            self.output_buffer.seek(self.location)
+            read = self.output_buffer.read()
+            self.location += len(read)
+
+    def commandline(self):
+        """returns string of command line"""
+
+        if isinstance(self.command, string):
+            return self.command
+        return subprocess.list2cmdline(self.command)
+
+    __str__ = commandline
+
 
 def main(args=sys.argv[1:]):
     """CLI"""
@@ -40,9 +88,11 @@ def main(args=sys.argv[1:]):
                         type=float, default=1.,
                         help="sleep this number of seconds between polling")
     parser.add_argument("-p", "--prog", dest='program',
-                        choices=progs.keys(),
+                        choices=progs.keys(), default='ping',
                         help="subprocess to run")
-    # TODO parser.add_argument("--list-programs", help="list available programs")
+    parser.add_argument("--list-programs", dest='list_programs',
+                        action='store_true', default=False,
+                        help="list available programs")
     options = parser.parse_args(args)
 
 
@@ -60,12 +110,12 @@ def main(args=sys.argv[1:]):
         run_time = curr_time - start
         if run_time > options.time:
             proc.kill()
-        if options.sleep:
-            time.sleep(options.sleep)
         output.seek(location)
         read = output.read()
         location += len(read)
         print ('[{}] {}\n{}'.format(run_time, read, '-==-'*10))
+        if options.sleep:
+            time.sleep(options.sleep)
 
     # reset tempfile
     output.seek(0)
