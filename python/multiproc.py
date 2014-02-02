@@ -27,6 +27,11 @@ class Process(subprocess.Popen):
         _kwargs = self.defaults.copy()
         _kwargs.update(kwargs)
 
+        # on unix, ``shell={True|False}`` should always come from the
+        # type of command (string or list)
+        if not mswindows:
+            _kwargs['shell'] = isinstance(command, string)
+
         # output buffer
         self.output_buffer = tempfile.SpooledTemporaryFile()
         self.location = 0
@@ -35,7 +40,7 @@ class Process(subprocess.Popen):
 
         # launch subprocess
         self.start = time.time()
-        subprocess.Popen.__init__(self, *args, **_kwargs)
+        subprocess.Popen.__init__(self, command, **_kwargs)
 
     def wait(self, maxtime=None, sleep=1.):
         """
@@ -51,14 +56,15 @@ class Process(subprocess.Popen):
                 # TODO: read from output
                 return process.kill()
 
-            # naptime
-            if sleep:
-                time.sleep(sleep)
-
             # read from output buffer
             self.output_buffer.seek(self.location)
             read = self.output_buffer.read()
             self.location += len(read)
+
+            # naptime
+            if sleep:
+                time.sleep(sleep)
+
 
     def commandline(self):
         """returns string of command line"""
