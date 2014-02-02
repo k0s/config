@@ -65,6 +65,10 @@ class Process(subprocess.Popen):
             if sleep:
                 time.sleep(sleep)
 
+        # reset tempfile
+        output.seek(0)
+
+        return self.returncode # set by ``.poll()``
 
     def commandline(self):
         """returns string of command line"""
@@ -101,30 +105,36 @@ def main(args=sys.argv[1:]):
                         help="list available programs")
     options = parser.parse_args(args)
 
+    # list programs
+    if options.list_programs:
+        for key in sorted(progs.keys()):
+            print ('{}: {}'.format(key, subprocess.list2cmdline(progs[key])))
 
     # select program
     prog = progs[options.program]
 
-    # start the main subprocess loop
-    # TODO -> OO
-    output = tempfile.SpooledTemporaryFile()
-    start = time.time()
-    proc = subprocess.Popen(prog, stdout=output)
-    location = 0
-    while proc.poll() is None:
-        curr_time = time.time()
-        run_time = curr_time - start
-        if run_time > options.time:
-            proc.kill()
-        output.seek(location)
-        read = output.read()
-        location += len(read)
-        print ('[{}] {}\n{}'.format(run_time, read, '-==-'*10))
-        if options.sleep:
-            time.sleep(options.sleep)
+    proc = Process(prog)
 
-    # reset tempfile
-    output.seek(0)
+    # # start the main subprocess loop
+    # # TODO -> OO
+    # output = tempfile.SpooledTemporaryFile()
+    # start = time.time()
+    # proc = subprocess.Popen(prog, stdout=output)
+    # location = 0
+    # while proc.poll() is None:
+    #     curr_time = time.time()
+    #     run_time = curr_time - start
+    #     if run_time > options.time:
+    #         proc.kill()
+    #     output.seek(location)
+    #     read = output.read()
+    #     location += len(read)
+    #     print ('[{}] {}\n{}'.format(run_time, read, '-==-'*10))
+    #     if options.sleep:
+    #         time.sleep(options.sleep)
+
+    # # reset tempfile
+    # output.seek(0)
 
     n_lines = len(output.read().splitlines())
     print ("{}: {} lines".format(subprocess.list2cmdline(prog), n_lines))
