@@ -68,7 +68,7 @@ class Process(subprocess.Popen):
             # check for timeout
             curr_time = time.time()
             run_time = curr_time - self.start
-            if run_time > maxtime:
+            if maxtime is not None and run_time > maxtime:
                 self.kill()
                 self._finalize(process_output)
                 return
