@@ -17,7 +17,7 @@ class Process(subprocess.Popen):
     """why would you name a subprocess object Popen?"""
 
     # http://docs.python.org/2/library/subprocess.html#popen-constructor
-    defaults = {'buffsize': 1, # line buffered
+    defaults = {'bufsize': 1, # line buffered
                 }
 
     def __init__(self, command, **kwargs):
@@ -35,7 +35,7 @@ class Process(subprocess.Popen):
         # output buffer
         self.output_buffer = tempfile.SpooledTemporaryFile()
         self.location = 0
-        self.output = []
+        self.output = ''
         _kwargs['stdout'] = self.output_buffer
 
         # launch subprocess
@@ -57,9 +57,7 @@ class Process(subprocess.Popen):
                 return process.kill()
 
             # read from output buffer
-            self.output_buffer.seek(self.location)
-            read = self.output_buffer.read()
-            self.location += len(read)
+            read = self.read()
 
             # naptime
             if sleep:
@@ -69,6 +67,14 @@ class Process(subprocess.Popen):
         output.seek(0)
 
         return self.returncode # set by ``.poll()``
+
+    def read(self):
+        """read from the output buffer"""
+        self.output_buffer.seek(self.location)
+        read = self.output_buffer.read()
+        self.output += read
+        self.location += len(read)
+        return read
 
     def commandline(self):
         """returns string of command line"""
@@ -109,6 +115,7 @@ def main(args=sys.argv[1:]):
     if options.list_programs:
         for key in sorted(progs.keys()):
             print ('{}: {}'.format(key, subprocess.list2cmdline(progs[key])))
+        sys.exit(0)
 
     # select program
     prog = progs[options.program]
