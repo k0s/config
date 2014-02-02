@@ -29,7 +29,7 @@ class Process(subprocess.Popen):
 
         # on unix, ``shell={True|False}`` should always come from the
         # type of command (string or list)
-        if not mswindows:
+        if not subprocess.mswindows:
             _kwargs['shell'] = isinstance(command, string)
 
         # output buffer
