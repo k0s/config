@@ -18,6 +18,7 @@ class Process(subprocess.Popen):
 
     # http://docs.python.org/2/library/subprocess.html#popen-constructor
     defaults = {'bufsize': 1, # line buffered
+                'store_output': True, # store stdout
                 }
 
     def __init__(self, command, **kwargs):
@@ -33,16 +34,31 @@ class Process(subprocess.Popen):
             _kwargs['shell'] = isinstance(command, string)
 
         # output buffer
-        self.output_buffer = tempfile.SpooledTemporaryFile()
         self.location = 0
-        self.output = ''
+        self.output_buffer = tempfile.SpooledTemporaryFile()
+        self.output = '' if _kwargs.pop('store_output') else None
         _kwargs['stdout'] = self.output_buffer
 
-        # launch subprocess
+        # runtime
         self.start = time.time()
+        self.end = None
+
+        # launch subprocess
         subprocess.Popen.__init__(self, command, **_kwargs)
 
-    def wait(self, maxtime=None, sleep=1.):
+    def _finalize(self, process_output):
+        """internal function to finalize"""
+
+        # read final output
+        self.read(process_output)
+
+        # reset output buffer
+        self.output_buffer.seek(0)
+
+        # set end time
+        self.end = time.time()
+
+    def wait(self, maxtime=None, sleep=1., process_output=None):
         """
         maxtime -- timeout in seconds
         sleep -- number of seconds to sleep between polling
@@ -53,26 +69,31 @@ class Process(subprocess.Popen):
             curr_time = time.time()
             run_time = curr_time - self.start
             if run_time > maxtime:
-                # TODO: read from output
-                return process.kill()
+                self.kill()
+                self._finalize(process_output)
+                return
 
             # read from output buffer
-            read = self.read()
+            self.read(process_output)
 
             # naptime
             if sleep:
                 time.sleep(sleep)
 
-        # reset tempfile
-        output.seek(0)
+        # finalize
+        self._finalize()
 
         return self.returncode # set by ``.poll()``
 
-    def read(self):
+    def read(self, process_output=None):
         """read from the output buffer"""
+
         self.output_buffer.seek(self.location)
         read = self.output_buffer.read()
-        self.output += read
+        if self.output is not None:
+            self.output += read
+        if process_output:
+            process_output(read)
         self.location += len(read)
         return read
 
@@ -85,6 +106,13 @@ class Process(subprocess.Popen):
 
     __str__ = commandline
 
+    def runtime(self):
+        """returns time spent running or total runtime if completed"""
+
+        if self.end is None:
+            return self.end - self.start
+        return time.time() - self.start
+
 
 def main(args=sys.argv[1:]):
     """CLI"""
@@ -93,10 +121,8 @@ def main(args=sys.argv[1:]):
     progs = {'yes': ["yes"],
              'ping': ['ping', 'google.com']}
 
-
     # parse command line
-    usage = '%prog [options]'
-    parser = argparse.ArgumentParser(usage=usage, description=__doc__)
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("-t", "--time", dest="time",
                         type=float, default=4.,
                         help="seconds to run for")
@@ -120,7 +146,12 @@ def main(args=sys.argv[1:]):
     # select program
     prog = progs[options.program]
 
+    # start process
     proc = Process(prog)
+
+    # callback for output processing
+    def process_output(output):
+        print output.upper()
 
     # # start the main subprocess loop
     # # TODO -> OO
@@ -143,7 +174,12 @@ def main(args=sys.argv[1:]):
     # # reset tempfile
     # output.seek(0)
 
-    n_lines = len(output.read().splitlines())
+    # wait for being done
+    proc.wait(maxtime=options.time, sleep=options.sleep, process_output=process_output)
+
+    # finalization
+    output = proc.output
+    n_lines = len(output.splitlines())
     print ("{}: {} lines".format(subprocess.list2cmdline(prog), n_lines))
 
 if __name__ == '__main__':
