@@ -6,7 +6,7 @@ multiprocessing/subprocess experiments
 
 import argparse
 import os
-import subprocess
+import subprocess # http://bugs.python.org/issue1731717
 import sys
 import time
 import tempfile
