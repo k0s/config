@@ -52,21 +52,27 @@ class Process(subprocess.Popen):
         # read final output
         self.read(process_output)
 
-        # reset output buffer
+        # reset output buffer location
         self.output_buffer.seek(0)
 
         # set end time
         self.end = time.time()
 
-    def poll(self):
-        return subprocess.Popen.poll(self)
+    def poll(self, process_output=None):
+
+        if process_output is not None:
+            self.read(process_output) # read from output buffer
+        poll = subprocess.Popen.poll(self)
+        if poll is not None:
+            self._finalize(process_output)
+        return poll
 
     def wait(self, maxtime=None, sleep=1., process_output=None):
         """
         maxtime -- timeout in seconds
         sleep -- number of seconds to sleep between polling
         """
-        while self.poll() is None:
+        while self.poll(process_output) is None:
 
             # check for timeout
             curr_time = time.time()
@@ -75,9 +81,6 @@ class Process(subprocess.Popen):
                 self.kill()
                 self._finalize(process_output)
                 return
-
-            # read from output buffer
-            self.read(process_output)
 
             # naptime
             if sleep:
@@ -128,7 +131,7 @@ def main(args=sys.argv[1:]):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("-t", "--time", dest="time",
                         type=float, default=4.,
-                        help="seconds to run for")
+                        help="seconds to run for (or <= 0 for forever)")
     parser.add_argument("-s", "--sleep", dest="sleep",
                         type=float, default=1.,
                         help="sleep this number of seconds between polling")
@@ -154,40 +157,26 @@ def main(args=sys.argv[1:]):
 
     # callback for output processing
     def process_output(output):
-        print ('[{}] {}\n{}'.format(proc.runtime(),
-                                    output.upper(),
-                                    '-==-'*10))
+        print ('[{}] {}{}'.format(proc.runtime(),
+                                  output.upper(),
+                                  '-==-'*10))
 
+    # start the main subprocess loop
+    while proc.poll(process_output) is None:
 
-    # LEGACY: output = tempfile.SpooledTemporaryFile()
-    # start = time.time()
-    # proc = subprocess.Popen(prog, stdout=output)
-    # location = 0
+        if options.time > 0 and proc.runtime() > options.time:
+            proc.kill()
 
-# start the main subprocess loop
-#    while proc.poll() is None:
-
-        # LEGACY:
-        #     curr_time = time.time()
-        #     run_time = curr_time - start
-        #     if run_time > options.time:
-        #         proc.kill()
-
-
-    #     output.seek(location)
-    #     read = output.read()
-    #     location += len(read)
-    #     print ('[{}] {}\n{}'.format(run_time, read, '-==-'*10))
-    #     if options.sleep:
-    #         time.sleep(options.sleep)
-
-    # # reset tempfile
-    # output.seek(0)
+        if options.sleep:
+            time.sleep(options.sleep)
 
     # wait for being done
-    proc.wait(maxtime=options.time, sleep=options.sleep, process_output=process_output)
+    #proc.wait(maxtime=options.time, sleep=options.sleep, process_output=process_output)
 
-    # finalization
+    # correctness tests
+    assert proc.end is not None
+
+    # print summary
     output = proc.output
     n_lines = len(output.splitlines())
     print ("{}: {} lines".format(subprocess.list2cmdline(prog), n_lines))
