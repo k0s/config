@@ -58,6 +58,9 @@ class Process(subprocess.Popen):
         # set end time
         self.end = time.time()
 
+    def poll(self):
+        return subprocess.Popen.poll(self)
+
     def wait(self, maxtime=None, sleep=1., process_output=None):
         """
         maxtime -- timeout in seconds
@@ -67,7 +70,7 @@ class Process(subprocess.Popen):
 
             # check for timeout
             curr_time = time.time()
-            run_time = curr_time - self.start
+            run_time = self.runtime()
             if maxtime is not None and run_time > maxtime:
                 self.kill()
                 self._finalize(process_output)
@@ -81,7 +84,7 @@ class Process(subprocess.Popen):
                 time.sleep(sleep)
 
         # finalize
-        self._finalize()
+        self._finalize(process_output)
 
         return self.returncode # set by ``.poll()``
 
@@ -110,8 +113,8 @@ class Process(subprocess.Popen):
         """returns time spent running or total runtime if completed"""
 
         if self.end is None:
-            return self.end - self.start
-        return time.time() - self.start
+            return time.time() - self.start
+        return self.end - self.start
 
 
 def main(args=sys.argv[1:]):
@@ -151,19 +154,26 @@ def main(args=sys.argv[1:]):
 
     # callback for output processing
     def process_output(output):
-        print output.upper()
+        print ('[{}] {}\n{}'.format(proc.runtime(),
+                                    output.upper(),
+                                    '-==-'*10))
 
-    # # start the main subprocess loop
-    # # TODO -> OO
-    # output = tempfile.SpooledTemporaryFile()
+
+    # LEGACY: output = tempfile.SpooledTemporaryFile()
     # start = time.time()
     # proc = subprocess.Popen(prog, stdout=output)
     # location = 0
-    # while proc.poll() is None:
-    #     curr_time = time.time()
-    #     run_time = curr_time - start
-    #     if run_time > options.time:
-    #         proc.kill()
+
+# start the main subprocess loop
+#    while proc.poll() is None:
+
+        # LEGACY:
+        #     curr_time = time.time()
+        #     run_time = curr_time - start
+        #     if run_time > options.time:
+        #         proc.kill()
+
+
     #     output.seek(location)
     #     read = output.read()
     #     location += len(read)
