@@ -186,9 +186,10 @@ def main(args=sys.argv[1:]):
             if options.sleep:
                 time.sleep(options.sleep)
 
-            if process_output is not None:
+            if process_output is None:
                 # process the output with ``.read()`` call
-                proc.read(output_processor)
+                read = proc.read()
+                output_processor(read)
 
     # correctness tests
     assert proc.end is not None
