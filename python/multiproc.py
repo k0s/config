@@ -123,12 +123,14 @@ class Process(subprocess.Popen):
 def main(args=sys.argv[1:]):
     """CLI"""
 
+    description = """demonstration of how to do things with subprocess"""
+
     # available programs
     progs = {'yes': ["yes"],
              'ping': ['ping', 'google.com']}
 
     # parse command line
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(description=description)
     parser.add_argument("-t", "--time", dest="time",
                         type=float, default=4.,
                         help="seconds to run for (or <= 0 for forever)")
@@ -141,6 +143,12 @@ def main(args=sys.argv[1:]):
     parser.add_argument("--list-programs", dest='list_programs',
                         action='store_true', default=False,
                         help="list available programs")
+    parser.add_argument("--wait", dest='wait',
+                        action='store_true', default=False,
+                        help="run with ``.wait()`` and a callback")
+    parser.add_argument("--callback", dest='callback',
+                        action='store_true', default=False,
+                        help="run with polling and a callback")
     options = parser.parse_args(args)
 
     # list programs
@@ -155,23 +163,32 @@ def main(args=sys.argv[1:]):
     # start process
     proc = Process(prog)
 
-    # callback for output processing
-    def process_output(output):
-        print ('[{}] {}{}'.format(proc.runtime(),
-                                  output.upper(),
-                                  '-==-'*10))
+    # demo function for processing output
+    def output_processor(output):
+        print ('[{}]:\n{}\n{}'.format(proc.runtime(),
+                                      output.upper(),
+                                      '-==-'*10))
+    if options.callback:
+        process_output = output_processor
+    else:
+        process_output = None
 
-    # start the main subprocess loop
-    while proc.poll(process_output) is None:
+    if options.wait:
+        # wait for being done
+        proc.wait(maxtime=options.time, sleep=options.sleep, process_output=output_processor)
+    else:
+        # start the main subprocess loop
+        while proc.poll(process_output) is None:
 
-        if options.time > 0 and proc.runtime() > options.time:
-            proc.kill()
+            if options.time > 0 and proc.runtime() > options.time:
+                proc.kill()
 
-        if options.sleep:
-            time.sleep(options.sleep)
+            if options.sleep:
+                time.sleep(options.sleep)
 
-    # wait for being done
-    #proc.wait(maxtime=options.time, sleep=options.sleep, process_output=process_output)
+            if process_output is not None:
+                # process the output with ``.read()`` call
+                proc.read(output_processor)
 
     # correctness tests
     assert proc.end is not None
@@ -179,7 +196,7 @@ def main(args=sys.argv[1:]):
     # print summary
     output = proc.output
     n_lines = len(output.splitlines())
-    print ("{}: {} lines".format(subprocess.list2cmdline(prog), n_lines))
+    print ("{}: {} lines, ran for {} seconds".format(subprocess.list2cmdline(prog), n_lines, proc.runtime()))
 
 if __name__ == '__main__':
     main()
