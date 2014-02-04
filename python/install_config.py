@@ -37,7 +37,7 @@ def class_mapping(_type):
 def execute(*commands, **kwargs):
     """execute a series of commands"""
     for command in commands:
-        print (subprocess.list2cmdline(' '.join(command)))
+        print (subprocess.list2cmdline(command))
         code = subprocess.call(command, **kwargs)
         if code:
             raise subprocess.CalledProcessError(code, command)
@@ -71,7 +71,7 @@ class Step(object):
     @classmethod
     def name(cls):
         return cls.__name__
-    __str__ = name
+    __str__ = name # XXX does not work! :(
     def __call__(self):
         execute(*self.commands)
 
