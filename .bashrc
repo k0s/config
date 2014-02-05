@@ -605,11 +605,9 @@ while read line;  do echo ${line} : $(($(test "-e ${line}"\") )); done
 ### include overrides for commands
 source ~/.bash_overrides
 
-### include mozilla customizations
-if [ -e ~/.bash_mozilla ]
-then
-    source ~/.bash_mozilla
-fi
+### cognet customizations
+export BASTION_SERVER=bastion-east-1c.cognet.tv
+export KEYS_DIR=/home/jhammel/.ssh
 
 ### regenerate fluxbox menus here for convenience
 if type deactivate &> /dev/null
