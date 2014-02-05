@@ -607,6 +607,7 @@ source ~/.bash_overrides
 
 ### cognet customizations
 export BASTION_SERVER=bastion-east-1c.cognet.tv
+export BASTION_USER=jhammel
 export KEYS_DIR=/home/jhammel/.ssh
 
 ### regenerate fluxbox menus here for convenience
