@@ -24,6 +24,20 @@ from lsex import lsex # local import
 # available executables
 executables = set([i.rsplit('/', 1)[-1] for i in lsex() ])
 
+# TODO: next generation
+# class HtmlMenu
+#     def  _init__(self, html):
+#         if isinstance (html, string):
+#             html =
+#         for item in html
+
+# class Command
+#     classname = ''
+
+# class Sudo(Command)
+#     classname = 'sudo'
+#     programs = (('gksudo',),)
+
 def readmenu(dl, output, top=True):
     """read menu from an <dl> tag"""
     # TODO: probably don't really need lxml
