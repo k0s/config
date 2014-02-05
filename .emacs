@@ -157,13 +157,13 @@
 
 import argparse
 import os
+import subprocess
 import sys
 
 here = os.path.dirname(os.path.realpath(__file__))
 
 def main(args=sys.argv[1:]):
 
-    usage = '%prog [options]'
     parser = argparse.ArgumentParser(usage=usage, description=__doc__)
     parser.add_option('input', nargs='?',
                       type=argparse.FileType('r'), default=sys.stdin,
@@ -200,8 +200,8 @@ import unittest
 
 here = os.path.dirname(os.path.abspath(__file__))
 
-class Test__(unittest.TestCase):
-    def test__(self):
+class Test(unittest.TestCase):
+    def test_(self):
         pass
 
 if __name__ == '__main__':
