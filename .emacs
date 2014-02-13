@@ -164,7 +164,7 @@ here = os.path.dirname(os.path.realpath(__file__))
 
 def main(args=sys.argv[1:]):
 
-    parser = argparse.ArgumentParser(usage=usage, description=__doc__)
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_option('input', nargs='?',
                       type=argparse.FileType('r'), default=sys.stdin,
                       help='input file, or read from stdin if ommitted')
