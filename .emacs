@@ -196,12 +196,13 @@ if __name__ == '__main__':
 (fset 'python-test "#!/usr/bin/env python
 
 import os
+import tempfile
 import unittest
 
 here = os.path.dirname(os.path.abspath(__file__))
 
 class Test(unittest.TestCase):
-    def test_(self):
+    def test_basic(self):
         pass
 
 if __name__ == '__main__':
