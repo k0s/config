@@ -31,6 +31,17 @@ class Git(object):
         merge_base = subprocess.check_output(['git', 'merge-base', 'HEAD', 'master']).strip()
         return subprocess.check_output(['git', 'diff', merge_base])
 
+    def checkout(self, branch):
+        subprocess.check_output(['git', 'checkout', branch])
+
+    def pull(self, branch='master'):
+        current_branch = self.branch()
+        if current_branch != branch:
+            self.checkout(branch)
+        subprocess.check_output(['git', 'pull', 'origin', branch])
+        if current_branch != branch:
+            self.checkout(current_branch)
+
     def merge(self):
         pass
 
