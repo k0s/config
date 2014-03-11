@@ -161,6 +161,7 @@ import subprocess
 import sys
 
 here = os.path.dirname(os.path.realpath(__file__))
+string = (str, unicode)
 
 def main(args=sys.argv[1:]):
 
@@ -173,6 +174,7 @@ def main(args=sys.argv[1:]):
 if __name__ == '__main__':
     main()")
 ;; TODO: take directly from MakeItSo
+;; - makeitso should output .el files from the templates
 
 (fset 'python-require "def require(url):
     # http://k0s.org/hg/config/file/68635bbb3d3e/python/require.py
