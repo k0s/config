@@ -48,12 +48,6 @@ then
     . ~/.bashttw
 fi
 
-# bzconsole aliases for filing bugs
-alias mozbase-bug="bz new Mozbase --cc ':wlach'"
-alias mozbuild-bug="bz new --product Core 'Build Config' --cc ':gps'"
-alias mozharness-bug="bz new --product 'Release Engineering' 'General Automation' --cc ':aki' --whiteboard 'mozharness'"
-alias talos-bug="bz new Talos --cc ':jmaher'"
-
 # notification: from
 # http://www.netinfinity.org/2013/02/4/bits-and-pieces-ubuntu-terminal-notification.html
 alias alert_helper='history|tail -n1|sed -e "s/^\s*[0-9]\+\s*//" -e "s/;\s*alert$//"'
@@ -245,6 +239,7 @@ tmpfile() {
 }
 
 abspath() {
+    # print absolute path
     python -c "import os; print (os.path.realpath('$*'))"
 }
 
@@ -383,10 +378,12 @@ setup-all() {
 }
 
 distribute() {
+    # upload to pypi
     python setup.py egg_info -RDb "" sdist register upload develop
 }
 
 nearest-venv() {
+# find the nearest venv
 if [[ "$#" == "0" ]]
 then
 directory=$PWD
@@ -411,6 +408,7 @@ return 1
 }
 
 activate-nearest() {
+# activate the nearest virtualenv
 nearest=$(nearest-venv)
 activate=${nearest}/bin/activate
 if [ -e "${activate}" ]
@@ -573,7 +571,7 @@ filehandles() {
 }
 
 quotemail() {
-
+    # TODO: -> textshaper
 command='s/^/> /'
 inplace=""
 if [ "$#" == "2" ]
