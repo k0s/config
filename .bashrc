@@ -607,6 +607,11 @@ source ~/.bash_overrides
 export BASTION_SERVER=bastion-east-1c.cognet.tv
 export BASTION_USER=jhammel
 export KEYS_DIR=/home/jhammel/.ssh
+COGNET_BASHRC=~/cognet/bin/.bashrc
+if [ -e "${COGNET_BASHRC}" ]
+then
+    . ${COGNET_BASHRC}
+fi
 
 ### regenerate fluxbox menus here for convenience
 if type deactivate &> /dev/null
