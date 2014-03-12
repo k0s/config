@@ -130,7 +130,7 @@ class InstallVirtualenv(Step):
                  os.path.join(HOME, 'bin', 'virtualenv.py')]
     ]
 
-class InstallKWare(In):
+class InstallKWare(Step):
     """install k0s.ware"""
     # TODO
     # from legacy
@@ -170,21 +170,8 @@ class DebianPackages(Step):
 
     def __call__(self):
         # TODO: actually install this shit
-        print "Ensure the following packages are installed:"
-        print "sudo apt-get install %s" % ' '.join(self.PACKAGES)
-
-
-### legacy -v-
-
-def legacy():
-    """legacy : TO DEPRECATE!"""
-
-    # do git stuff
-    git = which('git')
-    if git:
-
-    else:
-        print "git not installed"
+        print ("Ensure the following packages are installed:")
+        print ("sudo apt-get install %s" % ' '.join(self.PACKAGES))
 
 
 ### CLI
@@ -225,9 +212,7 @@ def main(args=sys.argv[1:]):
         parser.exit()
 
     if options.all:
-        # list available steps
-        for sorted([]):
-            raise NotImplementedError("TODO")
+        raise NotImplementedError("TODO")
 
     # execute steps
     for step in steps:
