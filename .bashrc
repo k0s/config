@@ -618,18 +618,17 @@ then
     . ${COGNET_BASHRC}
 fi
 
-### regenerate fluxbox menus here for convenience
 if type deactivate &> /dev/null
 then
 deactivate
 fi
+
+### regenerate fluxbox menus here for convenience
 MENU=~/web/site/programs.html
 regeneratefluxmenu() {
-    if [ -e $MENU ]
+    if [ -e "${MENU}" ]
     then
-        # XXX could be safer
-        # XXX ...along with the fluxbox menu option o_O
-        html2flux.py $MENU > ~/.fluxbox/applications
+        html2flux.py "${MENU}" -o ~/.fluxbox/applications
     fi
 }
 regeneratefluxmenu
