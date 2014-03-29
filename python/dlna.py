@@ -25,6 +25,8 @@ def main(args=sys.argv[1:]):
                         help='db directory')
     parser.add_argument('-p', '--port', dest='port', default=8200, type=int,
                         help="port")
+    parser.add_argument('-v', '--videos', dest='videos', nargs='+',
+                        help="videos")
     parser.add_argument('audio', nargs='+')
     options = parser.parse_args(args)
 
@@ -34,6 +36,8 @@ def main(args=sys.argv[1:]):
              ('inotify', 'yes'),
              ('enable_tivo', 'yes')]
     lines.extend([('media_dir', 'A,{}'.format(os.path.abspath(d)))
+                  for d in options.audio])
+    lines.extend([('media_dir', 'V,{}'.format(os.path.abspath(d)))
                   for d in options.audio])
     config = '\n'.join(['{}={}'.format(*line) for line in lines])
     print (config)
