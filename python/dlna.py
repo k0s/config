@@ -3,6 +3,7 @@
 
 import argparse
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -46,6 +47,7 @@ def main(args=sys.argv[1:]):
     subprocess.check_call(command)
 
     os.remove(name)
+    shutil.rmtree(options.db_dir)
 
 if __name__ == '__main__':
     main()
