@@ -424,7 +424,8 @@ recreate-venv() {
     then
         return 1
     fi
-    VENV_PATH=$(which ${VIRTUALENV} &> /dev/null)
+    VENV_PATH=$(which ${VIRTUALENV})
+    echo VENV_PATH=${VENV_PATH}
 
     # update virtualenv if possible
     DIRNAME=$(dirname ${VENV_PATH})
@@ -435,10 +436,11 @@ recreate-venv() {
         cd --
     fi
 
-
     # for each virtualenv given...
     for i in $@
     do
+        OLD_PWD=${PWD}
+        echo "${i} : OLDPWD=${OLD_PWD}"
         # ...recreate it...
         ${VIRTUALENV} --clear "${i}"
 
@@ -446,7 +448,6 @@ recreate-venv() {
         if [ -d "${SRCDIR}" ]
         then
             . "${i}/bin/activate"
-            OLDPWD=${PWD}
             cd "${SRCDIR}"
             for j in *
             do
@@ -457,8 +458,9 @@ recreate-venv() {
                     cd ..
                 fi
             done
-            cd "${OLDPWD}"
         fi
+        echo "cd OLD_PWD=${OLD_PWD}"
+        cd ${OLD_PWD}
     done
 }
 
