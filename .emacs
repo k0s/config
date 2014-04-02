@@ -160,11 +160,13 @@ import os
 import subprocess
 import sys
 
+__all__ = ['main']
 here = os.path.dirname(os.path.realpath(__file__))
 string = (str, unicode)
 
 def main(args=sys.argv[1:]):
 
+    # parse command line
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('input', nargs='?',
                         type=argparse.FileType('r'), default=sys.stdin,
