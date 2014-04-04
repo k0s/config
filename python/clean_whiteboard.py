@@ -22,11 +22,9 @@ def main(args=sys.argv[1:]):
     # parse command line
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('input',
-                        type=argparse.FileType('r'),
                         help='input file')
-    parser.add_argument('-o', '--output' dest='output',
-                        type=argparse.FileType('w'), default=sys.stdout,
-                        help='output file or stdout')
+    parser.add_argument('output',
+                        help='output file')
     options = parser.parse_args(args)
 
     subprocess.check_call(['convert', options.input, '-morphology', 'Convolve', 'DoG:15,100,0', '-negate', '-normalize', '-blur', '0x1', '-channel', 'RBG', '-level', '60%,91%,0.1', options.output])
