@@ -6,8 +6,12 @@ conversion between epoch and dates
 
 https://docs.python.org/2/library/time.html
 https://docs.python.org/2/library/datetime.html
-http://bugs.python.org/issue7229
 """
+
+# TODO: tz info
+#http://bugs.python.org/issue7229
+# http://stackoverflow.com/questions/13218506/how-to-get-system-timezone-setting-and-pass-it-to-pytz-timezone
+
 
 import argparse
 import datetime
