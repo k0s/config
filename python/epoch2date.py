@@ -23,8 +23,9 @@ def main(args=sys.argv[1:]):
     dt2 = datetime.datetime.utcfromtimestamp(options.seconds_since_epoch)
 
     # output
-    print (dt)
-    print (dt2)
+    print ("{} seconds since epoch".format(options.seconds_since_epoch))
+    print ("{} {}".format(dt, time.tzname[time.daylight]))
+    print ("{} UTC".format(dt2))
 
 if __name__ == '__main__':
     main()
