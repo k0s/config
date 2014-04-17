@@ -5,6 +5,8 @@
 conversion between epoch and dates
 
 https://docs.python.org/2/library/time.html
+https://docs.python.org/2/library/datetime.html
+http://bugs.python.org/issue7229
 """
 
 import argparse
