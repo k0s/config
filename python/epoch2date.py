@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+conversion between epoch and dates
+
+https://docs.python.org/2/library/time.html
+"""
+
 import argparse
 import datetime
 import os
