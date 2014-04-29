@@ -7,7 +7,7 @@ tree in python
 
 # TODO: script2package
 
-import optparse
+import argparse
 import os
 import sys
 
@@ -100,6 +100,7 @@ def tree(directory,
          item_marker=unicode_delimeters['item_marker'],
          vertical_line=unicode_delimeters['vertical_line'],
          last_child=unicode_delimeters['last_child'],
+         display_files=True,
          sort_key=lambda x: x.lower()):
     """
     display tree directory structure for `directory`
@@ -159,19 +160,24 @@ def tree(directory,
     return '\n'.join(retval)
 
 def main(args=sys.argv[1:]):
+    """CLI"""
 
     # parse command line options
-    usage = '%prog [options]'
-    parser = optparse.OptionParser(usage=usage, description=__doc__)
-    parser.add_option('-a', '--ascii', dest='use_ascii',
-                      action='store_true', default=False,
-                      help="use ascii delimeters (%s)" % ascii_delimeters)
-    options, args = parser.parse_args(args)
-    if not args:
-        args = ['.']
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('-a', '--ascii', dest='use_ascii',
+                        action='store_true', default=False,
+                        help="use ascii delimeters ({})".format(', '.join(ascii_delimeters.values())))
+    parser.add_argument('path', nargs='*',
+                        help="paths to display the tree of")
+    options = parser.parse_args(args)
+
+    # get paths to operate on
+    paths = options.path
+    if not paths:
+        paths = ['.']
 
     # sanity check
-    not_directory = [arg for arg in args
+    not_directory = [arg for arg in paths
                      if not os.path.isdir(arg)]
     if not_directory:
         parser.error("Not a directory: %s" % (', '.join(not_directory)))
@@ -181,7 +187,7 @@ def main(args=sys.argv[1:]):
         delimeters = ascii_delimeters
 
     # print the tree
-    for arg in args:
+    for arg in paths:
         print (tree(arg, **delimeters))
 
 if __name__ == '__main__':
