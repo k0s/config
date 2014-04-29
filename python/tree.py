@@ -118,6 +118,10 @@ def tree(directory,
         parent = os.path.dirname(abspath)
         level = depth(abspath) - top
 
+        # omit files if specified
+        if not display_files:
+            filenames = []
+
         # sort articles of interest
         for resource in (dirnames, filenames):
             resource[:] = sorted(resource, key=sort_key)
@@ -159,6 +163,7 @@ def tree(directory,
 
     return '\n'.join(retval)
 
+
 def main(args=sys.argv[1:]):
     """CLI"""
 
@@ -167,8 +172,11 @@ def main(args=sys.argv[1:]):
     parser.add_argument('-a', '--ascii', dest='use_ascii',
                         action='store_true', default=False,
                         help="use ascii delimeters ({})".format(', '.join(ascii_delimeters.values())))
+    parser.add_argument('-d', '--no-files', dest='display_files',
+                        action='store_false', default=True,
+                        help='only display directories')
     parser.add_argument('path', nargs='*',
-                        help="paths to display the tree of")
+                        help="directory paths to display the tree of")
     options = parser.parse_args(args)
 
     # get paths to operate on
@@ -176,19 +184,23 @@ def main(args=sys.argv[1:]):
     if not paths:
         paths = ['.']
 
-    # sanity check
+    # ensure each path is a directory
     not_directory = [arg for arg in paths
                      if not os.path.isdir(arg)]
     if not_directory:
-        parser.error("Not a directory: %s" % (', '.join(not_directory)))
+        parser.error("Not a directory: {}".format(', '.join(not_directory)))
 
     delimeters = unicode_delimeters
     if options.use_ascii:
         delimeters = ascii_delimeters
 
+    # build function arguments
+    kw = delimeters.copy()
+    kw['display_files'] = options.display_files
+
     # print the tree
     for arg in paths:
-        print (tree(arg, **delimeters))
+        print (tree(arg, **kw))
 
 if __name__ == '__main__':
     main()
