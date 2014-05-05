@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 """
+mount inserted usb disk
+
 [   33.854905] usb-storage 1-1.2:1.0: USB Mass Storage device detected
 [   33.854946] scsi6 : usb-storage 1-1.2:1.0
 [   33.855002] usbcore: registered new interface driver usb-storage
@@ -26,6 +28,9 @@ string = (str, unicode)
 def main(args=sys.argv[1:]):
 
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('-m', '--mount', dest='mount_point',
+                        default='/mnt/media',
+                        help="mount point")
     options = parser.parse_args(args)
 
     dmesg = subprocess.check_output(['dmesg']).splitlines()
@@ -47,8 +52,17 @@ def main(args=sys.argv[1:]):
             disk = disk.strip()
             partition = partition.strip()
             if partition.startswith(disk):
-                print (partition)
-                sys.exit(0)
+                print ("partition: {}".format(partition))
+                break
+    else:
+        parser.error("No partition found")
+
+    device = os.path.join('/dev', partition)
+    assert os.path.exists(device)
+    print "Device: {}".format(device)
+
+    command = ['sudo', 'mount', device, options.mount_point]
+    print (' '.join(command))
 
 if __name__ == '__main__':
     main()
