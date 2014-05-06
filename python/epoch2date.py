@@ -20,6 +20,13 @@ import subprocess
 import sys
 import time
 
+try:
+    # use dateutil parser if available
+    from dateutil.parser import parse as parse_date
+except ImportError:
+    parse_date = None
+
+
 def main(args=sys.argv[1:]):
     """CLI"""
 
