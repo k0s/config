@@ -33,18 +33,27 @@ def main(args=sys.argv[1:]):
     # parse command line
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('seconds_since_epoch',
-                        type=float, nargs='?', default=time.time(),
+                        type=float, nargs='*', default=time.time(),
                         help="seconds since epoch input [DEFAULT: %(default)s]")
+    parser.add_argument('--utc', dest='display_utc',
+                        action='store_true', default=False,
+                        help="display UTC time only")
     options = parser.parse_args(args)
 
-    # produce a datetime
-    dt = datetime.datetime.fromtimestamp(options.seconds_since_epoch)
-    dt2 = datetime.datetime.utcfromtimestamp(options.seconds_since_epoch)
+    if isinstance(options.seconds_since_epoch, float):
+        options.seconds_since_epoch = [ options.seconds_since_epoch ]
 
-    # output
-    print ("{} seconds since epoch".format(options.seconds_since_epoch))
-    print ("{} {}".format(dt, time.tzname[time.daylight]))
-    print ("{} UTC".format(dt2))
+    for s in options.seconds_since_epoch:
+
+        # produce a datetime
+        dt = datetime.datetime.fromtimestamp(s)
+        dt2 = datetime.datetime.utcfromtimestamp(s)
+
+        # output
+        if not options.display_utc:
+            print ("{} seconds since epoch".format(s))
+            print ("{} {}".format(dt, time.tzname[time.daylight]))
+        print ("{} UTC".format(dt2))
 
 if __name__ == '__main__':
     main()
