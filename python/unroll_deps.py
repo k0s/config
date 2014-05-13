@@ -56,6 +56,8 @@ def unroll_dependencies2(dependencies):
     return order
 
 if __name__ == '__main__':
+
+    # testing set of dependencies
     deps = {'packageA': set(['packageB', 'packageC', 'packageF']),
             'packageB': set(['packageC', 'packageD', 'packageE', 'packageG']),
             'packageC': set(['packageE']),
@@ -63,7 +65,7 @@ if __name__ == '__main__':
             'packageF': set(['packageG']),
             'packageX': set(['packageA', 'packageG'])}
     unrolled = unroll_dependencies(deps)
-    print unrolled
+    print ('{}'.format(unrolled))
 
     unrolled = unroll_dependencies2(deps)
     print unrolled
