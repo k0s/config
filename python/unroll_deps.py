@@ -1,4 +1,4 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python
 
 def cycle_check(order, dependencies):
     """ensure no cyclic dependencies"""
@@ -51,8 +51,8 @@ def unroll_dependencies2(dependencies):
         else:
             raise AssertionError("Cyclic dependencies detected")
 
-    cycle_check(order, dependencies)
-    
+    cycle_check(order, dependencies) # sanity
+
     return order
 
 if __name__ == '__main__':
