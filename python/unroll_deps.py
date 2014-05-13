@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 
+"""
+unroll a set of dependencies
+"""
+
+import sys
+
 def cycle_check(order, dependencies):
     """ensure no cyclic dependencies"""
     order_dict = dict([(j, i) for i, j in enumerate(order)])
@@ -55,7 +61,10 @@ def unroll_dependencies2(dependencies):
 
     return order
 
-if __name__ == '__main__':
+
+### testing and CLI
+
+def main(args=sys.argv[:1]):
 
     # testing set of dependencies
     deps = {'packageA': set(['packageB', 'packageC', 'packageF']),
@@ -77,9 +86,12 @@ if __name__ == '__main__':
         raise Exception("Missed a cyclic dependency!")
     except AssertionError:
         pass
-        
+
     try:
         unroll_dependencies2(deps)
         raise Exception("Missed a cyclic dependency!")
     except AssertionError:
         pass
+
+if __name__ == '__main__':
+    main()
