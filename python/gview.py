@@ -50,11 +50,12 @@ def main(args=sys.argv[1:]):
     subprocess.check_call(command)
     assert os.path.exists(output)
 
-    if options.viewer:
-        subprocess.call([options.viewer, output])
-
-    if not options.output:
-        os.remove(output)
+    try:
+        if options.viewer:
+            subprocess.call([options.viewer, output])
+    finally:
+        if not options.output:
+            os.remove(output)
 
 
 if __name__ == '__main__':
