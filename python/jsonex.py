@@ -32,9 +32,9 @@ def main(args=sys.argv[1:]):
 
     if options.object:
         for o in options.object:
-            foo = arg.split('.') # split into objects
-            # TODO: split into slice notation
-            pass # TODO
+            base = obj
+            for part in o.strip().split('.'): # split into objects
+                raise NotImplementedError('TODO')
     else:
         print json.dumps(obj, indent=2, sort_keys=True)
 
