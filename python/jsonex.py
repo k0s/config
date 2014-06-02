@@ -10,6 +10,13 @@ import os
 import sys
 import urllib2
 
+def dereference(obj, key):
+    if obj is None:
+        return None
+    if isinstance(obj, dict):
+        return obj[key]
+    return obj[int(key)]
+
 def main(args=sys.argv[1:]):
 
     # command line
@@ -33,10 +40,13 @@ def main(args=sys.argv[1:]):
     if options.object:
         for o in options.object:
             base = obj
-            for part in o.strip().split('.'): # split into objects
-                raise NotImplementedError('TODO')
+            for key in o.strip().split('.'): # split into objects
+                base = dereference(base, key)
+                if base is None:
+                   break
+            print (json.dumps(base))
     else:
-        print json.dumps(obj, indent=2, sort_keys=True)
+        print (json.dumps(obj, indent=2, sort_keys=True))
 
 if __name__ == '__main__':
     main()
