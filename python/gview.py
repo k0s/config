@@ -26,7 +26,7 @@ class Parser(argparse.ArgumentParser):
         self.add_argument('-o', '--output', dest='output',
                           help="path to save to")
         self.add_argument('-e', '--program', dest='program',
-                          default='dot',
+                          default='fdp',
                           help="GraphViz program to invoke [DEFAULT: %(default)s]")
         self.add_argument('-v', '--view', dest='viewer', default='feh',
                           help="viewer")
