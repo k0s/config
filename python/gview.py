@@ -10,6 +10,7 @@ http://www.graphviz.org/
 # imports
 import argparse
 import os
+import shlex
 import subprocess
 import sys
 import tempfile
@@ -28,7 +29,7 @@ class Parser(argparse.ArgumentParser):
         self.add_argument('-e', '--program', dest='program',
                           default='fdp',
                           help="GraphViz program to invoke [DEFAULT: %(default)s]")
-        self.add_argument('-v', '--view', dest='viewer', default='feh',
+        self.add_argument('-v', '--view', dest='viewer', default='feh -F',
                           help="viewer")
 
 
@@ -52,7 +53,8 @@ def main(args=sys.argv[1:]):
 
     try:
         if options.viewer:
-            subprocess.call([options.viewer, output])
+            viewer = shlex.split(options.viewer)
+            subprocess.call(viewer + [output])
     finally:
         if not options.output:
             os.remove(output)
