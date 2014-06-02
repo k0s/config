@@ -4,16 +4,34 @@
 JSON explorer
 """
 
+import argparse
 import json
+import os
 import sys
-from pprint import pprint
+import urllib2
 
 def main(args=sys.argv[1:]):
-    data = sys.stdin.read() # read from stdin
-    obj = json.loads(data)
 
-    if args:
-        for arg in args:
+    # command line
+    parser = argparse.ArgumentParser(description='__doc__')
+    parser.add_argument('input', nargs='?',
+                        help="input file or url (read from stdin if ommitted)")
+    parser.add_argument('object', nargs='*',
+                        help="object in dotted notation")
+
+    options = parser.parse_args(args)
+
+    # get data
+    if not options.input or options.input == '-':
+        data = sys.stdin
+    elif'://' in options.input:
+        data = urllib2.urlopen(options.input)
+    else:
+        data = open(options.input, 'r')
+    obj = json.load(data)
+
+    if options.object:
+        for o in options.object:
             foo = arg.split('.') # split into objects
             # TODO: split into slice notation
             pass # TODO
