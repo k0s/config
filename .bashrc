@@ -73,6 +73,11 @@ export PYTHONPATH=~/python:$PYTHONPATH:~/virtualenv
 
 ### functions
 
+gplot() {
+
+gnuplot -persist <(echo plot '"'$1'"')
+}
+
 lspath() {
 python -c 'import os; print ("\n".join(os.environ["PATH"].split(os.path.pathsep)))'
 }
