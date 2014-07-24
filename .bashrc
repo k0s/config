@@ -37,6 +37,7 @@ alias currentpatch='echo `hg root`/.hg/patches/`hg qapp -v | tail -n 1 | cut -f 
 alias datestamp='date +%Y%m%d%H%M%S'
 alias grep='grep --colour=auto'
 alias ls='ls --color=auto'
+alias lsenv='env | sort | less'
 alias patch='patch --reject-file=-'
 alias random="python -c 'import sys, random; foo = sys.argv[1:]; random.shuffle(foo); print (\" \".join(foo)')"
 alias straceff="attach.py firefox --kill"
