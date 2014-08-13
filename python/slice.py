@@ -11,7 +11,6 @@ import os
 import subprocess
 import sys
 
-# module globals
 __all__ = ['slice', 'main', 'Parser']
 
 def slice(container, n_chunks):
