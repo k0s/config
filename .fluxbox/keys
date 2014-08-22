@@ -69,7 +69,7 @@ Control Mod1 i :ExecCommand import /home/jhammel/screenshot.png
 Control Mod1 k :ExecCommand emacs /home/jhammel/docs/projects/ims/journal.txt # ISM journal entry
 Control Mod1 l :ExecCommand echo http://letmegooglethatforyou.com/?q=$(xclip -o) | xclip -i
 Control Mod1 m :ExecCommand thunderbird # mail (thunderbird)
-Control Mod1 o :ExecCommand xclip -o | /home/jhammel/python/onelineit.py | xclip -i # put the clipboard contents on one line
+#Control Mod1 o :ExecCommand xclip -o | /home/jhammel/python/onelineit.py | xclip -i # put the clipboard contents on one line
 Control Mod1 p :ExecCommand xclip -o | /home/jhammel/python/pbmoz.py | xclip -i # pastebin
 Control Mod1 q :ExecCommand xclip -o | /home/jhammel/python/quote.py | xclip -i # quote using >'s
 Control Mod1 r :ExecCommand import -window root -silent /home/jhammel/screenshot.png
