@@ -93,10 +93,6 @@
 (setq auto-mode-alist (cons '("\\.cpy$" . python-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.vpy$" . python-mode) auto-mode-alist))
 
-;; set auto-fill for appropriate modes
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
-(add-hook 'sgml-mode-hook 'turn-off-auto-fill)
-
 ;; set the grep command....for some reason
 (setq grep-command "grep -liE")
 
