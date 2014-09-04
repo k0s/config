@@ -3,6 +3,7 @@
 -e hg+http://k0s.org/hg/TextShaper#egg=TextShaper-dev
 -e hg+http://k0s.org/hg/configuration#egg=configuration-dev
 -e hg+http://k0s.org/hg/smartopen#egg=smartopen-dev
+-e hg+http://k0s.org/hg/kplot#egg=kplot
 
 # Future:
 # -e hg+http://k0s.org/hg/autobot #egg=autobot-dev
