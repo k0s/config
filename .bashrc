@@ -35,6 +35,7 @@ export JS_EDITLINE=1
 alias awd="python -c 'import os;  print (os.path.realpath(\".\"))'"
 alias currentpatch='echo `hg root`/.hg/patches/`hg qapp -v | tail -n 1 | cut -f 3 -d " "`'
 alias datestamp='date +%Y%m%d%H%M%S'
+alias envkeys='env | sed "s/=.*//" | sort'
 alias grep='grep --colour=auto'
 alias ls='ls --color=auto'
 alias lsenv='env | sort | less'
