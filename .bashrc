@@ -318,24 +318,6 @@ eend() {
     emacs +`wc -l "$FILE"` $@
 }
 
-
-### functions for processes
-
-isrunning() {
-    # is a process running? (by name)
-    # see also: talos for a better version
-    for i in "$@"
-    do
-	ps axwww  | grep "$i" | grep -v 'grep'
-    done | sort | uniq
-
-}
-
-killbyname() {
-    # kill a process by name
-    kill `isrunning "$@" | awk '{ print $1 }' | onelineit.py`
-}
-
 ###
 
 buffer() {
