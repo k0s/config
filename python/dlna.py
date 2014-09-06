@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+serve DLNA
+"""
+
 import argparse
 import os
 import shutil
@@ -13,10 +17,9 @@ here = os.path.dirname(os.path.realpath(__file__))
 string = (str, unicode)
 
 def main(args=sys.argv[1:]):
+    """CLI"""
 
-    dlna = which('minidlna')
-    assert dlna
-
+    # parse command line
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--name', dest='name', default='protest servant',
                         help="friendly name")
@@ -29,6 +32,11 @@ def main(args=sys.argv[1:]):
                         help="videos")
     parser.add_argument('audio', nargs='+')
     options = parser.parse_args(args)
+
+    # dlna location
+    dlna = which('minidlnad')
+    if not dlna:
+        parser.error("minidlna command not found")
 
     lines = [('friendly_name', options.name),
              ('db_dir', options.db_dir),
