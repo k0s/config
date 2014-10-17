@@ -54,7 +54,7 @@ def main(args=sys.argv[1:]):
     os.write(fd, config)
     os.close(fd)
 
-    command = [dlna, '-f', name, '-d', '-p', str(options.port)]
+    command = [dlna, '-f', name, '-p', str(options.port)]
     print (subprocess.list2cmdline(command))
     subprocess.check_call(command)
 
