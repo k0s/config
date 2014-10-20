@@ -71,7 +71,7 @@ export PS2=${ALTPS2}
 }
 
 # PATHs
-export PATH=~/firefox:~/bin:~/bin/mozilla:~/python:$PATH:/usr/sbin:/usr/games/bin:~/virtualenv:~/silvermirror/bin:~/smartopen/bin:~/k0s/bin:~/docs/project/ims/workflow:~/cognet/bin
+export PATH=~/firefox:~/bin:~/bin/mozilla:~/python:$PATH:/usr/sbin:/usr/games/bin:~/virtualenv:~/silvermirror/bin:~/smartopen/bin:~/k0s/bin:~/docs/project/ims/workflow:~/cognet/bin:~/cognet/bin/python
 export PYTHONPATH=~/python:$PYTHONPATH:~/virtualenv
 
 ### functions
