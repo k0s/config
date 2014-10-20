@@ -42,10 +42,8 @@ alias lsenv='env | sort | less'
 alias mslower='mplayer -osd-fractions 1 -speed 0.1 -osdlevel 3'
 alias patch='patch --reject-file=-'
 alias random="python -c 'import sys, random; foo = sys.argv[1:]; random.shuffle(foo); print (\" \".join(foo)')"
-alias straceff="attach.py firefox --kill"
 alias weekstamp="date --date=\"$((`date '+%u'`-1)) days ago\" '+%b %d'"
 alias wget='wget --no-check-certificate'
-alias xpcshell="LD_LIBRARY_PATH=${MOZOBJ}/dist/bin ${MOZOBJ}/dist/bin/xpcshell"
 if [ -e ~/.bashttw ]
 then
     . ~/.bashttw
@@ -71,7 +69,7 @@ export PS2=${ALTPS2}
 }
 
 # PATHs
-export PATH=~/firefox:~/bin:~/bin/mozilla:~/python:$PATH:/usr/sbin:/usr/games/bin:~/virtualenv:~/silvermirror/bin:~/smartopen/bin:~/k0s/bin:~/docs/project/ims/workflow:~/cognet/bin:~/cognet/bin/python
+export PATH=~/firefox:~/bin:~/bin/mozilla:~/python:$PATH:/usr/sbin:/usr/games/bin:~/virtualenv:~/silvermirror/bin:~/smartopen/bin:~/k0s/bin:~/docs/project/ims/workflow:~/cognet/bin:~/cognet/python
 export PYTHONPATH=~/python:$PYTHONPATH:~/virtualenv
 
 ### functions
