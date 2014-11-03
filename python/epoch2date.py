@@ -52,7 +52,11 @@ def main(args=sys.argv[1:]):
         # output
         if not options.display_utc:
             print ("{} seconds since epoch".format(s))
-            print ("{} {}".format(dt, time.tzname[time.daylight]))
+            if time.daylight and time.localtime(s).tm_isdst:
+                tz_index = 1
+            else:
+                tz_index = 0
+            print ("{} {}".format(dt, time.tzname[tz_index]))
         print ("{} UTC".format(dt2))
 
 if __name__ == '__main__':
