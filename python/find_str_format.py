@@ -18,13 +18,15 @@ def find_keys(string):
         try:
             string.format(**{i:'' for i in retval})
             return retval
-        except KeyError:
-            import pdb; pdb.set_trace()
+        except KeyError as e:
+            retval.add(e.message)
+
 
 def main(args=sys.argv[1:]):
 
-    # parse command line
     string = ' '.join(args)
+    keys = find_keys(string)
+    print ('\n'.join(sorted(keys)))
 
 if __name__ == '__main__':
     main()
