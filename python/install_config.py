@@ -159,6 +159,7 @@ class DebianPackages(Step):
               "graphviz-dev",
               "irssi",
               "mercurial",
+              "pkg-config",
               "python-dev",
               "python-lxml",
               "libxml2"
