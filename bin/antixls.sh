@@ -8,7 +8,7 @@ fi;
 for i in "$@";
 do
     OUTPUT=${i%.xls}.txt;
-    $SSCONVERT -I Gnumeric_Excel:excel -T Gnumeric_stf:stf_csv "$i" "$OUTPUT" 2>/dev/null;
+    ${SSCONVERT} -I Gnumeric_Excel:excel -T Gnumeric_stf:stf_csv "$i" "$OUTPUT" 2>/dev/null;
     cat "$OUTPUT";
 done
 
