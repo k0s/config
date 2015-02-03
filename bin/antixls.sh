@@ -2,8 +2,8 @@
 
 SSCONVERT=`which ssconvert 2> /dev/null`;
 if [ -z "${SSCONVERT}" ]; then
-    echo "${SSCONVERT} not found.  Please install gnumeric.";
-    return 1;
+    echo "ssconvert not found.  Please install gnumeric.";
+    exit 1
 fi;
 for i in "$@";
 do
