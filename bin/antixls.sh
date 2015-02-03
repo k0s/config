@@ -1,3 +1,4 @@
+#!/bin/bash
 
 SSCONVERT=`which ssconvert 2> /dev/null`;
 if [ -z "${SSCONVERT}" ]; then
