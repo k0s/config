@@ -37,6 +37,8 @@ alias currentpatch='echo `hg root`/.hg/patches/`hg qapp -v | tail -n 1 | cut -f 
 alias datestamp='date +%Y%m%d%H%M%S'
 alias envkeys='env | sed "s/=.*//" | sort'
 alias grep='grep --colour=auto'
+alias loopmplayer='mplayer -fixed-vo -loop 0 -fs'
+alias loopxine='xine -f -g -l'
 alias ls='ls --color=auto'
 alias lsenv='env | sort | less'
 alias mslower='mplayer -osd-fractions 1 -speed 0.1 -osdlevel 3'
