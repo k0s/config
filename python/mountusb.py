@@ -34,13 +34,17 @@ def main(args=sys.argv[1:]):
     options = parser.parse_args(args)
 
     dmesg = subprocess.check_output(['dmesg']).splitlines()
-    string = 'usbcore: registered new interface driver usb-storage'
-    for index in reversed(range(len(dmesg))):
-        line = dmesg[index]
-        if string in line:
-            break
+    for string in  ('usbcore: registered new interface driver usb-storage',
+                    'USB Mass Storage device detecte'):
+        for index in reversed(range(len(dmesg))):
+            line = dmesg[index]
+            if string in line:
+                break
+        else:
+            continue
+        break
     else:
-        sys.exit(1) # nothing found
+        sys.exit(1)
 
     for line in dmesg[index:]:
         line = line.split(']', 1)[-1].strip()
