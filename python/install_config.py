@@ -162,7 +162,7 @@ class DebianPackages(Step):
               "pkg-config",
               "python-dev",
               "python-lxml",
-              "libxml2"
+              "libxml2",
               "libxml2-dev",
               "libxslt1-dev",
               "unison",
