@@ -78,6 +78,7 @@ Control Mod1 t :ExecCommand gnome-terminal # terminal
 Control Mod1 v :ExecCommand xterm -e '/home/jhammel/k0s/bin/textshaper -c -i'
 Control Mod1 x :ExecCommand xkill
 Control Mod1 y :ExecCommand /home/jhammel/python/pypi.py "$(xclip -o)"| xclip -i # pypi package summary
+Control Mod1 z :ExecCommand xzoom
 Control Mod1 0 :ExecCommand xclip -o | sed 's/^[-+]//' | xclip -i # strip leading +s
 Control Shift / :ExecCommand /home/jhammel/bin/keyshelp.sh # hotkeys help
 
@@ -88,7 +89,6 @@ Control Shift / :ExecCommand /home/jhammel/bin/keyshelp.sh # hotkeys help
 # v: ?
 # w: ?
 # y: ?
-# z: zoom?
 
 # `l` could go to launch to free up `s`
 # alternately, `l` -> `local resource`,
