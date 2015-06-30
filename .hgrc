@@ -1,6 +1,6 @@
 [ui]
 username = Jeff Hammel <k0scist@gmail.com>
-ignore = /home/jhammel/.hgignore
+ignore = ~/.hgignore
 merge = meld
 verbose = True
 patch =
