@@ -463,20 +463,6 @@ recreate-venv() {
 
 ### functions for version control systems
 
-svndance(){
-# do the svn import dance!
-if (( $# ))
-then
-    svn import $1
-    cd ..
-    rm -rf $OLDPWD
-    svn co $1 $OLDPWD
-    cd $OLDPWD
-else
-    return 1
-fi
-}
-
 difffiles() {
     # which files are diffed; could use `lsdiff`
     grep '^+++ ' $@ | sed 's/+++ b\///'
@@ -490,12 +476,6 @@ git-diff-master() {
 git-diff-total() {
     # diff of both added + modified files
     combinediff <(git diff) <(git diff --cached)
-}
-
-hg-add-commit() {
-    # add a file + commit
-    MESSAGE=$(hg add $@)
-    hg commit -m "${MESSAGE}"
 }
 
 hg-update-all() {
@@ -607,16 +587,7 @@ while read line;  do echo ${line} : $(($(test "-e ${line}"\") )); done
 ### include overrides for commands
 source ~/.bash_overrides
 
-### cognet customizations
-export BASTION_SERVER=bastion-east-1c.cognet.tv
-export BASTION_USER=jhammel
-export KEYS_DIR=/home/jhammel/.ssh
-COGNET_BASHRC=~/cognet/bin/.bashrc
-if [ -e "${COGNET_BASHRC}" ]
-then
-    . ${COGNET_BASHRC}
-fi
-
+### deactivate any virtualenvs
 if type deactivate &> /dev/null
 then
 deactivate
