@@ -55,7 +55,7 @@ cd() {
     if [ -n "${ENV}" ]
     then
 	FULLPWD=$(python -c 'import os; print (os.getcwd())')
-	if (( ! `expr match "${FULLPWD}" "${ENV}"` ))
+	if (( ! `expr "${FULLPWD}" : "${ENV}"` ))
 	then
 	    if [[ -n "`type -t deactivate`" ]]
 	    then
