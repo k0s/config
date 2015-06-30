@@ -57,17 +57,9 @@ alias alert='notify-send -i /usr/share/icons/gnome/32x32/apps/gnome-terminal.png
 
 
 # PROMPT
-PS1='│'
-PS2='.'
+PS1='# '
+PS2='. '
 PROMPT_COMMAND='echo -ne "\033]0;${SSH_CLIENT/*/$HOSTNAME:}${PWD/~/~}\007"'
-# Alt:
-ALTPS1='🎩  '
-ALTPS2='☰  '
-ALTPS2='  ҉ '
-altps() {
-export PS1=${ALTPS1}
-export PS2=${ALTPS2}
-}
 
 # PATHs
 export PATH=~/firefox:~/bin:~/bin/mozilla:~/python:$PATH:/usr/sbin:/usr/games/bin:~/virtualenv:~/silvermirror/bin:~/smartopen/bin:~/k0s/bin:~/docs/project/ims/workflow:~/cognet/bin:~/cognet/python
