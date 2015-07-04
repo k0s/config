@@ -140,6 +140,55 @@ class FFSliceParser(argparse.ArgumentParser):
             return format_seconds_to_hhmmss(seconds)
         return '{:.2}'.format(seconds)
 
+    def slice(self):
+      """
+      iterates over all the specified clips and slices them as per input params.
+      The sliced clips are stored under the provided coommand line destinati
+      on directory or current working dir
+      """
+
+      for clip_path in self.options.clip_paths:
+        print "***** Processing {0}".format(clip_path)
+
+        if not os.path.exists(clip_path):
+          print "File not found! skipping {0}".format(clip_path)
+          continue
+
+        #making sure the slice time is within bounds of the clip duration
+        duration = self.duration(clip_path)
+        print "Duration: {0}".format(duration)
+        if self.options.slice_length_sec > duration:
+          print "Skipping {0}, slice_time {1} is GREATER than file duration {2} ".format(clip_path,self.options.slice_length_sec ,duration)
+          continue
+
+        #calculating  the number slices to create
+        num_slices = 0
+        if self.options.num_slices:
+          num_slices = min (self.options.num_slices, int(duration/(self.options.slice_length_sec)))
+        else: #number of slice were not specified
+          num_slices = int(duration/(self.options.slice_length_sec))
+        print "Slicing in {0} parts, {1} seconds each".format(num_slices,self.options.slice_length_sec)
+
+        hh = 0
+        mm = 0
+        ss = 0
+        start_time_secs = 0
+        [out_filename,out_file_ext] = clip_path.split("/")[-1].split(".") #assuming the file path to be something like /df/dsf/dsf/dsf.mp4
+        ensure_dir(self.options.out_directory)
+        #creating slices
+        for i in range(num_slices):
+          [hh,mm,ss] = self.format_seconds_to_hhmmss(start_time_secs)
+          out_file_path = "{0}/{1}_{2}.{3}".format(self.options.out_directory,out_filename,i,out_file_ext)
+          command = "ffmpeg  -ss {0}:{1}:{2} -t {3} -i {4} -q {5} -strict -2 {6}".format(hh,mm,ss,self.options.slice_length_sec,
+                    clip_path,1, out_file_path)
+
+          try:
+            output = subprocess.call(command, shell=True)
+          except subprocess.CalledProcessError as e:
+            print (e.output)
+            raise
+          start_time_secs += self.options.slice_length_sec
+
 
 def main(args=sys.argv[1:]):
     """CLI"""
@@ -162,6 +211,8 @@ def main(args=sys.argv[1:]):
                 print ('{} : {}'.format(clip,
                                         parser.format_seconds(_duration)))
         sys.exit(returncode)
+
+    parser.slice()
 
 if __name__ == '__main__':
     main()
