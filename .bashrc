@@ -584,6 +584,12 @@ then
 deactivate
 fi
 
+export CISCO_BASHRC="${HOME}/cisco/bin/.bashrc"
+if [ -e "${CISCO_BASHRC}" ]
+then
+    . "${CISCO_BASHRC}"
+fi
+
 ### regenerate fluxbox menus here for convenience
 MENU=~/web/site/programs.html
 regeneratefluxmenu() {
