@@ -31,6 +31,9 @@ def main(args=sys.argv[1:]):
     parser.add_argument('-v', '--videos', dest='videos', nargs='+',
                         help="videos")
     parser.add_argument('audio', nargs='+')
+    parser.add_argument('--print', '--print-config', dest='print_config',
+                        action='store_true', default=False,
+                        help="write config to stdout and exit")
     options = parser.parse_args(args)
 
     # dlna location
@@ -49,6 +52,9 @@ def main(args=sys.argv[1:]):
                   for d in options.audio])
     config = '\n'.join(['{}={}'.format(*line) for line in lines])
     print (config)
+
+    if options.print_config:
+        parser.exit()
 
     fd, name = tempfile.mkstemp()
     os.write(fd, config)
