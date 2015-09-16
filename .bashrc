@@ -29,7 +29,6 @@ export BROWSER=$(which firefox)
 export CLICOLOR=1
 export EDITOR='emacs -nw'
 export JS_EDITLINE=1
-export JS_EDITLINE=1
 
 # aliases
 alias awd="python -c 'import os;  print (os.path.realpath(\".\"))'"
@@ -64,6 +63,20 @@ PROMPT_COMMAND='echo -ne "\033]0;${SSH_CLIENT/*/$HOSTNAME:}${PWD/~/~}\007"'
 # PATHs
 export PATH=~/firefox:~/bin:~/bin/mozilla:~/python:$PATH:/usr/sbin:/usr/games/bin:~/virtualenv:~/silvermirror/bin:~/smartopen/bin:~/k0s/bin:~/docs/project/ims/workflow:~/cognet/bin:~/cognet/python
 export PYTHONPATH=~/python:$PYTHONPATH:~/virtualenv
+
+# clipboard
+if which xclip &> /dev/null
+then
+    export CLIP_COPY="xclip -i"
+    export CLIP_PASTE="xclip -o"
+elif which pbcopy &> /dev/null
+then
+    export CLIP_COPY="pbcopy"
+    export CLIP_PASTE="pbpaste"
+else
+    export CLIP_COPY="tee"
+    export CLIP_PASTE="true"
+fi
 
 ### functions
 
@@ -251,8 +264,8 @@ abspath() {
 
 fn() {
     # put full name on clipboard and echo it
-    python -c "import os; print (os.path.realpath('$*'))" | xclip -i
-    xclip -o
+    python -c "import os; print (os.path.realpath('$*'))" | ${CLIP_COPY}
+    ${CLIP_PASTE}
 }
 
 swap() {
