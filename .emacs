@@ -30,7 +30,9 @@
 (menu-bar-mode (if window-system 1 -1))
 
 ;; no need for a tool bar
-(if (boundp 'tool-bar-mode) (tool-bar-mode 0))
+;; http://serverfault.com/questions/132055/how-to-check-if-emacs-is-in-gui-mode-and-execute-tool-bar-mode-only-then
+(if window-system
+    (if (boundp 'tool-bar-mode) (tool-bar-mode 0)))
 
 ;; ...or a startup message
 ;; instead, it'd be nice to start with a list of recent files (recentf)
