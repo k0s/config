@@ -41,7 +41,7 @@ alias loopxine='xine -f -g -l'
 alias lsenv='env | sort | less'
 alias mslower='mplayer -osd-fractions 1 -speed 0.1 -osdlevel 3'
 alias patch='patch --reject-file=-'
-alias random="python -c 'import sys, random; foo = sys.argv[1:]; random.shuffle(foo); print (\" \".join(foo)')"
+alias random="python -c 'import sys, random; foo = sys.argv[1:]; random.shuffle(foo); print (\" \".join(foo))'"
 alias weekstamp="date --date=\"$((`date '+%u'`-1)) days ago\" '+%b %d'"
 alias wget='wget --no-check-certificate'
 if [ -e ~/.bashttw ]
