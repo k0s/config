@@ -1,19 +1,15 @@
 servers = (
-#  {
-#    address = "irc.freenode.net";
-#    chatnet = "freenode";
-#    autoconnect = "Yes";
-#  },
+  #  {
+  #    address = "irc.freenode.net";
+  #    chatnet = "freenode";
+  #    autoconnect = "Yes";
+  #  },
   {
     address = "irc.mozilla.org";
     chatnet = "mozilla";
     autoconnect = "Yes";
   },
-  {
-    address = "irc.w3.org";
-    chatnet = "w3c";
-    autoconnect = "Yes";
-  }
+  { address = "irc.w3.org"; chatnet = "w3c"; autoconnect = "Yes"; }
 );
 
 chatnets = {
@@ -31,14 +27,14 @@ chatnets = {
 };
 
 channels = (
-#  { name = "#socialplanning"; chatnet = "freenode"; autojoin = "Yes"; },
+  #  { name = "#socialplanning"; chatnet = "freenode"; autojoin = "Yes"; },
 
   { name = "#developers"; chatnet = "mozilla"; autojoin = "Yes"; },
   { name = "#ateam"; chatnet = "mozilla"; autojoin = "Yes"; },
-  { name = "#releng"; chatnet = "mozilla"; autojoin = "Yes"; }
-  { name = "#sf"; chatnet = "mozilla"; autojoin = "Yes"; }
-  { name = "#jetpack"; chatnet = "mozilla"; autojoin = "Yes"; }
-  { name = "#build"; chatnet = "mozilla"; autojoin = "Yes"; }
+  { name = "#releng"; chatnet = "mozilla"; autojoin = "Yes"; },
+  { name = "#sf"; chatnet = "mozilla"; autojoin = "Yes"; },
+  { name = "#jetpack"; chatnet = "mozilla"; autojoin = "Yes"; },
+  { name = "#build"; chatnet = "mozilla"; autojoin = "Yes"; },
 
   { name = "#testing"; chatnet = "w3c"; autojoin = "Yes"; }
 );
@@ -208,6 +204,7 @@ settings = {
     real_name = "Jeff Hammel";
     user_name = "jhammel";
     nick = "jhammel";
+    hostname = "irc.freenode.com";
   };
   "fe-text" = { actlist_sort = "refnum"; };
 };
