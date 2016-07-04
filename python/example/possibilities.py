@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+"""
+"""
+
 # imports
 import argparse
 import sys
@@ -11,10 +14,6 @@ costs = {1:1,
          30:25}
 
 A = [1, 2, 4, 5, 7, 29, 30]
-
-#A = [3, 7, 10]
-
-#A=[1,2,3]
 
 def possibilities(A):
     possibilities = [[(1, date) for date in A]]
@@ -46,6 +45,7 @@ def possibilities(A):
 
     return possibilities
 
+
 def fill_space(A, spans):
     """
     A -- the space to be filled
@@ -70,7 +70,7 @@ def fill_space(A, spans):
         index += 1
         try:
             while last_date + last_span > A[index]:
-                print ('index: {}'.format(index))
+                # print ('index: {}'.format(index))
                 index += 1
         except IndexError as e:
             possibilities.append(item)
@@ -89,16 +89,31 @@ def fill_space(A, spans):
     return retval
 
 
-def cost(A, spans=(30,)):
+def sorted_costs(A, costs=tuple(costs.items())):
+
+    costs = dict(costs)
 
     # determine possibility spaces
-    spaces = fill_space(A, spans=spans)
+    spaces = fill_space(A, spans=costs.keys())
 
     # determine costs
+    retval = []
+    for space in spaces:
+        cost = sum([costs[value] for date, value in space])
+        retval.append((cost, space))
+
+    # sort by cost
+    retval.sort(key=lambda x: x[0])
+
+    return retval
 
 if __name__ == '__main__':
 
-    parser = argparse
-    spans = costs.keys()
+    parser = argparse.ArgumentParser(description=__doc__)
+    options = parser.parse_args()
 
-    pprint (fill_space(A, spans))
+    dates = sorted(A)
+
+    print "Dates: {}".format(', '.join([str(i) for i in dates]))
+    for cost, value in sorted_costs(A, costs):
+        print ("{} : {}".format(cost, value))
