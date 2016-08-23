@@ -379,8 +379,14 @@ setup-all() {
 }
 
 distribute() {
-    # upload to pypi
+# upload to pypi
     python setup.py egg_info -RDb "" sdist register upload develop
+}
+
+render_long_description {
+# check the long_description from the command line:
+# https://docs.python.org/3.1/distutils/uploading.html#pypi-package-display
+    python setup.py --long-description | rst2html.py > output.html
 }
 
 nearest-venv() {
