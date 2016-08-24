@@ -1,8 +1,5 @@
 #!/bin/bash
 
-
-export MACHINE=default
-eval "$(docker-machine env default)"
 export CIDFILE=$(mktemp -u)
 docker run -P --cidfile ${CIDFILE} elasticsearch &
 sleep 10
@@ -14,9 +11,11 @@ script_shutdown() {
 }
 
 trap 'script_shutdown' INT
-export DOCKER_IP=$(docker-machine ip default)
-export CONTAINER_PORT=$(docker port `cat ${CIDFILE}` | grep 9200 | sed 's/.*://')
-export ELASTICSEARCH_URL="http://${DOCKER_IP}:${CONTAINER_PORT}/"
-open ${ELASTICSEARCH_URL}
+
+# TODO
+# export DOCKER_IP=$(docker-machine ip default)
+# export CONTAINER_PORT=$(docker port `cat ${CIDFILE}` | grep 9200 | sed 's/.*://')
+# export ELASTICSEARCH_URL="http://${DOCKER_IP}:${CONTAINER_PORT}/"
+# open ${ELASTICSEARCH_URL}
 wait
 
