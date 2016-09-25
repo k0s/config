@@ -2,7 +2,7 @@
 	excludesfile = /home/jhammel/.gitignore
 [user]
 	name = Jeff Hammel
-	email = k0scist@gmail.com
+	email = jehammel@cisco.com
 [alias]
         branches = branch -a
         branchname = git rev-parse --abbrev-ref HEAD
