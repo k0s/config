@@ -7,6 +7,7 @@
         branches = branch -a
         branchname = git rev-parse --abbrev-ref HEAD
         discard = reset HEAD --hard
+        graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd)%Creset' --abbrev-commit --date=relative
         patch = !git diff > ~/$(git rev-parse --abbrev-ref HEAD).diff
         pushbranch = !git push origin $(git rev-parse --abbrev-ref HEAD)
         root = rev-parse --show-toplevel
