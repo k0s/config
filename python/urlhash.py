@@ -8,7 +8,7 @@ import random
 import urllib
 
 chars = [ chr(i) for i in range(0,255) ]
-allowed = [ urllib.quote_plus(i) for i in chars 
+allowed = [ urllib.quote_plus(i) for i in chars
             if urllib.quote_plus(i) in chars ]
 
 def urlhash(len=10):

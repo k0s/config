@@ -32,6 +32,7 @@ class DuplicateFilesParser(argparse.ArgumentParser):
         if not os.path.isdir(options.directory):
             self.error("Not a directory: {}".format(options.directory))
 
+
 def main(args=sys.argv[1:]):
     """CLI"""
 
