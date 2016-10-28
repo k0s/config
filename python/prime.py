@@ -1,6 +1,14 @@
 #!/usr/bin/env python
 
+"""
+print prime numbers for each argument given
+"""
+
 def prime(number):
+    """determines if `number` is prime"""
+    # XXX this is owefully inefficient and is written as
+    # a (bad) example only
+
     half = int(number / 2)
     for i in range(2, half):
         if not number % i:
@@ -14,6 +22,10 @@ def primes(n):
 
 
 if __name__ == '__main__':
-    import sys
-    for arg in sys.argv[1:]:
-        print prime(int(arg))
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('arg', type=int, nargs='+',
+                        help="(positive) integer to find the primes for")
+    options = parser.parse_args()
+    for arg in options.arg:
+        print prime(arg)
