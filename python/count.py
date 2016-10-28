@@ -58,7 +58,12 @@ def main(args=sys.argv[1:]):
     options = parser.parse_args(args)
 
     # read a thing
-    items = options.input.read().strip().split()
+    try:
+        items = options.input.read().strip().split()
+    except KeyboardInterrupt:
+        # probably trying to read stdin interactively
+        # revert! revert! revert!
+        return
 
     if options.duplicates:
         print ('\n'.join(sorted(duplicates(*items))))
