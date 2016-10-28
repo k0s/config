@@ -11,11 +11,10 @@ import os
 import subprocess
 import sys
 
-# module globals
-__all__ = ['main', 'Parser']
 
-class Parser(argparse.ArgumentParser):
+class DuplicateFilesParser(argparse.ArgumentParser):
     """CLI option parser"""
+
     def __init__(self, **kwargs):
         kwargs.setdefault('description', __doc__)
         argparse.ArgumentParser.__init__(self, **kwargs)
@@ -37,28 +36,11 @@ def main(args=sys.argv[1:]):
     """CLI"""
 
     # parse command line options
-    parser = Parser()
+    parser = DuplicateFilesParser()
     options = parser.parse_args(args)
 
-    output = subprocess.check_output(['ls', '-l', options.directory]).strip()
-    rows = [row.strip().split() for row in output.splitlines()[1:]]
-
-    sizes = {}
-    for row in rows:
-        size = int(row[4])
-        filename = row[-1]
-        sizes.setdefault(size, []).append(filename)
-
-    duplicates = {}
-    for size, filenames in sizes.items():
-        if len(filenames) < 2:
-            continue
-        duplicates[size] = filenames
-
-    for size in sorted(duplicates.keys()):
-        print ('{} : '.format(size))
-        print ('\n'.join(duplicates[size]))
-        print ('\n')
+    # get all files
+    raise NotImplementedError('TODO') # -> record TODO items
 
 if __name__ == '__main__':
     main()
