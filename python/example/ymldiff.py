@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 
+# XXX/TODO:
+#  I have no idea where this dependency comes from; on one hand, it sounds
+#  awesome!  On another hand, it should, at the very least, be documented
 import datadiff
+
 import optparse
 import sys
 import yaml
