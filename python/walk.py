@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 
+"""
+illustration of walking a directory structure
+"""
+
+import argparse
 import os
 import sys
 
@@ -9,7 +14,10 @@ def all_files(directory):
         filenames.extend([os.path.join(dirpath, f) for f in files])
     return sorted(filenames)
 
+
 def main(args=sys.argv[1:]):
+    """CLI"""
+
     if not args:
         print "Usage: %s directory [directory] [...]" % os.path.basename(sys.argv[0])
     for arg in args:
@@ -20,6 +28,6 @@ def main(args=sys.argv[1:]):
             print os.path.abspath(arg)
         else:
             print >> sys.stderr, "'%s' not a file or directory"
-        
+
 if __name__ == '__main__':
     main()
