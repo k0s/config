@@ -13,6 +13,7 @@
         root = rev-parse --show-toplevel
         st = status
         subscribe-pulls = !"f() { REMOTE=${1:-origin}; if ! git config --local --get-all remote.${REMOTE}.fetch | grep -q refs/pull; then echo 'subscribing...' 2>&1; git config --local --add remote.${REMOTE}.fetch '+refs/pull/*/head:refs/remotes/pr/*'; fi; }; f"
+        undo = reset HEAD~
         up = !git pull origin master && git push origin master
         wip = !git commit -a -m 'wip' && git push origin $(git rev-parse --abbrev-ref HEAD)
 
