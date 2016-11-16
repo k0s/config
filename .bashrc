@@ -168,6 +168,9 @@ function colors() {
 }
 colors
 
+hh() {
+history | awk '{$1="";print substr($0,2)}'
+}
 
 ### find functionality
 
