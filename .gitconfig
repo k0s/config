@@ -5,7 +5,7 @@
 	email = jehammel@cisco.com
 [alias]
         branches = branch -a
-        branchname = git rev-parse --abbrev-ref HEAD
+        current-branch = rev-parse --abbrev-ref HEAD
         discard = reset HEAD --hard
         graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd)%Creset' --abbrev-commit --date=relative
         patch = !git diff > ~/$(git rev-parse --abbrev-ref HEAD).diff
