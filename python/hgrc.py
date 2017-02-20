@@ -21,7 +21,6 @@ import os
 import subprocess
 import sys
 from collections import OrderedDict
-from ConfigParser import RawConfigParser as ConfigParser
 from StringIO import StringIO
 
 try:
