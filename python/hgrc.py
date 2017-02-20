@@ -27,8 +27,11 @@ from StringIO import StringIO
 try:
     # python 2
     import urlparse
+    from ConfigParser import RawConfigParser as ConfigParser
 except ImportError:
+    # python 3
     import urllib.parse as urlparse
+    from configparser import RawConfigParser as ConfigParser
 
 ### global methods
 
