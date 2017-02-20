@@ -20,10 +20,15 @@ import optparse
 import os
 import subprocess
 import sys
-import urlparse
 from collections import OrderedDict
 from ConfigParser import RawConfigParser as ConfigParser
 from StringIO import StringIO
+
+try:
+    # python 2
+    import urlparse
+except ImportError:
+    import urllib.parse as urlparse
 
 ### global methods
 
