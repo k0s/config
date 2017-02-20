@@ -169,7 +169,7 @@ def main(args=sys.argv[1:]):
     if filter(None, errors.values()):
         for key, value in errors.items():
             if value:
-                print '%s: %s' % (key, ', '.join(value))
+                print ('%s: %s' % (key, ', '.join(value)))
         parser.exit(1)
 
     # construct ConfigParser objects and
@@ -186,7 +186,7 @@ def main(args=sys.argv[1:]):
 
     # print the chosen hgrc paths
     if 'list_hgrc' in actions:
-        print '\n'.join(hgrc)
+        print ('\n'.join(hgrc))
 
         # remove from actions list
         actions.pop('list_hgrc', None)
@@ -229,13 +229,13 @@ def main(args=sys.argv[1:]):
                 values = [value]
             else:
                 values.append('+++ %s\n%s' % (path, value))
-        print '\n'.join(values)
+        print ('\n'.join(values))
 
     # write .ini files
     for path, ini in config.items():
         if path in urls:
             continue
-        with file(path, 'w') as f:
+        with open(path, 'w') as f:
             ini.write(f)
 
 if __name__ == '__main__':
