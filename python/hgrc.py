@@ -21,16 +21,18 @@ import os
 import subprocess
 import sys
 from collections import OrderedDict
-from StringIO import StringIO
+
 
 try:
     # python 2
     import urlparse
     from ConfigParser import RawConfigParser as ConfigParser
+    from StringIO import StringIO
 except ImportError:
     # python 3
     import urllib.parse as urlparse
     from configparser import RawConfigParser as ConfigParser
+    from io import StringIO
 
 ### global methods
 
@@ -116,7 +118,7 @@ def main(args=sys.argv[1:]):
 
     # if not specified, use repo from `hg root`
     if not args:
-        args = [subprocess.check_output(['hg', 'root']).strip()]
+        args = [subprocess.check_output(['hg', 'root']).strip().decode('utf-8')]
 
     # if not specified, set a default action
     default_action = 'default_push_ssh'
