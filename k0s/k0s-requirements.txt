@@ -3,6 +3,7 @@
 -e hg+http://k0s.org/hg/TextShaper#egg=TextShaper-dev
 -e hg+http://k0s.org/hg/configuration#egg=configuration-dev
 -e hg+http://k0s.org/hg/smartopen#egg=smartopen-dev
+-e hg+http://k0s.org/hg/silvermirror#egg=silvermirror-dev
 -e hg+http://k0s.org/hg/numerics#egg=numerics
 
 # Future:
