@@ -20,7 +20,7 @@ def dereference(obj, key):
 def main(args=sys.argv[1:]):
 
     # command line
-    parser = argparse.ArgumentParser(description='__doc__')
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('input', nargs='?',
                         help="input file or url (read from stdin if ommitted)")
     parser.add_argument('object', nargs='*',
