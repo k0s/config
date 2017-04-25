@@ -613,10 +613,10 @@ fi
 
 
 ### source site-specific BASHRC extensions
-export CISCO_BASHRC="${HOME}/cisco/bin/.bashrc"
-if [ -e "${CISCO_BASHRC}" ]
+export LOCAL_BASHRC="${HOME}/.bashrc_local"
+if [ -e "${LOCAL_BASHRC}" ]
 then
-    . "${CISCO_BASHRC}"
+    . "${LOCAL_BASHRC}"
 fi
 
 ### regenerate fluxbox menus here for convenience
