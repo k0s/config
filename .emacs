@@ -94,6 +94,8 @@
 (setq auto-mode-alist (cons '("\\.cpt$" . sgml-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.cpy$" . python-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.vpy$" . python-mode) auto-mode-alist))
+(setq auto-mode-alist
+      (cons '("\\.m$" . octave-mode) auto-mode-alist))
 
 ;; set the grep command....for some reason
 (setq grep-command "grep -liE")
