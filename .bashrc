@@ -62,8 +62,8 @@ PS2='. '
 PROMPT_COMMAND='echo -ne "\033]0;${SSH_CLIENT/*/$HOSTNAME:}${PWD/~/~}\007"'
 
 # PATHs
-export PATH=~/firefox:~/bin:~/bin/mozilla:~/python:$PATH:/usr/sbin:/usr/games/bin:~/virtualenv:~/k0s/bin:~/docs/project/ims/workflow:
-export PYTHONPATH=~/python:$PYTHONPATH:~/virtualenv
+export PATH=~/firefox:~/bin:~/bin/mozilla:~/python:$PATH:/usr/sbin:/usr/games/bin:~/virtualenv
+export PYTHONPATH=~/python:$PYTHONPATH
 
 # clipboard
 if which xclip &> /dev/null
