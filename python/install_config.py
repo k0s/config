@@ -30,8 +30,14 @@ HOME = os.environ['HOME'] # home directory
 ### standalone functions
 
 def class_mapping(_type):
-    """returns a dict of (name, class) for objects in the current globals() of _type"""
-    return {name:cls for name, cls in globals().items() if cls.issubclass(_type)}
+    """
+    returns a dict of (name, class) for objects
+    in the current globals() of _type
+    """
+
+    return dict([(name,cls)
+                 for name, cls in globals().items() if
+                 cls.issubclass(_type)])
 
 
 def execute(*commands, **kwargs):
