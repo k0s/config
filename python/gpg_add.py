@@ -4,6 +4,11 @@
 add a line to a gpg file; requires `gpg` on your path
 """
 
+# Reference:
+# - https://www.gnupg.org/gph/en/manual/x110.html
+# - https://www.gnupg.org/gph/en/manual/x56.html
+# - http://tuxlabs.com/?p=450
+
 import argparse
 import os
 import shutil
