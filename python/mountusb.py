@@ -25,6 +25,7 @@ import sys
 
 
 def main(args=sys.argv[1:]):
+    """CLI"""
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('-m', '--mount', dest='mount_point',
