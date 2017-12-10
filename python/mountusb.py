@@ -23,7 +23,6 @@ import os
 import subprocess
 import sys
 
-string = (str, unicode)
 
 def main(args=sys.argv[1:]):
 
@@ -63,7 +62,7 @@ def main(args=sys.argv[1:]):
 
     device = os.path.join('/dev', partition)
     assert os.path.exists(device)
-    print "Device: {}".format(device)
+    print ("Device: {}".format(device))
 
     command = ['sudo', 'mount', device, options.mount_point]
     print (' '.join(command))
