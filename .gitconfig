@@ -2,7 +2,7 @@
 	excludesfile = /home/jhammel/.gitignore
 [user]
 	name = Jeff Hammel
-	email = jehammel@cisco.com
+	email = jeff@leapyear.io
 [alias]
         branches = branch -a
         current-branch = rev-parse --abbrev-ref HEAD
