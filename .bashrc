@@ -383,39 +383,40 @@ setup-all() {
 }
 
 distribute() {
-# upload to pypi
+    # upload to pypi
     python setup.py egg_info sdist register upload develop
 }
 
 render_long_description() {
-# check the long_description from the command line:
-# https://docs.python.org/3.1/distutils/uploading.html#pypi-package-display
+    # check the long_description from the command line:
+    # https://docs.python.org/3.1/distutils/uploading.html#pypi-package-display
     python setup.py --long-description | rst2html.py > output.html
 }
 
 nearest-venv() {
-# find the nearest venv
-if [[ "$#" == "0" ]]
-then
-directory=$PWD
-else
-directory=$1
-fi
-directory=$(python -c "import os; print (os.path.abspath('${directory}'))")
+    # find the nearest venv
 
-while [[ "${directory}" != "/" ]]
-do
-activate="${directory}/bin/activate"
-if [ -e "${activate}" ]
-then
-echo ${directory}
-return 0
-fi
+    if [[ "$#" == "0" ]]
+    then
+        directory=$PWD
+    else
+        directory=$1
+    fi
 
-directory=$(dirname ${directory})
+    directory=$(python -c "import os; print (os.path.abspath('${directory}'))")
 
-done
-return 1
+    while [[ "${directory}" != "/" ]]
+    do
+        activate="${directory}/bin/activate"
+        if [ -e "${activate}" ]
+        then
+            echo ${directory}
+            return 0
+        fi
+
+        directory=$(dirname ${directory})
+    done
+    return 1
 }
 
 activate-nearest() {
