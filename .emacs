@@ -1,3 +1,15 @@
+(require 'package)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-archives
+   (quote
+    (("gnu" . "http://elpa.gnu.org/packages/")
+     ("melpa-stable" . "http://stable.melpa.org/packages/")))))
+(package-initialize)
+
 (setq max-specpdl-size 5000)
 
 (setq initial-scratch-message ";; scratch ;;
@@ -9,20 +21,6 @@
 (if (boundp 'gnuserv-start) (gnuserv-start))
 ;; frames: http://www.emacswiki.org/emacs/GnuClient#toc6
 (setq gnuserv-frame (selected-frame))
-
-;; ;; ;; emacs server (what a piece of crap)
-;; (require 'server)
-;;   (unless (server-running-p)
-;;     (server-start))
-;; ;; ;; An error has occurred while loading `/home/jhammel/.emacs':
-;; ;; ;; Symbol's function definition is void: server-running-p
-;; ;; ;; To ensure normal operation, you should investigate and remove the
-;; ;; ;; cause of the error in your initialization file.  Start Emacs with
-;; ;; ;; the `--debug-init' option to view a complete error backtrace.
-
-;; ;; ;; For information about GNU Emacs and the GNU system, type C-h C-a.
-;; ;; How to fix:
-;; http://stackoverflow.com/questions/9999320/how-to-check-if-a-function-e-g-server-running-p-is-available-under-emacs
 
 ;;;; bars
 
