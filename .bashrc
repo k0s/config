@@ -609,7 +609,14 @@ source ~/.bash_overrides
 ### deactivate any virtualenvs
 if type deactivate &> /dev/null
 then
-deactivate
+    DEACTIVATE_TYPE=$(type -t deactivate)
+    if [[ ${DEACTIVATE_TYPE} == "function" ]]
+    then
+        deactivate
+    elif [[ ${DEACTIVATE_TYPE} == "file" ]]
+    then
+        . deactivate
+    fi
 fi
 
 
