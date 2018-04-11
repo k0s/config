@@ -18,12 +18,12 @@ def tmpbuffer(editor=None):
     cmdline = editor.split() # XXX shlex would be more powerful
     cmdline.append(tmpfile)
     edit = subprocess.call(cmdline)
-    buffer = file(tmpfile).read().strip()
+    buffer = open(tmpfile).read().strip()
     os.remove(tmpfile)
     return buffer
 
 if __name__ == '__main__':
     # purely for testing/illustration purposes
     contents = tmpbuffer()
-    print contents
+    print (contents)
 
