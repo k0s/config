@@ -627,6 +627,25 @@ then
     . "${LOCAL_BASHRC}"
 fi
 
+### add ssh keys
+if which ssh-add
+then
+    for key in ${HOME}/.ssh/*.pem; do
+        ssh-add "${key}" >> /dev/null
+    done
+    if [ -e "${HOME}/.ssh/k0s_rsa" ]
+    then
+        ssh-add "${HOME}/.ssh/k0s_rsa"
+    fi
+fi
+
+### AWS credentials
+if [[ -f "${HOME}/.aws/credentials" ]]
+then
+    eval $(awk 'NR != 1 { print "export", toupper($1) "=" $3 }' ~/.aws/credentials)
+fi
+
+
 ### regenerate fluxbox menus here for convenience
 MENU=~/web/site/programs.html
 regeneratefluxmenu() {
