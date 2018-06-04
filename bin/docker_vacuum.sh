@@ -10,3 +10,6 @@ docker rmi $(docker images -f "dangling=true" -q)
 
 # Remove unwanted volumes
 docker volume rm $(docker volume ls -qf dangling=true)
+
+# TODO: remove stopped containers
+# docker container prune -f
