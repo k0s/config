@@ -1,10 +1,19 @@
 #!/usr/bin/env python
+
 import os
 import sys
 from optparse import OptionParser
 
-# make sure duplicate path elements aren't printed twice
+try:
+    # python 2
+    string = (str, unicode)
+except NameError:
+    # python 3
+    string = (str,)
+
 def ordered_set(alist):
+    """make sure duplicate path elements aren't printed twice"""
+
     seen = set()
     new = []
     for item in alist:
@@ -25,7 +34,7 @@ def lsex(path=None):
     if path is None:
         # use system path
         path = os.environ['PATH']
-    if isinstance(path, basestring):
+    if isinstance(path, string):
         path = ordered_set(path.split(os.pathsep))
 
     executables = []
@@ -35,7 +44,7 @@ def lsex(path=None):
         if not os.path.isdir(i):
             continue
         files = [ os.path.join(i,j) for j in os.listdir(i) ]
-        files = filter(lambda x: os.access(x, os.X_OK), files)
+        files = list(filter(lambda x: os.access(x, os.X_OK), files))
         files.sort() # just to make the output pretty
         executables.extend(files)
     return executables
@@ -52,9 +61,8 @@ if __name__ == '__main__':
 
     options, args = parser.parse_args()
     if options.names:
-        for i in sorted(executable_names()):
-            print i
+        print ('\n'.join(sorted(executable_names())))
         sys.exit(0)
-    
+
     for i in lsex():
-        print i
+        print (i)
