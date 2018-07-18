@@ -2,6 +2,9 @@
 
 # http://blog.yohanliyanage.com/2015/05/docker-clean-up-after-yourself/
 
+# Remove all stopped containers
+docker container prune -f
+
 # Make sure exited containers are deleted
 docker rm -v $(docker ps -a -q -f status=exited)
 
@@ -10,6 +13,3 @@ docker rmi $(docker images -f "dangling=true" -q)
 
 # Remove unwanted volumes
 docker volume rm $(docker volume ls -qf dangling=true)
-
-# TODO: remove stopped containers
-# docker container prune -f
