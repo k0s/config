@@ -42,4 +42,4 @@ if __name__ == '__main__':
             retval.append(random.sample(mapping[letter.lower()], 1)[0])
         else:
             retval.append(letter)
-    print ''.join(retval)
+    print (''.join(retval))
