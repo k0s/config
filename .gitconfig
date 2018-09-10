@@ -22,3 +22,5 @@
         helper = cache --timeout=10000
 [diff]
 	submodule = log
+[branch]
+	autosetuprebase = always
