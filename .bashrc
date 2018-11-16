@@ -630,9 +630,6 @@ fi
 ### add ssh keys
 if which ssh-add
 then
-    for key in ${HOME}/.ssh/*.pem; do
-        ssh-add "${key}" >> /dev/null
-    done
     if [ -e "${HOME}/.ssh/k0s_rsa" ]
     then
         ssh-add "${HOME}/.ssh/k0s_rsa"
