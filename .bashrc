@@ -62,7 +62,7 @@ PS2='. '
 PROMPT_COMMAND='echo -ne "\033]0;${SSH_CLIENT/*/$HOSTNAME:}${PWD/~/~}\007"'
 
 # PATHs
-export PATH=~/firefox:~/bin:~/bin/mozilla:~/python:$PATH:/usr/sbin:/usr/games/bin:~/virtualenv
+export PATH=~/firefox:~/bin:~/python:$PATH:/usr/sbin:/usr/games/bin:~/virtualenv
 export PYTHONPATH=~/python:$PYTHONPATH
 
 # clipboard
@@ -628,7 +628,7 @@ then
 fi
 
 ### add ssh keys
-if which ssh-add
+if which ssh-add &> /dev/null
 then
     if [ -e "${HOME}/.ssh/k0s_rsa" ]
     then
