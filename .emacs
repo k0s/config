@@ -9,6 +9,7 @@
     (("gnu" . "http://elpa.gnu.org/packages/")
      ("melpa-stable" . "http://stable.melpa.org/packages/"))))
  '(package-selected-packages (quote (haskell-mode))))
+;; https://github.com/haskell/haskell-mode#quick-installation
 (package-initialize)
 
 (setq max-specpdl-size 5000)
