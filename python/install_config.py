@@ -7,6 +7,12 @@ curl http://k0s.org/hg/config/raw-file/tip/python/install_config.py | python
 """
 
 # TODO:
+# - install silvermirror:
+#   ```
+#   python -m venv "${HOME}"/k0s
+#   mkdir -p "${HOME}"/k0s/src
+#   "${HOME}"/k0s/bin/pip install "${HOME}"/k0s/k0s-requirements.txt
+#   ```
 # - dl and get ~/web/sync.ini :
 #   ```
 #   mkdir -p "${HOME}/web"
