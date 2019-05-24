@@ -599,6 +599,10 @@ exists() {
 while read line;  do echo ${line} : $(($(test "-e ${line}"\") )); done
 }
 
+java_home() {
+    /usr/bin/env java -XshowSettings:properties -version 2>&1 | grep "java.home" | awk '{ print $NF; }'
+}
+
 ### ruby version manager
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
