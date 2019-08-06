@@ -4,9 +4,9 @@ divider = ':'
 
 def dictify(string):
     lines = [ i.strip() for i in string.split('\n') if i.strip() ]
-    return dict([i.split(divider,1) for i in lines 
+    return dict([i.split(divider,1) for i in lines
                  if len(i.split(divider,1)) == 2])
-    
+
 if __name__ == '__main__':
     import sys
     feh = sys.stdin.read()
@@ -14,6 +14,6 @@ if __name__ == '__main__':
     if sys.argv[1:]:
         for i in sys.argv[1:]:
             if thedict.has_key(i):
-                print thedict[i]
+                print (thedict[i])
     else:
-        print thedict
+        print (thedict)
