@@ -13,7 +13,7 @@ if __name__ == '__main__':
     thedict = dictify(feh)
     if sys.argv[1:]:
         for i in sys.argv[1:]:
-            if thedict.has_key(i):
+            if i in thedict:
                 print (thedict[i])
     else:
         print (thedict)
