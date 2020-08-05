@@ -50,7 +50,12 @@ import sys
 from lxml import etree
 from lsex import lsex # local import
 
-string = (str, unicode)
+try:
+    # python2
+    string = (str, unicode)
+except NameError:
+    # python3
+    string = (str,)
 
 # available executables
 executables = set([os.path.basename(i) for i in lsex() ])
