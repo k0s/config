@@ -119,11 +119,11 @@ def printflux(name, menu, output, top=True):
     # print [submenu] tag for this menu
     name = name or ''
     if not top:
-        print >> output, '[submenu] (%s)' % name
+        output.write('[submenu] (%s)\n' % name)
 
     # print menu items
     for name, item in menu:
-        if isinstance(item, basestring):
+        if isinstance(item, string):
             # command
             print >> output, '[exec] (%s) {%s}' % (name, item)
         else:
