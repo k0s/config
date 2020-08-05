@@ -125,14 +125,15 @@ def printflux(name, menu, output, top=True):
     for name, item in menu:
         if isinstance(item, string):
             # command
-            print >> output, '[exec] (%s) {%s}' % (name, item)
+            output.write('[exec] (%s) {%s}\n' % (name, item))
         else:
             # submenu
             printflux(name, item, output, top=False)
 
     # print end of this submenu
     if not top:
-        print >> output, '[end]'
+        output.write('[end]\n')
+
 
 def printmenu(dl, output):
     name, menu = readmenu(dl, output)
