@@ -5,6 +5,4 @@
 -e hg+http://k0s.org/hg/smartopen#egg=smartopen-dev
 -e hg+http://k0s.org/hg/silvermirror#egg=silvermirror-dev
 -e hg+http://k0s.org/hg/numerics#egg=numerics
-
-# Future:
-# -e hg+http://k0s.org/hg/autobot #egg=autobot-dev
+-e hg+http://k0s.org/hg/martINI#egg=martINI
