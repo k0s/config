@@ -118,7 +118,7 @@ class InitializeRepository(Step):
 default = http://k0s.org/hg/config
 default-push = ssh://k0s.org/hg/config
 """
-        with file('.hg/hgrc', 'w') as f:
+        with open('.hg/hgrc', 'w') as f:
             f.write(hgrc)
 
     def __call__(self):
