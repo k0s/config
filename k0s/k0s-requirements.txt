@@ -8,6 +8,3 @@
 
 # Future:
 # -e hg+http://k0s.org/hg/autobot #egg=autobot-dev
-
-
-
