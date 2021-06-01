@@ -40,5 +40,5 @@ fi
 
 if type xautolock
 then
-    xautolock -time 5
+    xautolock -time 5 -locker 'i3lock -n'
 fi
