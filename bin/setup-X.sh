@@ -37,3 +37,8 @@ then
    ssh-add # interactive terminal
  fi
 fi
+
+if type xautolock
+then
+    xautolock -time 5
+fi
