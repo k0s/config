@@ -646,6 +646,10 @@ then
     eval $(awk 'NR != 1 { print "export", toupper($1) "=" $3 }' ~/.aws/credentials)
 fi
 
+if type -P xmodmap >> /dev/null && [[ -e "${HOME}/capslock" ]]
+then
+    xmodmap "${HOME}/capslock"
+fi
 
 ### regenerate fluxbox menus here for convenience
 MENU=~/web/site/programs.html
