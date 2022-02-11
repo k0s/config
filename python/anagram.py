@@ -25,7 +25,7 @@ def is_in(string1, string2):
 def anagramize(theword, wordlist, level=0):
 
     if 0:
-        print '%s%s : %s' % ('-' * level, theword, wordlist)
+        print('%s%s : %s' % ('-' * level, theword, wordlist))
 
     anagrams = []
 
@@ -49,12 +49,12 @@ def anagramize(theword, wordlist, level=0):
             anagrams += [ ' '.join((word, i)) for i in subgram ]
 
     if 0:
-        print '%s%s returning %s' % ('-' * level, theword, anagrams)
+        print('%s%s returning %s' % ('-' * level, theword, anagrams))
 
     if anagrams:
         return anagrams
     return None
-    
+
 if __name__ == '__main__':
     import sys
     from optparse import OptionParser
@@ -75,16 +75,16 @@ if __name__ == '__main__':
                 options.filename = i
                 break
         else:
-            print 'Dictionary not found'
+            print('Dictionary not found')
             parser.print_help()
             sys.exit(1)
 
     if not args:
-        print 'please provide an anagram'
+        print('please provide an anagram')
         sys.exit(0)
 
-    f = file(options.filename, 'r')
-    read_dictionary(f)
+    with open(options.filename, 'r') as f:
+        read_dictionary(f)
 
     # XXX could cleanup
     anagram = ' '.join(args)
@@ -95,8 +95,8 @@ if __name__ == '__main__':
 
     wordlist = [ i for i in dictionary
                  if i and is_in(i, anagram) is not None ]
-    
+
     anagrams = anagramize(anagram, wordlist)
 
     if anagrams:
-        print '\n'.join(anagrams)
+        print('\n'.join(anagrams))
