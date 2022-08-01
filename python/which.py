@@ -14,4 +14,4 @@ def which(fileName, path=os.environ['PATH']):
 
 if __name__ == '__main__':
     for i in sys.argv[1:]:
-        print which(i)
+        print(which(i))
