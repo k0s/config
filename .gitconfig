@@ -24,3 +24,5 @@
 	submodule = log
 [branch]
 	autosetuprebase = always
+[init]
+	defaultBranch = main
