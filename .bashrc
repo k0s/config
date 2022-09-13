@@ -641,10 +641,11 @@ then
 fi
 
 ### AWS credentials
-if [[ -f "${HOME}/.aws/credentials" ]]
-then
-    eval $(awk 'NR != 1 { print "export", toupper($1) "=" $3 }' ~/.aws/credentials)
-fi
+# XXX This only works with a credentials file with a single entry
+# if [[ -f "${HOME}/.aws/credentials" ]]
+# then
+#     eval $(awk 'NR != 1 { print "export", toupper($1) "=" $3 }' ~/.aws/credentials)
+# fi
 
 if type -P xmodmap >> /dev/null && [[ -e "${HOME}/capslock" ]]
 then
