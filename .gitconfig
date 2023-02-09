@@ -26,3 +26,7 @@
 	autosetuprebase = always
 [init]
 	defaultBranch = main
+[fetch]
+	recurseSubmodules = on-demand
+[status]
+	submoduleSummary = true
