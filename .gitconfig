@@ -3,6 +3,7 @@
 [user]
 	name = Jeff Hammel
 	email = jhammel@brightsign.biz
+	signingkey = /Users/jhammel/.ssh/id_rsa.pub
 [alias]
         branches = branch -a
         current-branch = rev-parse --abbrev-ref HEAD
@@ -30,3 +31,5 @@
 	recurseSubmodules = on-demand
 [status]
 	submoduleSummary = true
+[gpg]
+	format = ssh
