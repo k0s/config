@@ -29,4 +29,4 @@ if __name__ == '__main__':
         for i in args:
             subprocess.call([options.callable, i])
     else:
-        print '\n'.join(args)
+        print('\n'.join(args))
