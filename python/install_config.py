@@ -125,7 +125,7 @@ default-push = ssh://k0s.org/hg/config
         Step.__call__(self)
         self.write_hgrc()
 
-        # get the which command
+        # get the `which` command
         sys.path.append(os.path.join(HOME, 'python'))
         from which import which
 
@@ -162,7 +162,6 @@ class InstallKWare(Step):
 
 class DebianPackages(Step):
     """ubuntu packages to install"""
-    # TODO: actually install packages
 
     PACKAGES=["antiword",
               "arandr",
@@ -186,9 +185,9 @@ class DebianPackages(Step):
     ]
 
     def __call__(self):
-        # TODO: actually install this shit
+        # TODO: actually install these packages
         print ("Ensure the following packages are installed:")
-        print ("sudo apt-get install %s" % ' '.join(self.PACKAGES))
+        print ("sudo apt install -y %s" % ' '.join(self.PACKAGES))
 
 
 ### CLI
