@@ -40,6 +40,7 @@ def isHTTP(path):
     """is path an {http,https}:// URL?"""
     return urlparse.urlsplit(path)[0] in ('http', 'https')
 
+
 class section(object):
     def __init__(self, section_name, *section_names):
         self.sections = [section_name]
@@ -58,12 +59,14 @@ def set_default(parser, default):
     """set [paths]:default"""
     parser.set('paths', 'default', default)
 
+
 @section('paths')
 def set_default_push(parser, default_push):
     """
     set [paths]:default-push to `default_push`
     """
     parser.set('paths', 'default-push', default_push)
+
 
 def set_default_push_to_ssh(parser):
     """
@@ -175,10 +178,12 @@ def main(args=sys.argv[1:]):
             hgrc.append(path)
 
     # raise errors if encountered
-    if filter(None, errors.values()):
+    _errors = list(filter(None, errors.values()))
+    if _errors:
+        print('errors encountered: {}'.format(_errors))
         for key, value in errors.items():
             if value:
-                print ('%s: %s' % (key, ', '.join(value)))
+                print('%s: %s' % (key, ', '.join(value)))
         parser.exit(1)
 
     # construct ConfigParser objects and
@@ -186,7 +191,7 @@ def main(args=sys.argv[1:]):
     config = {}
     for path in hgrc:
         config[path] = ConfigParser()
-        if isinstance(path, basestring):
+        if isinstance(path, str):
             if os.path.exists(path):
                 config[path].read(path)
             elif path in urls:
