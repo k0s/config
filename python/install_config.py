@@ -175,7 +175,7 @@ class DebianPackages(Step):
               "irssi",
               "mercurial",
               "pkg-config",
-              "python-dev",
+              "python3-dev",
               "python-lxml",
               "libxml2",
               "libxml2-dev",
