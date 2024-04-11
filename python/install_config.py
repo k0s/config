@@ -176,7 +176,7 @@ class DebianPackages(Step):
               "mercurial",
               "pkg-config",
               "python3-dev",
-              "python-lxml",
+              "python3-lxml",
               "libxml2",
               "libxml2-dev",
               "libxslt1-dev",
