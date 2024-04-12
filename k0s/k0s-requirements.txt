@@ -1,9 +1,9 @@
--e hg+http://k0s.org/hg/MakeItSo#egg=MakeItSo-dev
--e hg+http://k0s.org/hg/PaInt#egg=PaInt-dev
--e hg+http://k0s.org/hg/TextShaper#egg=TextShaper-dev
--e hg+http://k0s.org/hg/configuration#egg=configuration-dev
--e hg+http://k0s.org/hg/smartopen#egg=smartopen-dev
--e hg+http://k0s.org/hg/silvermirror#egg=silvermirror-dev
+-e hg+http://k0s.org/hg/MakeItSo#egg=MakeItSo
+-e hg+http://k0s.org/hg/PaInt#egg=PaInt
+-e hg+http://k0s.org/hg/TextShaper#egg=TextShaper
+-e hg+http://k0s.org/hg/configuration#egg=configuration
+-e hg+http://k0s.org/hg/smartopen#egg=smartopen
+-e hg+http://k0s.org/hg/silvermirror#egg=silvermirror
 -e hg+http://k0s.org/hg/numerics#egg=numerics
 -e hg+http://k0s.org/hg/martINI#egg=martINI
 -e hg+http://k0s.org/hg/wordstream#egg=wordstream
