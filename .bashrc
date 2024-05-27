@@ -384,7 +384,7 @@ setup-all() {
 
 distribute() {
     # upload to pypi
-    python setup.py egg_info sdist register upload develop
+    python setup.py egg_info sdist develop && twine upload dist/*
 }
 
 render_long_description() {
