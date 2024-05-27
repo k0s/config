@@ -86,7 +86,7 @@ def main(args=sys.argv[1:]):
         string = template % values
         rendered.append(string.strip())
 
-    print '\n\n'.join([i.strip() for i in rendered])
+    print('\n\n'.join([i.strip() for i in rendered]))
 
 if __name__ == '__main__':
     main()
