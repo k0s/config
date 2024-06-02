@@ -27,3 +27,8 @@ python -m venv .
 # Install the required packages
 bin/pip install --upgrade pip
 bin/pip install -r "${HOME}"/web/requirements.txt
+
+# echo command to run the server
+command="sudo ${DEST}/bin/paster serve /home/jhammel/web/paster-wsgintegrate.ini"
+echo "Run with:"
+echo "${command}"
