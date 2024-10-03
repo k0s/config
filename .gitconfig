@@ -33,3 +33,5 @@
 	submoduleSummary = true
 [gpg]
 	format = ssh
+[merge]
+	ff = no
