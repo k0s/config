@@ -7,3 +7,4 @@
 -e hg+http://k0s.org/hg/numerics#egg=numerics
 -e hg+http://k0s.org/hg/martINI#egg=martINI
 -e hg+http://k0s.org/hg/wordstream#egg=wordstream
+lxml
