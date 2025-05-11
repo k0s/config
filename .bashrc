@@ -191,51 +191,6 @@ ff() {
 
 }
 
-chainff() {
-    # chained fast find
-
-    if (( $# < 2 ))
-    then
-	return 1 # bad invocation
-    fi
-
-    RESULTS=`ff "$2" "$1"`
-    shift 2
-
-    for i in $RESULTS
-    do
-	for arg in $@
-	do
-	    if grep -il "$arg" "$i" &> /dev/null
-	    then
-		touch /dev/null
-	    else
-		i=""
-		break
-	    fi
-	done
-	if [ -n "$i" ]
-	then
-	    echo $i
-	fi
-    done
-}
-
-
-cff () {
-    # contextual fastfind
-    if (( $# < 2 )); then
-        local FILENAME='*' # default -- look in all files
-    else
-        local FILENAME=$2
-    fi
-
-    for i in `ff "$1" "$FILENAME"`; do
-        echo -e "$CLR_GREEN--->>> ""$CLR_YELLOWBOLD""$i""$CLR_NOTHING" :
-        grep --color=auto -i -n -C 3 "$1" $i
-    done
-
-}
 
 ### functions for files
 
@@ -368,20 +323,6 @@ pyfile() {
     python -c "import $1; print ($1.__file__)"
 }
 
-setup-all() {
-    # setup all for development
-    # TODO: flowerbed?
-    for i in *
-    do
-        if [ -e "${i}/setup.py" ]
-        then
-            cd "${i}"
-            python setup.py develop
-            cd ..
-        fi
-    done
-}
-
 distribute() {
     # upload to pypi
     python setup.py egg_info sdist develop && twine upload dist/*
@@ -391,89 +332,6 @@ render_long_description() {
     # check the long_description from the command line:
     # https://docs.python.org/3.1/distutils/uploading.html#pypi-package-display
     python setup.py --long-description | rst2html.py > output.html
-}
-
-nearest-venv() {
-    # find the nearest venv
-
-    if [[ "$#" == "0" ]]
-    then
-        directory=$PWD
-    else
-        directory=$1
-    fi
-
-    directory=$(python -c "import os; print (os.path.abspath('${directory}'))")
-
-    while [[ "${directory}" != "/" ]]
-    do
-        activate="${directory}/bin/activate"
-        if [ -e "${activate}" ]
-        then
-            echo ${directory}
-            return 0
-        fi
-
-        directory=$(dirname ${directory})
-    done
-    return 1
-}
-
-activate-nearest() {
-# activate the nearest virtualenv
-nearest=$(nearest-venv)
-activate=${nearest}/bin/activate
-if [ -e "${activate}" ]
-then
-. ${activate}
-fi
-}
-
-recreate-venv() {
-    # recreate a virtualenv
-    VIRTUALENV="virtualenv.py"
-    if ! which ${VIRTUALENV}
-    then
-        return 1
-    fi
-    VENV_PATH=$(which ${VIRTUALENV})
-    echo VENV_PATH=${VENV_PATH}
-
-    # update virtualenv if possible
-    DIRNAME=$(dirname ${VENV_PATH})
-    if [ -d "${DIRNAME}/.git" ]
-    then
-        cd "${DIRNAME}"
-        git pull
-        cd --
-    fi
-
-    # for each virtualenv given...
-    for i in $@
-    do
-        OLD_PWD=${PWD}
-        echo "${i} : OLDPWD=${OLD_PWD}"
-        # ...recreate it...
-        ${VIRTUALENV} --clear "${i}"
-
-        SRCDIR="${i}"/src
-        if [ -d "${SRCDIR}" ]
-        then
-            . "${i}/bin/activate"
-            cd "${SRCDIR}"
-            for j in *
-            do
-                if [ -e "${j}"/setup.py ]
-                then
-                    cd "${j}"
-                    python setup.py develop
-                    cd ..
-                fi
-            done
-        fi
-        echo "cd OLD_PWD=${OLD_PWD}"
-        cd ${OLD_PWD}
-    done
 }
 
 ### functions for version control systems
@@ -536,8 +394,8 @@ blog-file() {
 ###
 
 apt-upgrade() {
-sudo apt-get -y update
-sudo apt-get -y upgrade
+    sudo apt-get -y update
+    sudo apt-get -y upgrade
 }
 
 flatten() {
@@ -582,18 +440,6 @@ sed ${inplace} "${command}" "$1"
 
 }
 
-rmktmp() {
-
-TMPDIR=~/tmp
-if [ -e ${TMPDIR} ]
-then
-  rm -rf ${TMPDIR}
-fi
-mkdir ${TMPDIR}
-cd ${TMPDIR}
-pwd
-
-}
 
 exists() {
 while read line;  do echo ${line} : $(($(test "-e ${line}"\") )); done
@@ -623,7 +469,6 @@ then
     fi
 fi
 
-
 ### source site-specific BASHRC extensions
 export LOCAL_BASHRC="${HOME}/.bashrc_local"
 if [ -e "${LOCAL_BASHRC}" ]
@@ -639,13 +484,6 @@ then
         ssh-add "${HOME}/.ssh/k0s_rsa"
     fi
 fi
-
-### AWS credentials
-# XXX This only works with a credentials file with a single entry
-# if [[ -f "${HOME}/.aws/credentials" ]]
-# then
-#     eval $(awk 'NR != 1 { print "export", toupper($1) "=" $3 }' ~/.aws/credentials)
-# fi
 
 if type -P xmodmap >> /dev/null && [[ -e "${HOME}/capslock" ]]
 then
@@ -665,3 +503,6 @@ regeneratefluxmenu
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - bash)"
