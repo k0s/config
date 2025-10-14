@@ -3,6 +3,7 @@
 [user]
 	name = Jeff Hammel
 	signingkey = /Users/jhammel/.ssh/id_rsa.pub
+	email = k0scist@gmail.com
 [alias]
         branches = branch -a
         current-branch = rev-parse --abbrev-ref HEAD
