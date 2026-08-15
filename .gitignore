@@ -1,7 +1,67 @@
+# Ignore all of $HOME by default; re-allow only what this repo tracks.
+# $HOME is this repo's work tree, so without this an accidental `add -A` would
+# sweep in ~/.ssh, ~/.aws, ~/.config/gcloud credentials and much more.
+#
+# Directories are allowed WHOLESALE only where they contain nothing untracked.
+# .config, k0s and .fluxbox are narrowed to their tracked files: verified
+# 2026-08-15, when the wholesale form admitted 11,097 untracked files including
+# ~/.config/gcloud OAuth tokens and VS Code session storage.
+/*
+!/.gitignore
+
+# --- single files -------------------------------------------------------
+!/.bash_overrides
+!/.bash_profile
+!/.bashrc
+!/.bashttw
+!/.conkyrc
+!/.emacs
+!/.gitconfig
+!/.gtkrc-2.0
+!/.gtkrc-2.0.mine
+!/.hgignore
+!/.hgrc
+!/.mailcap
+!/.makeitso
+!/.smartopen.ini
+!/.xinitrc
+!/.xpdfrc
+!/.Xresources
+
+# --- directories with no untracked content (verified 2026-08-15) --------
+!/.arbtt
+!/.irssi
+!/bin
+!/python
+
+# --- directories narrowed to their tracked files ------------------------
+# Each level must be un-ignored before git will descend into it.
+# ~/.config holds 70 entries incl. gcloud credentials and editor session state.
+!/.config/
+/.config/*
+!/.config/user-dirs.dirs
+
+# ~/k0s is a Python virtualenv plus 10 Mercurial repos (8,921 untracked files).
+!/k0s/
+/k0s/*
+!/k0s/k0s-requirements.txt
+
+!/.fluxbox/
+/.fluxbox/*
+!/.fluxbox/init
+!/.fluxbox/keys
+!/.fluxbox/menu
+!/.fluxbox/startup
+!/.fluxbox/styles/
+/.fluxbox/styles/*
+!/.fluxbox/styles/Black
+
+# --- build cruft inside the allowed trees -------------------------------
 *.pyc
 *.pyo
 *.egg-info
 *.swp
 *~
 dist
-#*
+\#*
+**/.claude/settings.local.json
