@@ -1,5 +1,3 @@
-[core]
-	excludesfile = /home/jhammel/.gitignore
 [user]
 	name = Jeff Hammel
 	signingkey = /Users/jhammel/.ssh/id_rsa.pub
