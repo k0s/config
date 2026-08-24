@@ -4,13 +4,13 @@ set -ex
 
 cd
 
+# Same alias as `config` in .bashrc, redefined locally — aliases don't expand
+# in non-interactive scripts, only the function form works here.
+config() {
+  git --git-dir="$HOME/.cfg" --work-tree="$HOME" "$@"
+}
+
 ~/k0s/bin/silvermirror
-hg pull
 
-set +e
-hg push  # will exit 1 on no changes found
-set -e
-
-ubuntu_updated.sh
-~/k0s/bin/mirror-hg http://k0s.org/hg
-
+config pull
+config push
