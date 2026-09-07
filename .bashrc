@@ -490,7 +490,11 @@ then
     xmodmap "${HOME}/capslock"
 fi
 
-### regenerate fluxbox menus here for convenience
+### fluxbox menu regeneration -- kept, but no longer run at login.
+# Called automatically until 2026-09-07. The only guard was "does the menu file
+# exist", so syncing ~/web to a machine running GNOME started it firing there,
+# where html2flux.py has no lxml and fluxbox is not even installed. Currently on
+# forge/GNOME; run this by hand if that changes back.
 MENU=~/web/site/programs.html
 regeneratefluxmenu() {
     if [ -e "${MENU}" ]
@@ -498,7 +502,6 @@ regeneratefluxmenu() {
         html2flux.py "${MENU}" -o ~/.fluxbox/applications
     fi
 }
-regeneratefluxmenu
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
