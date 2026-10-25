@@ -1,0 +1,17 @@
+# beets catalogs ~/music in place: it never copies, moves or (until a
+# deliberate `beet write`) writes files.
+directory: ~/music
+library: ~/.config/beets/library.db
+plugins: musicbrainz
+ignore: [".*", "*~", "System Volume Information", "lost+found", "*.m4p"]
+import:
+  copy: no
+  move: no
+  write: no
+  incremental: yes
+  quiet_fallback: skip
+  # Path is the ID, so every file is cataloged: untagged tracks all look like
+  # the same empty album/title to beets and would otherwise be skipped as
+  # duplicates. Real deduplication is a separate, deliberate step.
+  duplicate_action: keep
+  log: ~/.config/beets/import.log

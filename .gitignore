@@ -40,6 +40,9 @@
 !/.config/
 /.config/*
 !/.config/user-dirs.dirs
+!/.config/beets/
+/.config/beets/*
+!/.config/beets/config.yaml
 
 # ~/k0s is a Python virtualenv plus 10 Mercurial repos (8,921 untracked files).
 !/k0s/
