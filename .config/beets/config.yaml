@@ -2,7 +2,7 @@
 # deliberate `beet write`) writes files.
 directory: ~/music
 library: ~/.config/beets/library.db
-plugins: musicbrainz
+plugins: musicbrainz chroma
 ignore: [".*", "*~", "System Volume Information", "lost+found", "*.m4p"]
 import:
   copy: no
